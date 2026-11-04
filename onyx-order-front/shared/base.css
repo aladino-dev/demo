@@ -1,0 +1,18 @@
+:root { --bg: #f3f2ef; --card: #fff; --ink: #151515; --muted: #6b6b6b; --line: #e3e0d9; --accent: #e2531f; --ok: #1f8a4c; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+button { font: inherit; cursor: pointer; }
+input, select { font: inherit; }
+.top { display: flex; align-items: center; gap: 12px; padding: 10px 16px; background: #111; color: #fff; position: sticky; top: 0; z-index: 5; flex-wrap: wrap; }
+.top h1 { font-size: 1.05rem; margin: 0; margin-right: auto; }
+.top button { background: #2a2a2a; color: #fff; border: 0; border-radius: 8px; padding: 8px 12px; }
+.top button.on { background: var(--ok); }
+.top button.warn { background: var(--accent); animation: pulse 1s infinite alternate; }
+@keyframes pulse { to { opacity: .6; } }
+.login { max-width: 360px; margin: 12vh auto; background: var(--card); padding: 24px; border-radius: 14px; box-shadow: 0 4px 20px rgba(0,0,0,.06); }
+.login h1 { margin: 0 0 12px; font-size: 1.3rem; }
+.login label { display: block; margin-top: 12px; color: var(--muted); font-size: .9rem; }
+.login input { display: block; width: 100%; padding: 10px 12px; margin-top: 4px; border: 1px solid var(--line); border-radius: 10px; }
+.primary { margin-top: 16px; width: 100%; padding: 12px; border: 0; border-radius: 10px; background: var(--accent); color: #fff; font-weight: 700; }
+.err { color: #b3261e; }
+.muted { color: var(--muted); }

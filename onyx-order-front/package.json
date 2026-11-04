@@ -1,0 +1,14 @@
+{
+  "name": "onyx-order-front",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Onyx Order – front : site client (Next.js), écran cuisine et back-office (React + Vite)",
+  "workspaces": ["web", "cuisine", "admin"],
+  "scripts": {
+    "dev": "concurrently -k -n site,cuisine,admin -c green,yellow,magenta \"npm:dev -w web\" \"npm:dev -w cuisine\" \"npm:dev -w admin\"",
+    "build": "npm run build -w cuisine && npm run build -w admin && npm run build -w web",
+    "start": "npm run start -w web"
+  },
+  "devDependencies": { "concurrently": "^9.1.0" },
+  "engines": { "node": ">=20" }
+}

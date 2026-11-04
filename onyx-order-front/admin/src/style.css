@@ -1,0 +1,59 @@
+.tabs { display: flex; gap: 6px; }
+.tabs button.active { background: #fff; color: #111; }
+.page { max-width: 1100px; margin: 0 auto; padding: 16px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 16px; }
+.kpi { background: var(--card); border-radius: 12px; padding: 14px; }
+.kpi b { display: block; font-size: 1.5rem; }
+.tools { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+.tools input { flex: 1; min-width: 200px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px; }
+.tools button { border: 1px solid var(--line); background: #fff; border-radius: 10px; padding: 9px 14px; }
+table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 12px; overflow: hidden; }
+th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: .8rem; color: var(--muted); font-weight: 600; background: #faf9f7; }
+td.n { white-space: nowrap; }
+h2.cat { margin: 22px 0 8px; font-size: 1.05rem; }
+.price { width: 90px; padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; text-align: right; }
+.sw { border: 1px solid var(--line); border-radius: 99px; padding: 5px 12px; background: #fff; white-space: nowrap; }
+.sw.on { background: var(--ok); color: #fff; border-color: var(--ok); }
+.sw.out { background: #b3261e; color: #fff; border-color: #b3261e; }
+tr.hidden td { opacity: .55; }
+.st { font-size: .8rem; padding: 2px 8px; border-radius: 99px; background: #eee; }
+
+/* Gestion de la carte */
+td.optph { width: 150px; white-space: nowrap; }
+.optthumb { display: inline-grid; place-items: center; width: 56px; height: 56px; border: 1px dashed var(--line); border-radius: 10px; overflow: hidden; cursor: pointer; font-size: .7rem; color: var(--muted); background: #faf9f7; margin-right: 6px; vertical-align: middle; }
+.optthumb img { width: 100%; height: 100%; object-fit: cover; }
+.panel h3 { margin: 16px 0 6px; font-size: .95rem; }
+.inline.big { font-size: 1.1rem; font-weight: 600; flex: 1; }
+.rules { gap: 18px; }
+.assoc { max-height: 320px; overflow: auto; border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+.acat { padding: 6px 0; border-bottom: 1px solid var(--line); }
+.acat:last-child { border-bottom: 0; }
+.tabs.sub { margin-bottom: 12px; }
+.tabs.sub button { border: 1px solid var(--line); background: #fff; color: #111; border-radius: 10px; padding: 8px 14px; }
+.tabs.sub button.active { background: #111; color: #fff; }
+.msg { margin: 0 0 10px; }
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.inline { padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; font: inherit; min-width: 180px; }
+.num { width: 64px; padding: 4px 6px; border: 1px solid var(--line); border-radius: 8px; }
+.sw.danger { color: #b3261e; border-color: #e6b8b4; }
+td.thumb { width: 64px; }
+td.thumb img { width: 56px; height: 56px; object-fit: cover; border-radius: 8px; display: block; }
+.card { background: var(--card); border-radius: 12px; padding: 12px; margin-bottom: 14px; }
+.card .row { margin-bottom: 8px; }
+.chk { display: inline-flex; gap: 6px; align-items: center; }
+.checks { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 6px; }
+.page:has(.split) { max-width: none; }
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.split .left { min-width: 0; }
+.split .right { position: sticky; top: 12px; max-height: calc(100vh - 24px); overflow: auto; }
+.panel { background: #fff; border: 2px solid #111; border-radius: 14px; padding: 18px; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+.panel.empty { border-style: dashed; border-color: var(--line); box-shadow: none; }
+tr.sel td { background: #fff4d6; }
+@media (max-width: 900px) { .split { grid-template-columns: 1fr; } .split .right { position: static; max-height: none; } }
+.panel .f { display: block; margin-bottom: 12px; }
+.panel .f input:not([type=checkbox]):not([type=file]), .panel textarea, .panel select { display: block; width: 100%; margin-top: 4px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; font: inherit; }
+.panel .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.photo { display: flex; gap: 12px; align-items: center; margin-top: 6px; }
+.photo img { width: 96px; height: 96px; object-fit: cover; border-radius: 10px; }
+.actions { display: flex; gap: 8px; align-items: center; margin-top: 14px; }

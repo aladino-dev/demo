@@ -1,0 +1,29 @@
+.board { display: grid; grid-template-columns: repeat(4, minmax(240px, 1fr)); gap: 12px; padding: 12px; overflow-x: auto; min-height: calc(100vh - 56px); }
+.col h2 { font-size: .95rem; margin: 4px 4px 10px; display: flex; justify-content: space-between; }
+.col h2 span { background: #ddd; border-radius: 99px; padding: 0 9px; }
+.ord { background: var(--card); border-radius: 12px; padding: 12px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,.08); border-left: 5px solid #bbb; }
+.ord.new { border-left-color: var(--accent); }
+.ord.preparing { border-left-color: #e0a400; }
+.ord.ready { border-left-color: var(--ok); }
+.ord.delivering { border-left-color: #2f6fdf; }
+.ord .h { display: flex; justify-content: space-between; align-items: baseline; }
+.ord .num { font-size: 1.4rem; font-weight: 800; }
+.ord .mode { font-weight: 700; font-size: .85rem; text-transform: uppercase; }
+.ord ul { padding-left: 0; list-style: none; margin: 8px 0; }
+.ord li { padding: 4px 0; border-bottom: 1px dashed var(--line); }
+.ord li .o { color: var(--muted); font-size: .88rem; }
+.ord .note { background: #fff4d6; padding: 6px 8px; border-radius: 6px; font-size: .9rem; margin: 6px 0; }
+.ord .acts { display: flex; gap: 6px; margin-top: 8px; }
+.ord .acts button { flex: 1; border: 0; border-radius: 8px; padding: 10px; font-weight: 700; background: #eee; }
+.ord .acts button.go { background: var(--ink); color: #fff; }
+#ticket { display: none; }
+@media print {
+  @page { size: 80mm auto; margin: 3mm; }
+  body * { visibility: hidden; }
+  #ticket, #ticket * { visibility: visible; }
+  #ticket { display: block; position: absolute; left: 0; top: 0; width: 74mm; font: 12px/1.35 monospace; color: #000; }
+  #ticket h1 { font-size: 22px; text-align: center; margin: 0 0 4px; }
+  #ticket .c { text-align: center; }
+  #ticket hr { border: 0; border-top: 1px dashed #000; }
+  #ticket .r { display: flex; justify-content: space-between; }
+}

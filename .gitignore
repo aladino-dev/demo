@@ -1,0 +1,33 @@
+# ---- Secrets : ne jamais versionner ----
+.env
+.env.*
+!.env.example
+deploy/restaurants/
+*.pem
+*.key
+id_*
+
+# ---- Dépendances et builds ----
+node_modules/
+.next/
+dist/
+build/
+
+# ---- Données locales (base intégrée, sauvegardes, photos converties) ----
+.pgdata/
+.pgdata.*
+backups/
+photos/
+*.sql.gz
+*.tgz
+*.zip
+
+# ---- Fichiers temporaires et copies de sécurité ----
+*.bak
+*.bak-*
+*.log
+.DS_Store
+Thumbs.db
+
+# ---- Anciens fichiers du projet ----
+_archive/

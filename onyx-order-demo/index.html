@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Onyx Order – Commande en ligne pour restaurants, sans commission</title>
+  <meta name="description" content="Site de commande, écran cuisine et back-office pour votre restaurant. Sans commission. Essayez la démo en 3 minutes.">
+  <meta name="theme-color" content="#14110d">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap bar">
+    <a class="logo" href="#haut" aria-label="Onyx Order"><span class="mark" aria-hidden="true">O</span><span data-brand>Onyx Order</span></a>
+    <nav aria-label="Navigation">
+      <a href="#demo">La démo</a>
+      <a href="#modules">Les modules</a>
+      <a href="#pourquoi">Pourquoi Onyx</a>
+      <a class="btn small" href="#contact">Nous contacter</a>
+    </nav>
+  </div>
+</header>
+
+<main id="haut">
+  <!-- ========== Accroche ========== -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <p class="eyebrow">Pour les restaurants, food trucks et snacks</p>
+        <h1>Vos commandes en ligne.<br><span class="grad">Zéro commission.</span></h1>
+        <p class="lead">Un site de commande sur mesure pour votre clientèle, un écran cuisine qui sonne à chaque commande et un back-office simple pour tout gérer. Prêt à l'emploi, à votre adresse.</p>
+        <div class="cta">
+          <a class="btn primary" href="#demo">Essayer la démo</a>
+          <a class="btn ghost" href="#contact">Parler de mon restaurant</a>
+        </div>
+        <ul class="chips" aria-label="Points forts">
+          <li>Sans commission</li><li>Retrait &amp; livraison</li><li>100 % mobile</li><li>Cuisine en temps réel</li>
+        </ul>
+      </div>
+
+      <!-- La vraie démo, en direct, dans un téléphone -->
+      <div class="phone-wrap" aria-hidden="false">
+        <div class="phone">
+          <div class="notch" aria-hidden="true"></div>
+          <iframe id="phone-demo" title="Démo de commande en direct" loading="lazy" referrerpolicy="no-referrer"></iframe>
+        </div>
+        <p class="phone-note">C'est la vraie démo : touchez, commandez.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== Scénario ========== -->
+  <section class="band" id="demo">
+    <div class="wrap">
+      <h2>Essayez-le en 3 minutes</h2>
+      <p class="sub">Jouez les trois rôles : le client, la cuisine, puis le restaurateur.</p>
+
+      <ol class="steps">
+        <li>
+          <span class="num">1</span>
+          <h3>Vous êtes le client</h3>
+          <p>Choisissez un produit, ajoutez des options (sauces, boisson…), passez commande depuis votre téléphone.</p>
+          <a class="btn primary" data-open="order" target="_blank" rel="noopener">Ouvrir la commande</a>
+        </li>
+        <li>
+          <span class="num">2</span>
+          <h3>Vous êtes la cuisine</h3>
+          <p>Votre commande arrive en direct avec une alerte sonore. Passez-la en « prête » : le client est prévenu.</p>
+          <a class="btn primary" data-open="kitchen" target="_blank" rel="noopener">Ouvrir l'écran cuisine</a>
+          <p class="cred" data-cred="kitchen" hidden></p>
+        </li>
+        <li>
+          <span class="num">3</span>
+          <h3>Vous êtes le restaurateur</h3>
+          <p>Modifiez un prix, une photo, une option, rendez un produit « épuisé » : le site client suit tout de suite.</p>
+          <a class="btn primary" data-open="backoffice" target="_blank" rel="noopener">Ouvrir le back-office</a>
+          <p class="cred" data-cred="backoffice" hidden></p>
+        </li>
+      </ol>
+      <p class="fine">Démonstration : aucune commande n'est réellement préparée. Les données de la démo sont remises à zéro régulièrement.</p>
+    </div>
+  </section>
+
+  <!-- ========== Modules ========== -->
+  <section class="wrap section" id="modules">
+    <h2>Tout ce qu'il faut, au même endroit</h2>
+    <p class="sub">Quatre briques qui travaillent ensemble.</p>
+    <div class="cards">
+      <article class="card">
+        <div class="ico" aria-hidden="true">🛍️</div>
+        <h3>Commande en ligne</h3>
+        <ul>
+          <li>Votre carte avec photos, prix et descriptions</li>
+          <li>Options et suppléments : sauces, boissons, extras</li>
+          <li>Retrait ou livraison par zones, avec frais et minimum</li>
+          <li>Codes promo, suivi de commande en direct</li>
+          <li>E-mails automatiques au client</li>
+          <li>Pensé d'abord pour le téléphone</li>
+        </ul>
+        <a class="link" data-open="order" target="_blank" rel="noopener">Voir la démo →</a>
+      </article>
+
+      <article class="card">
+        <div class="ico" aria-hidden="true">🔔</div>
+        <h3>Écran cuisine</h3>
+        <ul>
+          <li>Les commandes arrivent en temps réel</li>
+          <li>Alerte sonore à chaque nouvelle commande</li>
+          <li>Statuts : en préparation, prête, en livraison</li>
+          <li>Ticket imprimable au format 80 mm</li>
+          <li>Le client est prévenu quand sa commande est prête</li>
+        </ul>
+        <a class="link" data-open="kitchen" target="_blank" rel="noopener">Voir la démo →</a>
+      </article>
+
+      <article class="card">
+        <div class="ico" aria-hidden="true">🧰</div>
+        <h3>Back-office</h3>
+        <ul>
+          <li>Catégories et produits, photos, ordre par glisser-déposer</li>
+          <li>Listes d'options réutilisables (on voit où chacune sert)</li>
+          <li>Disponibilité du jour : « épuisé » en un clic</li>
+          <li>Commandes, recherche, export CSV</li>
+          <li>Rien ne se perd : l'archivage remplace la suppression</li>
+        </ul>
+        <a class="link" data-open="backoffice" target="_blank" rel="noopener">Voir la démo →</a>
+      </article>
+
+      <article class="card soon">
+        <div class="ico" aria-hidden="true">🤝</div>
+        <h3>CRM <span class="tag">Bientôt</span></h3>
+        <ul>
+          <li>Connaître et fidéliser vos clients</li>
+          <li>Une brique de plus, sur la même base</li>
+        </ul>
+        <a class="link" id="crm-link" hidden target="_blank" rel="noopener">Voir la démo →</a>
+        <p class="soon-note" id="crm-note">En préparation</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========== Pourquoi ========== -->
+  <section class="band dark" id="pourquoi">
+    <div class="wrap">
+      <h2>Pourquoi Onyx Order</h2>
+      <div class="why">
+        <div><h3>Sans commission</h3><p>Vos commandes sont à vous : pas de pourcentage prélevé sur chaque vente.</p></div>
+        <div><h3>À votre adresse</h3><p>Votre site de commande vit sur votre nom de domaine, avec votre nom et vos photos.</p></div>
+        <div><h3>Vos données chez vous</h3><p>Chaque restaurant a sa propre installation : votre base de données n'est jamais mélangée à celle d'un autre.</p></div>
+        <div><h3>Simple à tenir à jour</h3><p>Vous changez un prix ou une photo vous-même, sans développeur.</p></div>
+        <div><h3>Conçu pour les heures de pointe</h3><p>Chaque restaurant a ses propres ressources, séparées de celles des autres : l'activité d'un autre client n'affecte pas la vôtre.</p></div>
+        <div><h3>Pensé pour le téléphone</h3><p>La grande majorité des commandes se font sur mobile : le site est conçu pour ça.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== Contact ========== -->
+  <section class="wrap section contact" id="contact">
+    <h2>Parlons de votre restaurant</h2>
+    <p class="sub" id="pricing-text"></p>
+    <div class="contact-box">
+      <a class="btn primary" id="c-mail" hidden>Écrire un e-mail</a>
+      <a class="btn ghost-dark" id="c-phone" hidden>Appeler</a>
+      <a class="btn ghost-dark" id="c-book" hidden target="_blank" rel="noopener">Prendre rendez-vous</a>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span data-brand>Onyx Order</span> · Commande en ligne sans commission · <span>Démonstration</span>
+  </div>
+</footer>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

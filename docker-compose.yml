@@ -1,0 +1,84 @@
+# Onyx Order – UNE installation = UN restaurant (base, API et site séparés).
+# Chaque restaurant a son propre « projet » Docker : sa base, ses photos, ses limites de ressources, ses ports.
+# Un gros client ou un incident chez un restaurant ne touche donc jamais les autres.
+#
+# Créer et lancer un restaurant (voir deploy/README.md) :
+#   node deploy/new-restaurant.mjs --slug chez-ali --name "Chez Ali" --site https://chez-ali.fr --api https://api.chez-ali.fr
+#   puis les commandes affichées (docker compose -p onyx-chez-ali --env-file deploy/restaurants/chez-ali/.env up -d --build)
+name: ${PROJECT:-onyx-demo}
+# Durcissement commun : journaux limités (pas de disque saturé), pas d'élévation de privilèges, nombre de processus plafonné
+x-securite: &securite
+  security_opt: ["no-new-privileges:true"]
+  pids_limit: 256
+  logging:
+    driver: json-file
+    options: { max-size: "10m", max-file: "3" }
+
+services:
+  db:
+    <<: *securite
+    image: postgres:17-alpine
+    restart: unless-stopped
+    command: ["postgres", "-c", "max_connections=60", "-c", "shared_buffers=128MB"]
+    environment:
+      POSTGRES_DB: onyx
+      POSTGRES_USER: onyx
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD manquant dans .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    cpus: ${DB_CPUS:-1.0}
+    mem_limit: ${DB_MEM:-512m}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U onyx -d onyx"]
+      interval: 5s
+      retries: 10
+
+  api:
+    <<: *securite
+    cap_drop: [ALL]            # l'API n'a besoin d'aucun privilège système
+    build: ./onyx-order-api
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://onyx:${DB_PASSWORD}@db:5432/onyx
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET manquant dans .env}
+      CORS_ORIGINS: ${SITE_URL}
+      DEFAULT_RESTAURANT: ${RESTAURANT:?RESTAURANT manquant dans .env}
+      IGNORE_HOURS: ${IGNORE_HOURS:-false}
+      # envoi des e-mails au client (SMTP_HOST vide = les e-mails restent en attente)
+      SITE_URL: ${SITE_URL}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_SECURE: ${SMTP_SECURE:-false}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+    volumes:
+      - photos:/data/photos
+    cpus: ${API_CPUS:-0.5}
+    mem_limit: ${API_MEM:-384m}
+    ports:
+      - "127.0.0.1:${API_PORT:-4000}:4000"
+
+  front:
+    <<: *securite
+    cap_drop: [ALL]
+    build:
+      context: ./onyx-order-front
+      args:
+        NEXT_PUBLIC_API_URL: ${API_URL}
+        NEXT_PUBLIC_RESTAURANT: ${RESTAURANT:?RESTAURANT manquant dans .env}
+    restart: unless-stopped
+    depends_on: [api]
+    environment:
+      API_INTERNAL_URL: http://api:4000
+    cpus: ${FRONT_CPUS:-0.5}
+    mem_limit: ${FRONT_MEM:-512m}
+    ports:
+      - "127.0.0.1:${FRONT_PORT:-3000}:3000"
+
+volumes:
+  pgdata:
+  photos:

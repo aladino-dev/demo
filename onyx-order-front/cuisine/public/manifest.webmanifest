@@ -1,0 +1,10 @@
+{
+  "name": "Onyx Cuisine",
+  "short_name": "Cuisine",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#111111",
+  "theme_color": "#111111",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

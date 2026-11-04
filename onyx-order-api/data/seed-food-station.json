@@ -1,0 +1,3406 @@
+{
+  "restaurant": {
+    "name": "FastCamion",
+    "slug": "fastcamion",
+    "legal_name": null,
+    "address": "12 rue de la Démo",
+    "postcode": "75000",
+    "city": "Paris",
+    "phone": "01 99 00 12 34",
+    "timezone": "Europe/Paris",
+    "currency": "EUR",
+    "modes": [
+      "pickup",
+      "delivery"
+    ],
+    "payment": [
+      "on_site"
+    ],
+    "payment_note": "Réglez sur place : espèces, carte bancaire ou titres-restaurant, à la livraison ou au retrait.",
+    "tags": [
+      "Démonstration"
+    ],
+    "order_cutoff": "23:55",
+    "anti_bot": {
+      "max_orders": 5,
+      "window_minutes": 15
+    },
+    "modules": [
+      "carte",
+      "commande",
+      "cuisine",
+      "notifications",
+      "backoffice"
+    ],
+    "demo": true,
+    "noindex": true
+  },
+  "opening_hours": [
+    {
+      "day": "dimanche",
+      "day_index": 0,
+      "opens": "11:30",
+      "closes": "23:55",
+      "enabled": true
+    },
+    {
+      "day": "lundi",
+      "day_index": 1,
+      "opens": "11:30",
+      "closes": "23:55",
+      "enabled": true
+    },
+    {
+      "day": "mardi",
+      "day_index": 2,
+      "opens": "11:30",
+      "closes": "23:55",
+      "enabled": true
+    },
+    {
+      "day": "mercredi",
+      "day_index": 3,
+      "opens": "11:30",
+      "closes": "23:55",
+      "enabled": true
+    },
+    {
+      "day": "jeudi",
+      "day_index": 4,
+      "opens": "11:30",
+      "closes": "23:55",
+      "enabled": true
+    },
+    {
+      "day": "vendredi",
+      "day_index": 5,
+      "opens": "14:30",
+      "closes": "23:55",
+      "enabled": true
+    },
+    {
+      "day": "samedi",
+      "day_index": 6,
+      "opens": "11:30",
+      "closes": "23:55",
+      "enabled": true
+    }
+  ],
+  "delivery_zones": [
+    {
+      "name": "Carrières-sous-Poissy",
+      "postcodes": [
+        "78955"
+      ],
+      "cities": [],
+      "fee_cents": 400,
+      "min_order_cents": 0
+    },
+    {
+      "name": "Chanteloup-les-Vignes",
+      "postcodes": [
+        "78570"
+      ],
+      "cities": [
+        "Chanteloup-les-Vignes"
+      ],
+      "fee_cents": 500,
+      "min_order_cents": 0
+    },
+    {
+      "name": "Andrésy",
+      "postcodes": [
+        "78570"
+      ],
+      "cities": [
+        "Andrésy"
+      ],
+      "fee_cents": 600,
+      "min_order_cents": 0
+    },
+    {
+      "name": "Autre ville en 78570",
+      "postcodes": [
+        "78570"
+      ],
+      "cities": [],
+      "fee_cents": 600,
+      "min_order_cents": 0
+    },
+    {
+      "name": "Triel-sur-Seine",
+      "postcodes": [
+        "78510"
+      ],
+      "cities": [],
+      "fee_cents": 600,
+      "min_order_cents": 0
+    },
+    {
+      "name": "Poissy",
+      "postcodes": [
+        "78300"
+      ],
+      "cities": [],
+      "fee_cents": 700,
+      "min_order_cents": 0
+    }
+  ],
+  "categories": [
+    {
+      "wp_id": 57,
+      "name": "Burger",
+      "slug": "burger",
+      "sort": 1,
+      "visible": true
+    },
+    {
+      "wp_id": 50,
+      "name": "Smash Burger",
+      "slug": "smash-burger",
+      "sort": 2,
+      "visible": true
+    },
+    {
+      "wp_id": 51,
+      "name": "Naan Burger",
+      "slug": "naan-burger",
+      "sort": 3,
+      "visible": true
+    },
+    {
+      "wp_id": 58,
+      "name": "Menu Duo",
+      "slug": "menu-duo",
+      "sort": 4,
+      "visible": true
+    },
+    {
+      "wp_id": 52,
+      "name": "Sandwichs",
+      "slug": "sandwichs",
+      "sort": 5,
+      "visible": true
+    },
+    {
+      "wp_id": 54,
+      "name": "Chicken Rolls",
+      "slug": "chicken-rolls",
+      "sort": 6,
+      "visible": true
+    },
+    {
+      "wp_id": 61,
+      "name": "Naan",
+      "slug": "naan",
+      "sort": 7,
+      "visible": true
+    },
+    {
+      "wp_id": 53,
+      "name": "Sandwich Naan",
+      "slug": "sandwich-naan",
+      "sort": 8,
+      "visible": true
+    },
+    {
+      "wp_id": 48,
+      "name": "Tacos",
+      "slug": "tacos",
+      "sort": 9,
+      "visible": true
+    },
+    {
+      "wp_id": 49,
+      "name": "Tasty",
+      "slug": "tasty",
+      "sort": 10,
+      "visible": true
+    },
+    {
+      "wp_id": 55,
+      "name": "Menu Fried Chicken",
+      "slug": "menu-fried-chicken",
+      "sort": 11,
+      "visible": true
+    },
+    {
+      "wp_id": 60,
+      "name": "Tex-Mex",
+      "slug": "tex-mex",
+      "sort": 12,
+      "visible": true
+    },
+    {
+      "wp_id": 59,
+      "name": "Plats Indien",
+      "slug": "plats-indien",
+      "sort": 13,
+      "visible": true
+    },
+    {
+      "wp_id": 56,
+      "name": "Menu Enfant",
+      "slug": "menu-enfant",
+      "sort": 14,
+      "visible": true
+    },
+    {
+      "wp_id": 92,
+      "name": "Salade",
+      "slug": "salade",
+      "sort": 15,
+      "visible": false
+    },
+    {
+      "wp_id": 63,
+      "name": "Frites Seules",
+      "slug": "frites-seules",
+      "sort": 17,
+      "visible": false
+    },
+    {
+      "wp_id": 64,
+      "name": "Dessert",
+      "slug": "dessert",
+      "sort": 18,
+      "visible": true
+    },
+    {
+      "wp_id": 65,
+      "name": "Lassi",
+      "slug": "lassi",
+      "sort": 19,
+      "visible": true
+    },
+    {
+      "wp_id": 66,
+      "name": "Boissons",
+      "slug": "boissons",
+      "sort": 20,
+      "visible": true
+    }
+  ],
+  "products": [
+    {
+      "wp_id": 2895,
+      "name": "Tacos Simple",
+      "slug": "tacos-simple",
+      "category_wp_id": 48,
+      "description": "1 viande au choix, 2 sauces au choix. Frites et sauce fromagère à l'intérieur.",
+      "price_cents": 1150,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_5_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 1
+    },
+    {
+      "wp_id": 2896,
+      "name": "Tacos Double",
+      "slug": "tacos-double",
+      "category_wp_id": 48,
+      "description": "2 viandes au choix, 2 sauces au choix. Frites et sauce fromagère à l'intérieur.",
+      "price_cents": 1450,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_5_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 2
+    },
+    {
+      "wp_id": 2897,
+      "name": "Tacos Maxi",
+      "slug": "tacos-maxi",
+      "category_wp_id": 48,
+      "description": "3 viandes au choix, 2 sauces au choix. Frites et sauce fromagère à l'intérieur.",
+      "price_cents": 1550,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_5_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 3
+    },
+    {
+      "wp_id": 2899,
+      "name": "Tasty Tandoori",
+      "slug": "tasty-tandoori",
+      "category_wp_id": 49,
+      "description": "Riz et poulet tandoori fraîchement préparé et mariné.",
+      "price_cents": 1390,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/tasty-tandoori.jpg",
+      "sort": 3
+    },
+    {
+      "wp_id": 2900,
+      "name": "Tasty Curry",
+      "slug": "tasty-curry",
+      "category_wp_id": 49,
+      "description": "Riz et poulet curry fraîchement préparé et mariné.",
+      "price_cents": 1390,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/tasty-curry.jpg",
+      "sort": 2
+    },
+    {
+      "wp_id": 2909,
+      "name": "Menu sandwich chicken tandoori",
+      "slug": "menu-sandwich-chicken-tandoori",
+      "category_wp_id": 52,
+      "description": "Poulet tandoori légèrement épicé et mariné, fromage, sauces et crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.",
+      "price_cents": 1290,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/sandwich-mix.jpg",
+      "sort": 3
+    },
+    {
+      "wp_id": 2910,
+      "name": "Menu sandwich chicken curry",
+      "slug": "menu-sandwich-chicken-curry",
+      "category_wp_id": 52,
+      "description": "Poulet curry mariné, fromage, sauces et crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.",
+      "price_cents": 1290,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/sandwich-mix.jpg",
+      "sort": 2
+    },
+    {
+      "wp_id": 2911,
+      "name": "Menu sandwich grec",
+      "slug": "menu-sandwich-grec",
+      "category_wp_id": 52,
+      "description": "Kebab de veau et dinde, sauces et crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.",
+      "price_cents": 1290,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/sandwich-kebab.jpg",
+      "sort": 4
+    },
+    {
+      "wp_id": 2912,
+      "name": "Menu sandwich savoyard",
+      "slug": "menu-sandwich-savoyard",
+      "category_wp_id": 52,
+      "description": "Escalope de poulet, crème fraîche, lardons de veau, Cheddar, pain et crudités au choix. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 1390,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/sandwich-mix.jpg",
+      "sort": 11
+    },
+    {
+      "wp_id": 2913,
+      "name": "Menu sandwich big tasty",
+      "slug": "menu-sandwich-big-tasty",
+      "category_wp_id": 52,
+      "description": "2 steaks 45 g, cordon bleu, Cheddar, pain et crudités au choix. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 1390,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/sandwich-mix.jpg",
+      "sort": 7
+    },
+    {
+      "wp_id": 2914,
+      "name": "Menu sandwich farmer",
+      "slug": "menu-sandwich-farmer",
+      "category_wp_id": 52,
+      "description": "2 steaks 45 g, tenders, Cheddar, pain et crudités au choix. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 1390,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/sandwich-farmer.jpg",
+      "sort": 9
+    },
+    {
+      "wp_id": 2915,
+      "name": "Menu sandwich mix",
+      "slug": "menu-sandwich-mix",
+      "category_wp_id": 52,
+      "description": "2 steaks 45 g, émincé d'escalope mariné au curry, Cheddar, pain et crudités au choix. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 1390,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/sandwich-mix.jpg",
+      "sort": 10
+    },
+    {
+      "wp_id": 2916,
+      "name": "Menu sandwich fameux",
+      "slug": "menu-sandwich-fameux",
+      "category_wp_id": 52,
+      "description": "3 steaks 45 g, œuf, bacon, Cheddar, pain et crudités au choix. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 1390,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/sandwich-mix.jpg",
+      "sort": 8
+    },
+    {
+      "wp_id": 2917,
+      "name": "Menu sandwich Country",
+      "slug": "menu-sandwich-country",
+      "category_wp_id": 52,
+      "description": "2 steaks 45 g, galette de pommes de terre, Cheddar, pain et crudités au choix. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 1390,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/sandwich-mix.jpg",
+      "sort": 5
+    },
+    {
+      "wp_id": 2918,
+      "name": "Menu sandwich Nevada",
+      "slug": "menu-sandwich-nevada",
+      "category_wp_id": 52,
+      "description": "2 steaks 45 g, émincé de kebab, Cheddar, pain et crudités au choix. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 1390,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/sandwich-1080.jpg",
+      "sort": 6
+    },
+    {
+      "wp_id": 2919,
+      "name": "Menu naan steak",
+      "slug": "menu-naan-steak",
+      "category_wp_id": 53,
+      "description": "Pain traditionnel garni au fromage, 3 steaks hachés de bœuf, cheddar et crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.",
+      "price_cents": 1450,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_35_7f4ae9ca0446cbc23e71d8d395a98428-1.jpg",
+      "sort": 7
+    },
+    {
+      "wp_id": 2920,
+      "name": "Menu naan kebab",
+      "slug": "menu-naan-kebab",
+      "category_wp_id": 53,
+      "description": "Pain traditionnel garni au fromage, viande kebab, cheddar et crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.",
+      "price_cents": 1450,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_34_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 4
+    },
+    {
+      "wp_id": 2921,
+      "name": "Menu naan poulet curry",
+      "slug": "menu-naan-poulet-curry",
+      "category_wp_id": 53,
+      "description": "Pain traditionnel garni au fromage, poulet curry, cheddar et crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.",
+      "price_cents": 1450,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_32_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 5
+    },
+    {
+      "wp_id": 2922,
+      "name": "Menu naan tenders",
+      "slug": "menu-naan-tenders",
+      "category_wp_id": 53,
+      "description": "Pain traditionnel garni au fromage, tenders (aiguillettes de poulet pané), cheddar et crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.",
+      "price_cents": 1490,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_36_7f4ae9ca0446cbc23e71d8d395a98428-1.jpg",
+      "sort": 8
+    },
+    {
+      "wp_id": 2923,
+      "name": "Menu naan poulet tandoori",
+      "slug": "menu-naan-poulet-tandoori",
+      "category_wp_id": 53,
+      "description": "Pain traditionnel garni au fromage, viande tandoori, cheddar et crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.",
+      "price_cents": 1450,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_33_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 6
+    },
+    {
+      "wp_id": 2924,
+      "name": "Menu naan big tasty",
+      "slug": "menu-naan-big-tasty",
+      "category_wp_id": 53,
+      "description": "Pain traditionnel garni au fromage, 2 steaks hachés de bœuf, cordon bleu de dinde, cheddar et crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.",
+      "price_cents": 1590,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_38_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 11
+    },
+    {
+      "wp_id": 2926,
+      "name": "Menu naan fameux",
+      "slug": "menu-naan-fameux",
+      "category_wp_id": 53,
+      "description": "Pain traditionnel garni au fromage, 3 steaks hachés de bœuf, jambon de dinde, œufs, cheddar et crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.",
+      "price_cents": 1590,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_35_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 12
+    },
+    {
+      "wp_id": 2927,
+      "name": "Cheese Naan Savoyard",
+      "slug": "cheese-naan-savoyard",
+      "category_wp_id": 53,
+      "description": "Pain traditionnel garni au fromage, tenders panés, préparés et marinés, lardons de veau, cheddar, sauces, crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.",
+      "price_cents": 1590,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_36_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 10
+    },
+    {
+      "wp_id": 2928,
+      "name": "Cheese Naan Mix",
+      "slug": "cheese-naan-mix",
+      "category_wp_id": 53,
+      "description": "Pain traditionnel garni au fromage, tenders panés, préparés et marinés, lardons de veau, cheddar, sauces, crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.",
+      "price_cents": 1590,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_37_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 9
+    },
+    {
+      "wp_id": 2939,
+      "name": "Menu big duo 2",
+      "slug": "menu-big-duo-2",
+      "category_wp_id": 55,
+      "description": "16 tenders, servi avec 2 portions de frites et 2 boissons de 33 cl au choix.",
+      "price_cents": 2590,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_27_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 8
+    },
+    {
+      "wp_id": 2941,
+      "name": "Menu family mix",
+      "slug": "menu-family-mix",
+      "category_wp_id": 55,
+      "description": "15 tenders et 15 wings. Servi avec 4 portions de frites et 1 boisson 1,5 L au choix.",
+      "price_cents": 3690,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_29_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 13
+    },
+    {
+      "wp_id": 2942,
+      "name": "Menu family hot",
+      "slug": "menu-family-hot",
+      "category_wp_id": 55,
+      "description": "30 wings, servi avec 4 portions de frites et 1 boisson 1,5 L au choix.",
+      "price_cents": 3350,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_31_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 12
+    },
+    {
+      "wp_id": 2943,
+      "name": "Menu family tenders",
+      "slug": "menu-family-tenders",
+      "category_wp_id": 55,
+      "description": "20 tenders, servi avec 4 portions de frites et 1 boisson 1,5 L au choix.",
+      "price_cents": 3090,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_31_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 10
+    },
+    {
+      "wp_id": 2944,
+      "name": "Menu Enfant",
+      "slug": "menu-enfant",
+      "category_wp_id": 56,
+      "description": "Plat au choix, sauce biggy, servi avec frites, boisson au choix et 1 compote de pomme.",
+      "price_cents": 950,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_53_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 1
+    },
+    {
+      "wp_id": 2945,
+      "name": "Menu cheeseburger",
+      "slug": "menu-cheeseburger",
+      "category_wp_id": 57,
+      "description": "Steak 45 g, salade, cornichons, sauce biggy et Cheddar. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 950,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/cheese-burger.jpg",
+      "sort": 1
+    },
+    {
+      "wp_id": 2946,
+      "name": "Menu big bacon",
+      "slug": "menu-big-bacon",
+      "category_wp_id": 57,
+      "description": "Salade, cornichons, 1 steak 90 g, Cheddar, bacon de dinde et biggy. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 1350,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/big-burger-bacon.jpg",
+      "sort": 10
+    },
+    {
+      "wp_id": 2947,
+      "name": "Menu double cheeseburger",
+      "slug": "menu-double-cheeseburger",
+      "category_wp_id": 57,
+      "description": "2 steaks 45 g, salade, cornichons, sauce biggy et Cheddar. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 1190,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/double-cheese-burger.jpg",
+      "sort": 4
+    },
+    {
+      "wp_id": 2948,
+      "name": "Menu biggy mac",
+      "slug": "menu-biggy-mac",
+      "category_wp_id": 57,
+      "description": "2 steaks 45 g, Cheddar, salade, cornichons et biggy. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 1250,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/biggy-mac.jpg",
+      "sort": 7
+    },
+    {
+      "wp_id": 2949,
+      "name": "Menu fish burger",
+      "slug": "menu-fish-burger",
+      "category_wp_id": 57,
+      "description": "Sauce fish, Cheddar et poisson pané. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 990,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/fish-burger.jpg",
+      "sort": 2
+    },
+    {
+      "wp_id": 2950,
+      "name": "Menu chicken burger",
+      "slug": "menu-chicken-burger",
+      "category_wp_id": 57,
+      "description": "Salade, sauce blanche, Cheddar et chicken burger. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 1090,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/chicken-burger-1.jpg",
+      "sort": 3
+    },
+    {
+      "wp_id": 2951,
+      "name": "Menu filet pané burger",
+      "slug": "menu-filet-pane-burger",
+      "category_wp_id": 57,
+      "description": "Poulet pané, salade, Cheddar et sauce blanche. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 1190,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_44_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 6
+    },
+    {
+      "wp_id": 2952,
+      "name": "Menu filet grillé burger",
+      "slug": "menu-filet-grille-burger",
+      "category_wp_id": 57,
+      "description": "Poulet grillé, salade, Cheddar, sauce samouraï et barbecue. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 1190,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_45_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 5
+    },
+    {
+      "wp_id": 2953,
+      "name": "Menu rösti chicken burger",
+      "slug": "menu-rosti-chicken-burger",
+      "category_wp_id": 57,
+      "description": "Poulet pané, galette de pommes de terre, mayonnaise, Cheddar et salade. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 1290,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_20_70aa2a4db7f990373ca9c376323e3dea.jpg",
+      "sort": 9
+    },
+    {
+      "wp_id": 2954,
+      "name": "Menu rösti beef burger",
+      "slug": "menu-rosti-beef-burger",
+      "category_wp_id": 57,
+      "description": "1 steak 90 g, galette de pommes de terre, salade, Cheddar et biggy. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 1290,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_101_srcb64aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvZjg3ZDE5NjVhNmQ0ZGYyMGYxNTM.webp",
+      "sort": 8
+    },
+    {
+      "wp_id": 2955,
+      "name": "Cheese Burger + Double Cheese Burger",
+      "slug": "cheese-burger-double-cheese-burger",
+      "category_wp_id": 58,
+      "description": "Double cheeseburger et cheeseburger. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 1490,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_8_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 1
+    },
+    {
+      "wp_id": 2956,
+      "name": "Double Cheeseburger + Fish Burger",
+      "slug": "double-cheeseburger-fish-burger",
+      "category_wp_id": 58,
+      "description": "Double cheeseburger et fish burger. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 1590,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_9_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 2
+    },
+    {
+      "wp_id": 2957,
+      "name": "Biggy Mac + Double Cheese Burger",
+      "slug": "biggy-mac-double-cheese-burger",
+      "category_wp_id": 58,
+      "description": "Biggy Mac et double cheeseburger. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 1690,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_11_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 4
+    },
+    {
+      "wp_id": 2958,
+      "name": "Biggy Mac + Chicken Burger",
+      "slug": "biggy-mac-chicken-burger",
+      "category_wp_id": 58,
+      "description": "Biggy Mac et Chicken Burger. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 1690,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_11_7f4ae9ca0446cbc23e71d8d395a98428-1.jpg",
+      "sort": 3
+    },
+    {
+      "wp_id": 2959,
+      "name": "Biryani aux légumes",
+      "slug": "biryani-aux-legumes",
+      "category_wp_id": 59,
+      "description": "Mélange de riz basmati, légumes et épices indiennes.",
+      "price_cents": 1650,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/biryani.jpg",
+      "sort": 17
+    },
+    {
+      "wp_id": 2984,
+      "name": "Naan Nature",
+      "slug": "naan-nature",
+      "category_wp_id": 61,
+      "description": "Pain traditionnel cuit au four.",
+      "price_cents": 350,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/naan-nature.jpg",
+      "sort": 1
+    },
+    {
+      "wp_id": 2985,
+      "name": "Naan au Fromage",
+      "slug": "naan-au-fromage",
+      "category_wp_id": 61,
+      "description": "Pain traditionnel au fromage.",
+      "price_cents": 490,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/naan-au-fromage.jpg",
+      "sort": 4
+    },
+    {
+      "wp_id": 2986,
+      "name": "Naan Légumes",
+      "slug": "naan-legumes",
+      "category_wp_id": 61,
+      "description": "Naan garni de légumes.",
+      "price_cents": 490,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": "2026/10/naan-legumes.jpg",
+      "sort": 3
+    },
+    {
+      "wp_id": 2987,
+      "name": "Cheese Naan Viande Hachée",
+      "slug": "cheese-naan-viande-hachee",
+      "category_wp_id": 61,
+      "description": "Cheese naan à la viande hachée.",
+      "price_cents": 490,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": "2026/10/cheese-naan-viande-hachee.jpg",
+      "sort": 2
+    },
+    {
+      "wp_id": 3000,
+      "name": "Tarte au Daim",
+      "slug": "tarte-au-daim",
+      "category_wp_id": 64,
+      "description": "Douceur sucrée au daim.",
+      "price_cents": 450,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_243_srcb64aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvNDViZTQ5MTJiODgxOTg.webp",
+      "sort": 1
+    },
+    {
+      "wp_id": 3001,
+      "name": "Tiramisu au Choix",
+      "slug": "tiramisu-au-choix",
+      "category_wp_id": 64,
+      "description": "Fait maison 🤎",
+      "price_cents": 490,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/tiramisu-au-choix.jpg",
+      "sort": 2
+    },
+    {
+      "wp_id": 3004,
+      "name": "Lassi mangue",
+      "slug": "lassi-mangue",
+      "category_wp_id": 65,
+      "description": "",
+      "price_cents": 590,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/lassi.jpg",
+      "sort": 2
+    },
+    {
+      "wp_id": 3009,
+      "name": "Fanta Orange",
+      "slug": "fanta-orange",
+      "category_wp_id": 66,
+      "description": "Soda à l'orange.",
+      "price_cents": 200,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_252_srcb64aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvZDFmZDIzMzViMTJlNWF.webp",
+      "sort": 10
+    },
+    {
+      "wp_id": 3010,
+      "name": "Ice Tea",
+      "slug": "ice-tea",
+      "category_wp_id": 66,
+      "description": "Thé glacé.",
+      "price_cents": 200,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_253_srcb64aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvMjJhNzIyOWZjNjBiNjA.webp",
+      "sort": 12
+    },
+    {
+      "wp_id": 3011,
+      "name": "Oasis Tropical",
+      "slug": "oasis-tropical",
+      "category_wp_id": 66,
+      "description": "Boisson aux fruits.",
+      "price_cents": 200,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_254_srcb64aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvNmFkM2UzN2UxYmY3MzU.webp",
+      "sort": 16
+    },
+    {
+      "wp_id": 3012,
+      "name": "7 Up Mojito",
+      "slug": "7-up-mojito",
+      "category_wp_id": 66,
+      "description": "Soda citron menthe.",
+      "price_cents": 200,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_255_srcb64aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvZTlhMDExMDFmYTExMDl.webp",
+      "sort": 1
+    },
+    {
+      "wp_id": 3013,
+      "name": "Schweppes Agrum",
+      "slug": "schweppes-agrum",
+      "category_wp_id": 66,
+      "description": "Boisson aux agrumes.",
+      "price_cents": 200,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_256_srcb64aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvZjRjYjBhM2ZhN2QwODN.webp",
+      "sort": 18
+    },
+    {
+      "wp_id": 3014,
+      "name": "Hawaï",
+      "slug": "hawai",
+      "category_wp_id": 66,
+      "description": "Boisson fruitée.",
+      "price_cents": 200,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_257_srcb64aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvZTA3YWYwMzc3ZTNiMWQ.webp",
+      "sort": 11
+    },
+    {
+      "wp_id": 3015,
+      "name": "Oasis Pomme Cassis",
+      "slug": "oasis-pomme-cassis",
+      "category_wp_id": 66,
+      "description": "Boisson aux fruits.",
+      "price_cents": 200,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_258_srcb64aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvMzQ2NTA5OTg3M2FlZmE.webp",
+      "sort": 14
+    },
+    {
+      "wp_id": 3017,
+      "name": "Cristalline Fraise",
+      "slug": "cristalline-fraise",
+      "category_wp_id": 66,
+      "description": "Eau aromatisée fraise.",
+      "price_cents": 200,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_265_srcb64aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvNGRiMjM0ZDkwZWEyODZ.webp",
+      "sort": 7
+    },
+    {
+      "wp_id": 3018,
+      "name": "Cristaline Pêche",
+      "slug": "cristaline-peche",
+      "category_wp_id": 66,
+      "description": "Eau aromatisée pêche.",
+      "price_cents": 200,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_265_srcb64aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvNGRiMjM0ZDkwZWEyODZ.webp",
+      "sort": 6
+    },
+    {
+      "wp_id": 3019,
+      "name": "Cristaline Citron",
+      "slug": "cristaline-citron",
+      "category_wp_id": 66,
+      "description": "Eau aromatisée citron.",
+      "price_cents": 200,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_265_srcb64aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvNGRiMjM0ZDkwZWEyODZ.webp",
+      "sort": 5
+    },
+    {
+      "wp_id": 3020,
+      "name": "Oasis Pomme Poire",
+      "slug": "oasis-pomme-poire",
+      "category_wp_id": 66,
+      "description": "Boisson aux fruits.",
+      "price_cents": 200,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_263_srcb64aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvNDFkYjRhZDhmMzcwMzF.webp",
+      "sort": 15
+    },
+    {
+      "wp_id": 3021,
+      "name": "Oasis Fraise Framboise",
+      "slug": "oasis-fraise-framboise",
+      "category_wp_id": 66,
+      "description": "Oasis Fraise Framboise",
+      "price_cents": 200,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_264_srcb64aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvOTMyZTg5OTc0ZTM0YjF.webp",
+      "sort": 13
+    },
+    {
+      "wp_id": 3022,
+      "name": "Eau Cristalline",
+      "slug": "eau-cristalline",
+      "category_wp_id": 66,
+      "description": "Eau minérale.",
+      "price_cents": 200,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_265_srcb64aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvNGRiMjM0ZDkwZWEyODZ.webp",
+      "sort": 8
+    },
+    {
+      "wp_id": 3023,
+      "name": "Perrier",
+      "slug": "perrier",
+      "category_wp_id": 66,
+      "description": "Eau gazeuse.",
+      "price_cents": 200,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_266_srcb64aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvMWViZmM2YzkxMjNhZTQ.webp",
+      "sort": 17
+    },
+    {
+      "wp_id": 3344,
+      "name": "Menu big duo",
+      "slug": "menu-big-duo",
+      "category_wp_id": 55,
+      "description": "Tex-Mex au choix, servi avec 2 portions de frites et 2 boissons de 33 cl au choix.",
+      "price_cents": 2320,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/07/imgi_26_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 7
+    },
+    {
+      "wp_id": 3346,
+      "name": "Menu family big tenders",
+      "slug": "menu-family-big-tenders",
+      "category_wp_id": 55,
+      "description": "30 tenders, servi avec 4 portions de frites et 1 boisson 1,5 L au choix.",
+      "price_cents": 3090,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/06/imgi_31_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 9
+    },
+    {
+      "wp_id": 3356,
+      "name": "Menu mix burger",
+      "slug": "menu-mix-burger",
+      "category_wp_id": 57,
+      "description": "1 steak 90 g, filet de poulet pané, salade, double Cheddar et biggy. Servi avec frites et 1 boisson au choix.",
+      "price_cents": 1450,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/menu-mix-burger.jpg",
+      "sort": 12
+    },
+    {
+      "wp_id": 3410,
+      "name": "Tasty Tenders",
+      "slug": "tasty-tenders",
+      "category_wp_id": 49,
+      "description": "Riz et poulet tenders fraîchement préparé et mariné.",
+      "price_cents": 1390,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/tasty-tenders.jpg",
+      "sort": 4
+    },
+    {
+      "wp_id": 3589,
+      "name": "Butter Chicken",
+      "slug": "butter-chicken",
+      "category_wp_id": 59,
+      "description": "Poulet mariné grillé au tandoor dans une sauce onctueuse à la tomate, beurre et crème. Servi avec riz basmati.",
+      "price_cents": 1390,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/butter-chicken.jpg",
+      "sort": 9
+    },
+    {
+      "wp_id": 3590,
+      "name": "Poulet Tikka Masala",
+      "slug": "poulet-tikka-masala",
+      "category_wp_id": 59,
+      "description": "Morceaux de poulet tikka dans une sauce masala légèrement épicée. Servi avec riz basmati.",
+      "price_cents": 1390,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/butter-chicken.jpg",
+      "sort": 10
+    },
+    {
+      "wp_id": 3591,
+      "name": "Poulet Curry",
+      "slug": "poulet-curry",
+      "category_wp_id": 59,
+      "description": "Poulet mijoté dans une sauce curry traditionnelle aux épices indiennes. Servi avec riz basmati.",
+      "price_cents": 1290,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": "2026/10/butter-chicken.jpg",
+      "sort": 6
+    },
+    {
+      "wp_id": 3592,
+      "name": "Poulet Korma",
+      "slug": "poulet-korma",
+      "category_wp_id": 59,
+      "description": "Poulet dans une sauce douce et crémeuse à la noix de coco et aux amandes. Servi avec riz basmati.",
+      "price_cents": 1350,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/butter-chicken.jpg",
+      "sort": 8
+    },
+    {
+      "wp_id": 3593,
+      "name": "Poulet Tandoori",
+      "slug": "poulet-tandoori",
+      "category_wp_id": 59,
+      "description": "Poulet mariné aux épices tandoori et grillé. Servi avec riz basmati.",
+      "price_cents": 1290,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": "2026/10/tasty-tandoori.jpg",
+      "sort": 7
+    },
+    {
+      "wp_id": 3594,
+      "name": "Agneau Curry",
+      "slug": "agneau-curry",
+      "category_wp_id": 59,
+      "description": "Agneau tendre mijoté dans une sauce curry aux épices indiennes. Servi avec riz basmati.",
+      "price_cents": 1490,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": "2026/10/agneau-curry.jpg",
+      "sort": 11
+    },
+    {
+      "wp_id": 3595,
+      "name": "Agneau Korma",
+      "slug": "agneau-korma",
+      "category_wp_id": 59,
+      "description": "Agneau dans une sauce douce et crémeuse à la noix de coco et aux amandes. Servi avec riz basmati.",
+      "price_cents": 1490,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": "2026/10/agneau-curry.jpg",
+      "sort": 12
+    },
+    {
+      "wp_id": 3596,
+      "name": "Biryani Poulet",
+      "slug": "biryani-poulet",
+      "category_wp_id": 59,
+      "description": "Riz basmati parfumé, poulet mariné et épices indiennes.",
+      "price_cents": 1290,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/biryani.jpg",
+      "sort": 5
+    },
+    {
+      "wp_id": 3597,
+      "name": "Biryani Agneau",
+      "slug": "biryani-agneau",
+      "category_wp_id": 59,
+      "description": "Riz basmati parfumé, agneau mariné et épices indiennes.",
+      "price_cents": 1490,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": "2026/09/imgi_59_7f4ae9ca0446cbc23e71d8d395a98428.jpg",
+      "sort": 13
+    },
+    {
+      "wp_id": 3598,
+      "name": "Dal Tarka",
+      "slug": "dal-tarka",
+      "category_wp_id": 59,
+      "description": "Lentilles mijotées aux épices, ail et oignons. Servi avec riz basmati.",
+      "price_cents": 990,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": "2026/10/dal-tarka.jpg",
+      "sort": 2
+    },
+    {
+      "wp_id": 3599,
+      "name": "Palak Paneer",
+      "slug": "palak-paneer",
+      "category_wp_id": 59,
+      "description": "Fromage frais indien (paneer) dans une sauce onctueuse aux épinards. Servi avec riz basmati.",
+      "price_cents": 1150,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/palak-paneer.jpg",
+      "sort": 3
+    },
+    {
+      "wp_id": 3600,
+      "name": "Paneer Tikka Masala",
+      "slug": "paneer-tikka-masala",
+      "category_wp_id": 59,
+      "description": "Fromage frais indien (paneer) grillé dans une sauce masala. Servi avec riz basmati.",
+      "price_cents": 1190,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": "2026/10/butter-chicken.jpg",
+      "sort": 4
+    },
+    {
+      "wp_id": 3601,
+      "name": "Chana Masala",
+      "slug": "chana-masala",
+      "category_wp_id": 59,
+      "description": "Pois chiches mijotés dans une sauce tomate épicée. Servi avec riz basmati.",
+      "price_cents": 990,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": "2026/10/dal-tarka.jpg",
+      "sort": 1
+    },
+    {
+      "wp_id": 3675,
+      "name": "Naan Royal Burger",
+      "slug": "naan-royal-burger",
+      "category_wp_id": 57,
+      "description": "Le Naan Royal Burger : la rencontre du burger et du naan, préparé à la commande.",
+      "price_cents": 1350,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/10/naan-royal-burger.jpg",
+      "sort": 11
+    },
+    {
+      "wp_id": 3743,
+      "name": "Le Bacon Smash",
+      "slug": "le-bacon-smash",
+      "category_wp_id": 50,
+      "description": "1 steak smashé Black Angus, bacon, sauce BBQ, fromage.",
+      "price_cents": 1300,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/MENU_LE-BACON-SMASH-BURGER.png",
+      "sort": 1
+    },
+    {
+      "wp_id": 3744,
+      "name": "Le Big Smash",
+      "slug": "le-big-smash",
+      "category_wp_id": 50,
+      "description": "2 steaks Black Angus smashés, sauce classique, fromage.",
+      "price_cents": 1450,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/MENU_LE-BIG-SMASH-BURGER.png",
+      "sort": 2
+    },
+    {
+      "wp_id": 3745,
+      "name": "Le Royal Smash",
+      "slug": "le-royal-smash",
+      "category_wp_id": 50,
+      "description": "2 steaks smashés Black Angus, ketchup & moutarde, fromage.",
+      "price_cents": 1500,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/MENU_LE-ROYAL-SMASH-BURGER.png",
+      "sort": 4
+    },
+    {
+      "wp_id": 3746,
+      "name": "Le Chicken Smash",
+      "slug": "le-chicken-smash",
+      "category_wp_id": 50,
+      "description": "Filet de poulet pané, mayonnaise, fromage.",
+      "price_cents": 1500,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/MENU_LE-CHICKEN-SMASH-BURGER.png",
+      "sort": 3
+    },
+    {
+      "wp_id": 3747,
+      "name": "Riz Crousty",
+      "slug": "riz-crousty",
+      "category_wp_id": 49,
+      "description": "Riz, aiguillette de poulet panée, oignons frits, persil, sauce secrète maison et sauces au choix.",
+      "price_cents": 1250,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": "2026/11/riz-crousty.png",
+      "sort": 1
+    },
+    {
+      "wp_id": 3748,
+      "name": "Chicken Naan Burger",
+      "slug": "chicken-naan-burger",
+      "category_wp_id": 51,
+      "description": "Filet de poulet pané, mayonnaise, fromage.",
+      "price_cents": 1450,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/chicken-naan-burger.png",
+      "sort": 1
+    },
+    {
+      "wp_id": 3749,
+      "name": "Bacon Naan Burger",
+      "slug": "bacon-naan-burger",
+      "category_wp_id": 51,
+      "description": "Steak smashé Black Angus, bacon, sauce BBQ, fromage.",
+      "price_cents": 1550,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/bacon-naan-burger.png",
+      "sort": 2
+    },
+    {
+      "wp_id": 3750,
+      "name": "Big Naan Burger",
+      "slug": "big-naan-burger",
+      "category_wp_id": 51,
+      "description": "2 steaks smashés Black Angus, sauce classique, fromage.",
+      "price_cents": 1700,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": null,
+      "sort": 3
+    },
+    {
+      "wp_id": 3751,
+      "name": "Sandwich 1080",
+      "slug": "sandwich-1080",
+      "category_wp_id": 52,
+      "description": "Pain ciabattino, 4 steaks hachés de bœuf, œuf, bacon, fromage.",
+      "price_cents": 1000,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/sandwich-1080.png",
+      "sort": 1
+    },
+    {
+      "wp_id": 3752,
+      "name": "Cheese Naan Chicken",
+      "slug": "cheese-naan-chicken",
+      "category_wp_id": 53,
+      "description": "Pain traditionnel garni au fromage, tenders (aiguillettes de poulet pané), cheddar et crudités au choix.",
+      "price_cents": 1185,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/cheese-naan-chicken.png",
+      "sort": 1
+    },
+    {
+      "wp_id": 3753,
+      "name": "Cheese Naan Country",
+      "slug": "cheese-naan-country",
+      "category_wp_id": 53,
+      "description": "Pain traditionnel garni au fromage, 2 steaks hachés de bœuf, 1 galette de pomme de terre, cheddar et crudités au choix.",
+      "price_cents": 1185,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/cheese-naan-country.png",
+      "sort": 2
+    },
+    {
+      "wp_id": 3754,
+      "name": "Cheese Naan Farmer",
+      "slug": "cheese-naan-farmer",
+      "category_wp_id": 53,
+      "description": "Pain traditionnel garni au fromage, steak haché de bœuf, escalope, cheddar et crudités au choix.",
+      "price_cents": 1250,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/cheese-naan-farmer.png",
+      "sort": 3
+    },
+    {
+      "wp_id": 3755,
+      "name": "Chicken Roll",
+      "slug": "chicken-roll",
+      "category_wp_id": 54,
+      "description": "Tortilla, filet de poulet pané, crudités, fromage et 2 sauces au choix. Servi avec frites et 1 boisson 33 cl au choix.",
+      "price_cents": 1200,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/chicken-roll.png",
+      "sort": 1
+    },
+    {
+      "wp_id": 3756,
+      "name": "Chicken Roll Extra",
+      "slug": "chicken-roll-extra",
+      "category_wp_id": 54,
+      "description": "Tortilla, filet de poulet pané, galette de pommes de terre, crudités, fromage et 2 sauces au choix. Servi avec frites et 1 boisson 33 cl au choix.",
+      "price_cents": 1270,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/chicken-roll.png",
+      "sort": 2
+    },
+    {
+      "wp_id": 3757,
+      "name": "Menu Nuggets",
+      "slug": "menu-nuggets",
+      "category_wp_id": 55,
+      "description": "",
+      "price_cents": 800,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": null,
+      "sort": 1
+    },
+    {
+      "wp_id": 3758,
+      "name": "Menu Wings",
+      "slug": "menu-wings",
+      "category_wp_id": 55,
+      "description": "6 wings épicées (ailes et cuisses), servies avec 1 frite et 1 boisson 33 cl au choix.",
+      "price_cents": 900,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": null,
+      "sort": 2
+    },
+    {
+      "wp_id": 3759,
+      "name": "Menu Tenders",
+      "slug": "menu-tenders",
+      "category_wp_id": 55,
+      "description": "",
+      "price_cents": 1000,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": null,
+      "sort": 3
+    },
+    {
+      "wp_id": 3760,
+      "name": "Menu Solo Mix x3",
+      "slug": "menu-solo-mix-x3",
+      "category_wp_id": 55,
+      "description": "3 wings, 3 tenders, servis avec 1 frite et 1 boisson 33 cl au choix.",
+      "price_cents": 1050,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/menu-solo-mix.png",
+      "sort": 4
+    },
+    {
+      "wp_id": 3761,
+      "name": "Menu Solo Mix x5",
+      "slug": "menu-solo-mix-x5",
+      "category_wp_id": 55,
+      "description": "5 wings, 5 tenders, servis avec 1 frite et 1 boisson 33 cl au choix.",
+      "price_cents": 1550,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/menu-solo-mix.png",
+      "sort": 5
+    },
+    {
+      "wp_id": 3762,
+      "name": "Big Duo Wings",
+      "slug": "big-duo-wings",
+      "category_wp_id": 55,
+      "description": "18 wings, servis avec 2 frites et 2 boissons 33 cl au choix.",
+      "price_cents": 2050,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": null,
+      "sort": 6
+    },
+    {
+      "wp_id": 3763,
+      "name": "Friendly Box",
+      "slug": "friendly-box",
+      "category_wp_id": 55,
+      "description": "10 tenders, 10 wings, servis avec 3 frites et 1 boisson 1,5 L au choix.",
+      "price_cents": 3350,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/friendly-box.png",
+      "sort": 11
+    },
+    {
+      "wp_id": 3764,
+      "name": "Crevettes Massala",
+      "slug": "crevettes-massala",
+      "category_wp_id": 59,
+      "description": "Sauce curry et crème, crevettes et riz basmati.",
+      "price_cents": 1590,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/crevettes-massala.png",
+      "sort": 15
+    },
+    {
+      "wp_id": 3765,
+      "name": "Crevettes Korma",
+      "slug": "crevettes-korma",
+      "category_wp_id": 59,
+      "description": "Sauce légèrement épicée, crevettes et riz basmati.",
+      "price_cents": 1590,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/crevettes-korma.png",
+      "sort": 14
+    },
+    {
+      "wp_id": 3766,
+      "name": "Vindaloo",
+      "slug": "vindaloo",
+      "category_wp_id": 59,
+      "description": "Sauce curry épicée, morceaux de pomme de terre, viande au choix et riz basmati.",
+      "price_cents": 1590,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": null,
+      "sort": 16
+    },
+    {
+      "wp_id": 3767,
+      "name": "Nuggets",
+      "slug": "nuggets",
+      "category_wp_id": 60,
+      "description": "Nombre de pièces au choix.",
+      "price_cents": 390,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": null,
+      "sort": 1
+    },
+    {
+      "wp_id": 3768,
+      "name": "Wings",
+      "slug": "wings",
+      "category_wp_id": 60,
+      "description": "Nombre de pièces au choix.",
+      "price_cents": 650,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/wings.png",
+      "sort": 6
+    },
+    {
+      "wp_id": 3769,
+      "name": "Tenders",
+      "slug": "tenders",
+      "category_wp_id": 60,
+      "description": "Nombre de pièces au choix.",
+      "price_cents": 690,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/tenders.png",
+      "sort": 7
+    },
+    {
+      "wp_id": 3770,
+      "name": "Samosa Légumes x3",
+      "slug": "samosa-legumes-x3",
+      "category_wp_id": 60,
+      "description": "",
+      "price_cents": 500,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/samosa-legumes.png",
+      "sort": 4
+    },
+    {
+      "wp_id": 3771,
+      "name": "Samosa Chicken x3",
+      "slug": "samosa-chicken-x3",
+      "category_wp_id": 60,
+      "description": "",
+      "price_cents": 600,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/samosa-chicken.png",
+      "sort": 5
+    },
+    {
+      "wp_id": 3772,
+      "name": "Samosa Chicken x6",
+      "slug": "samosa-chicken-x6",
+      "category_wp_id": 60,
+      "description": "",
+      "price_cents": 750,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/samosa-chicken.png",
+      "sort": 8
+    },
+    {
+      "wp_id": 3773,
+      "name": "Mozza Stick x3",
+      "slug": "mozza-stick-x3",
+      "category_wp_id": 60,
+      "description": "",
+      "price_cents": 450,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/mozza-stick.png",
+      "sort": 3
+    },
+    {
+      "wp_id": 3774,
+      "name": "Mozza Stick x6",
+      "slug": "mozza-stick-x6",
+      "category_wp_id": 60,
+      "description": "",
+      "price_cents": 800,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/mozza-stick.png",
+      "sort": 10
+    },
+    {
+      "wp_id": 3775,
+      "name": "Bouchées Camembert x3",
+      "slug": "bouchees-camembert-x3",
+      "category_wp_id": 60,
+      "description": "",
+      "price_cents": 450,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/bouchees-camembert.png",
+      "sort": 2
+    },
+    {
+      "wp_id": 3776,
+      "name": "Bouchées Camembert x6",
+      "slug": "bouchees-camembert-x6",
+      "category_wp_id": 60,
+      "description": "",
+      "price_cents": 800,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/bouchees-camembert.png",
+      "sort": 9
+    },
+    {
+      "wp_id": 3777,
+      "name": "Salade César",
+      "slug": "salade-cesar",
+      "category_wp_id": 92,
+      "description": "Salade iceberg, filet de poulet pané, croûtons, tomates cerises, parmesan, sauce César.",
+      "price_cents": 1150,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": null,
+      "sort": 1
+    },
+    {
+      "wp_id": 3778,
+      "name": "Salade Tenders",
+      "slug": "salade-tenders",
+      "category_wp_id": 92,
+      "description": "Salade iceberg, tenders de poulet, croûtons, tomates cerises, parmesan, sauce César.",
+      "price_cents": 1150,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": null,
+      "sort": 2
+    },
+    {
+      "wp_id": 3779,
+      "name": "Frites Classiques",
+      "slug": "frites-classiques",
+      "category_wp_id": 63,
+      "description": "Frites maison.",
+      "price_cents": 590,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": null,
+      "sort": 1
+    },
+    {
+      "wp_id": 3780,
+      "name": "Frites Cheddar",
+      "slug": "frites-cheddar",
+      "category_wp_id": 63,
+      "description": "Frites maison, sauce cheddar.",
+      "price_cents": 700,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": null,
+      "sort": 2
+    },
+    {
+      "wp_id": 3781,
+      "name": "Frites Cheddar Bacon",
+      "slug": "frites-cheddar-bacon",
+      "category_wp_id": 63,
+      "description": "Frites maison, sauce cheddar et bacon.",
+      "price_cents": 780,
+      "visible": false,
+      "sold_out_until": null,
+      "photo_source": null,
+      "sort": 3
+    },
+    {
+      "wp_id": 3782,
+      "name": "Milkshake",
+      "slug": "milkshake",
+      "category_wp_id": 64,
+      "description": "",
+      "price_cents": 590,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/milkshake.png",
+      "sort": 3
+    },
+    {
+      "wp_id": 3783,
+      "name": "Smoothie au choix",
+      "slug": "smoothie-au-choix",
+      "category_wp_id": 64,
+      "description": "Fait maison 💛",
+      "price_cents": 590,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/milkshake.png",
+      "sort": 4
+    },
+    {
+      "wp_id": 3784,
+      "name": "Lassi rose",
+      "slug": "lassi-rose",
+      "category_wp_id": 65,
+      "description": "",
+      "price_cents": 490,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": "2026/11/lassi-rose.png",
+      "sort": 1
+    },
+    {
+      "wp_id": 3785,
+      "name": "Coca-Cola",
+      "slug": "coca-cola",
+      "category_wp_id": 66,
+      "description": "",
+      "price_cents": 200,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": null,
+      "sort": 2
+    },
+    {
+      "wp_id": 3786,
+      "name": "Coca-Cola Zéro",
+      "slug": "coca-cola-zero",
+      "category_wp_id": 66,
+      "description": "",
+      "price_cents": 200,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": null,
+      "sort": 4
+    },
+    {
+      "wp_id": 3787,
+      "name": "Coca-Cola Cherry",
+      "slug": "coca-cola-cherry",
+      "category_wp_id": 66,
+      "description": "",
+      "price_cents": 200,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": null,
+      "sort": 3
+    },
+    {
+      "wp_id": 3788,
+      "name": "Fanta Citron",
+      "slug": "fanta-citron",
+      "category_wp_id": 66,
+      "description": "",
+      "price_cents": 200,
+      "visible": true,
+      "sold_out_until": null,
+      "photo_source": null,
+      "sort": 9
+    }
+  ],
+  "option_groups": [
+    {
+      "key": "sauces-2",
+      "title": "Sauces",
+      "description": "2 au choix maximum.",
+      "min": 1,
+      "max": 2,
+      "required": true,
+      "options": [
+        {
+          "label": "Mayonnaise",
+          "price_cents": 0,
+          "sort": 1
+        },
+        {
+          "label": "Barbecue",
+          "price_cents": 0,
+          "sort": 2
+        },
+        {
+          "label": "Ketchup",
+          "price_cents": 0,
+          "sort": 3
+        },
+        {
+          "label": "Blanche",
+          "price_cents": 0,
+          "sort": 4
+        },
+        {
+          "label": "Biggy",
+          "price_cents": 0,
+          "sort": 5
+        },
+        {
+          "label": "Algérienne",
+          "price_cents": 0,
+          "sort": 6
+        },
+        {
+          "label": "Samouraï",
+          "price_cents": 0,
+          "sort": 7
+        },
+        {
+          "label": "Chili thaï",
+          "price_cents": 0,
+          "sort": 8
+        },
+        {
+          "label": "Harissa",
+          "price_cents": 0,
+          "sort": 9
+        },
+        {
+          "label": "Sans sauce",
+          "price_cents": 0,
+          "sort": 10
+        }
+      ]
+    },
+    {
+      "key": "sauces-fried",
+      "title": "Sauces",
+      "description": "",
+      "min": 1,
+      "max": null,
+      "required": true,
+      "options": [
+        {
+          "label": "Mayonnaise",
+          "price_cents": 0,
+          "sort": 1
+        },
+        {
+          "label": "Barbecue",
+          "price_cents": 0,
+          "sort": 2
+        },
+        {
+          "label": "Ketchup",
+          "price_cents": 0,
+          "sort": 3
+        },
+        {
+          "label": "Blanche",
+          "price_cents": 0,
+          "sort": 4
+        },
+        {
+          "label": "Biggy",
+          "price_cents": 0,
+          "sort": 5
+        },
+        {
+          "label": "Algérienne",
+          "price_cents": 0,
+          "sort": 6
+        },
+        {
+          "label": "Samouraï",
+          "price_cents": 0,
+          "sort": 7
+        },
+        {
+          "label": "Chili thaï",
+          "price_cents": 0,
+          "sort": 8
+        },
+        {
+          "label": "Harissa",
+          "price_cents": 0,
+          "sort": 9
+        },
+        {
+          "label": "Sans sauce",
+          "price_cents": 0,
+          "sort": 10
+        }
+      ]
+    },
+    {
+      "key": "crudites",
+      "title": "Crudités",
+      "description": "Jusqu'à 3.",
+      "min": 0,
+      "max": 3,
+      "required": false,
+      "options": [
+        {
+          "label": "Salade",
+          "price_cents": 0,
+          "sort": 1
+        },
+        {
+          "label": "Tomates",
+          "price_cents": 0,
+          "sort": 2
+        },
+        {
+          "label": "Oignons",
+          "price_cents": 0,
+          "sort": 3
+        },
+        {
+          "label": "Sans crudité",
+          "price_cents": 0,
+          "sort": 4
+        }
+      ]
+    },
+    {
+      "key": "crudites-oblig",
+      "title": "Crudités",
+      "description": "Jusqu'à 3.",
+      "min": 1,
+      "max": 3,
+      "required": true,
+      "options": [
+        {
+          "label": "Salade",
+          "price_cents": 0,
+          "sort": 1
+        },
+        {
+          "label": "Tomates",
+          "price_cents": 0,
+          "sort": 2
+        },
+        {
+          "label": "Oignons",
+          "price_cents": 0,
+          "sort": 3
+        },
+        {
+          "label": "Sans crudité",
+          "price_cents": 0,
+          "sort": 4
+        }
+      ]
+    },
+    {
+      "key": "charcuteries",
+      "title": "Charcuteries supplémentaires",
+      "description": "",
+      "min": 0,
+      "max": 5,
+      "required": false,
+      "options": [
+        {
+          "label": "Lardon de veau",
+          "price_cents": 170,
+          "sort": 1
+        },
+        {
+          "label": "Bacon de dinde",
+          "price_cents": 170,
+          "sort": 2
+        },
+        {
+          "label": "Œuf",
+          "price_cents": 130,
+          "sort": 3
+        },
+        {
+          "label": "Galette de pomme de terre",
+          "price_cents": 130,
+          "sort": 4
+        }
+      ]
+    },
+    {
+      "key": "fromages",
+      "title": "Fromages supplémentaires",
+      "description": "",
+      "min": 0,
+      "max": 5,
+      "required": false,
+      "options": [
+        {
+          "label": "Cheddar",
+          "price_cents": 150,
+          "sort": 1
+        },
+        {
+          "label": "Boursin",
+          "price_cents": 150,
+          "sort": 2
+        },
+        {
+          "label": "Raclette",
+          "price_cents": 150,
+          "sort": 3
+        },
+        {
+          "label": "Mozzarella",
+          "price_cents": 150,
+          "sort": 4
+        }
+      ]
+    },
+    {
+      "key": "frites",
+      "title": "Frites",
+      "description": "",
+      "min": 1,
+      "max": 1,
+      "required": true,
+      "options": [
+        {
+          "label": "Frites normal",
+          "price_cents": 0,
+          "sort": 1
+        },
+        {
+          "label": "Frites cheddar",
+          "price_cents": 390,
+          "sort": 2
+        },
+        {
+          "label": "Frites cheddar bacon",
+          "price_cents": 490,
+          "sort": 3
+        },
+        {
+          "label": "Frites maison",
+          "price_cents": 350,
+          "sort": 4
+        }
+      ]
+    },
+    {
+      "key": "frites-facult",
+      "title": "Frites",
+      "description": "",
+      "min": 0,
+      "max": 1,
+      "required": false,
+      "options": [
+        {
+          "label": "Frites normal",
+          "price_cents": 0,
+          "sort": 1
+        },
+        {
+          "label": "Frites cheddar",
+          "price_cents": 390,
+          "sort": 2
+        },
+        {
+          "label": "Frites cheddar bacon",
+          "price_cents": 490,
+          "sort": 3
+        },
+        {
+          "label": "Frites maison",
+          "price_cents": 350,
+          "sort": 4
+        }
+      ]
+    },
+    {
+      "key": "boisson-33",
+      "title": "Boisson 33 cl",
+      "description": "",
+      "min": 1,
+      "max": 1,
+      "required": true,
+      "options": [
+        {
+          "label": "Coca-Cola",
+          "price_cents": 0,
+          "sort": 1
+        },
+        {
+          "label": "Coca-Cola zéro",
+          "price_cents": 0,
+          "sort": 2
+        },
+        {
+          "label": "Lipton Ice Tea",
+          "price_cents": 0,
+          "sort": 3
+        },
+        {
+          "label": "Perrier",
+          "price_cents": 0,
+          "sort": 4
+        },
+        {
+          "label": "Orangina",
+          "price_cents": 0,
+          "sort": 5
+        },
+        {
+          "label": "Schweppes agrumes",
+          "price_cents": 0,
+          "sort": 6
+        },
+        {
+          "label": "Tropico",
+          "price_cents": 0,
+          "sort": 7
+        },
+        {
+          "label": "Oasis Tropical",
+          "price_cents": 0,
+          "sort": 8
+        },
+        {
+          "label": "Fanta orange",
+          "price_cents": 0,
+          "sort": 9
+        },
+        {
+          "label": "Eau",
+          "price_cents": 0,
+          "sort": 10
+        },
+        {
+          "label": "Lassi mangue",
+          "price_cents": 450,
+          "sort": 11
+        },
+        {
+          "label": "Coca-Cola Cherry",
+          "price_cents": 0,
+          "sort": 12
+        },
+        {
+          "label": "Fanta Citron",
+          "price_cents": 0,
+          "sort": 13
+        },
+        {
+          "label": "7 Up Mojito",
+          "price_cents": 0,
+          "sort": 14
+        },
+        {
+          "label": "Oasis Pomme Cassis",
+          "price_cents": 0,
+          "sort": 15
+        }
+      ]
+    },
+    {
+      "key": "boissons-33-x2",
+      "title": "2 boissons 33 cl",
+      "description": "2 au choix.",
+      "min": 1,
+      "max": 2,
+      "required": true,
+      "options": [
+        {
+          "label": "Coca-Cola",
+          "price_cents": 0,
+          "sort": 1
+        },
+        {
+          "label": "Coca-Cola zéro",
+          "price_cents": 0,
+          "sort": 2
+        },
+        {
+          "label": "Lipton Ice Tea",
+          "price_cents": 0,
+          "sort": 3
+        },
+        {
+          "label": "Perrier",
+          "price_cents": 0,
+          "sort": 4
+        },
+        {
+          "label": "Orangina",
+          "price_cents": 0,
+          "sort": 5
+        },
+        {
+          "label": "Schweppes agrumes",
+          "price_cents": 0,
+          "sort": 6
+        },
+        {
+          "label": "Tropico",
+          "price_cents": 0,
+          "sort": 7
+        },
+        {
+          "label": "Oasis Tropical",
+          "price_cents": 0,
+          "sort": 8
+        },
+        {
+          "label": "Fanta orange",
+          "price_cents": 0,
+          "sort": 9
+        },
+        {
+          "label": "Eau",
+          "price_cents": 0,
+          "sort": 10
+        },
+        {
+          "label": "Lassi mangue",
+          "price_cents": 450,
+          "sort": 11
+        },
+        {
+          "label": "Coca-Cola Cherry",
+          "price_cents": 0,
+          "sort": 12
+        },
+        {
+          "label": "Fanta Citron",
+          "price_cents": 0,
+          "sort": 13
+        },
+        {
+          "label": "7 Up Mojito",
+          "price_cents": 0,
+          "sort": 14
+        },
+        {
+          "label": "Oasis Pomme Cassis",
+          "price_cents": 0,
+          "sort": 15
+        }
+      ]
+    },
+    {
+      "key": "boisson-15",
+      "title": "Boisson 1,5 L",
+      "description": "",
+      "min": 1,
+      "max": 1,
+      "required": true,
+      "options": [
+        {
+          "label": "Coca-Cola",
+          "price_cents": 0,
+          "sort": 1
+        },
+        {
+          "label": "Orangina",
+          "price_cents": 0,
+          "sort": 2
+        },
+        {
+          "label": "Tropico",
+          "price_cents": 0,
+          "sort": 3
+        }
+      ]
+    },
+    {
+      "key": "viande-1",
+      "title": "Viande",
+      "description": "1 viande au choix.",
+      "min": 1,
+      "max": 1,
+      "required": true,
+      "options": [
+        {
+          "label": "Poulet curry",
+          "price_cents": 0,
+          "sort": 1
+        },
+        {
+          "label": "Poulet tandoori",
+          "price_cents": 0,
+          "sort": 2
+        },
+        {
+          "label": "Steak haché",
+          "price_cents": 0,
+          "sort": 3
+        },
+        {
+          "label": "Tenders",
+          "price_cents": 0,
+          "sort": 4
+        },
+        {
+          "label": "Cordon bleu",
+          "price_cents": 0,
+          "sort": 5
+        },
+        {
+          "label": "Grec",
+          "price_cents": 0,
+          "sort": 6
+        },
+        {
+          "label": "Escalope de poulet",
+          "price_cents": 0,
+          "sort": 7
+        },
+        {
+          "label": "Nuggets",
+          "price_cents": 0,
+          "sort": 8
+        },
+        {
+          "label": "Merguez",
+          "price_cents": 0,
+          "sort": 9
+        }
+      ]
+    },
+    {
+      "key": "viandes-2",
+      "title": "Viandes",
+      "description": "2 viandes au choix.",
+      "min": 1,
+      "max": 2,
+      "required": true,
+      "options": [
+        {
+          "label": "Poulet curry",
+          "price_cents": 0,
+          "sort": 1
+        },
+        {
+          "label": "Poulet tandoori",
+          "price_cents": 0,
+          "sort": 2
+        },
+        {
+          "label": "Steak haché",
+          "price_cents": 0,
+          "sort": 3
+        },
+        {
+          "label": "Tenders",
+          "price_cents": 0,
+          "sort": 4
+        },
+        {
+          "label": "Cordon bleu",
+          "price_cents": 0,
+          "sort": 5
+        },
+        {
+          "label": "Grec",
+          "price_cents": 0,
+          "sort": 6
+        },
+        {
+          "label": "Escalope de poulet",
+          "price_cents": 0,
+          "sort": 7
+        },
+        {
+          "label": "Nuggets",
+          "price_cents": 0,
+          "sort": 8
+        },
+        {
+          "label": "Merguez",
+          "price_cents": 0,
+          "sort": 9
+        }
+      ]
+    },
+    {
+      "key": "viandes-3",
+      "title": "Viandes",
+      "description": "3 viandes au choix.",
+      "min": 1,
+      "max": 3,
+      "required": true,
+      "options": [
+        {
+          "label": "Poulet curry",
+          "price_cents": 0,
+          "sort": 1
+        },
+        {
+          "label": "Poulet tandoori",
+          "price_cents": 0,
+          "sort": 2
+        },
+        {
+          "label": "Steak haché",
+          "price_cents": 0,
+          "sort": 3
+        },
+        {
+          "label": "Tenders",
+          "price_cents": 0,
+          "sort": 4
+        },
+        {
+          "label": "Cordon bleu",
+          "price_cents": 0,
+          "sort": 5
+        },
+        {
+          "label": "Grec",
+          "price_cents": 0,
+          "sort": 6
+        },
+        {
+          "label": "Escalope de poulet",
+          "price_cents": 0,
+          "sort": 7
+        },
+        {
+          "label": "Nuggets",
+          "price_cents": 0,
+          "sort": 8
+        },
+        {
+          "label": "Merguez",
+          "price_cents": 0,
+          "sort": 9
+        }
+      ]
+    },
+    {
+      "key": "pain",
+      "title": "Pain",
+      "description": "",
+      "min": 1,
+      "max": 1,
+      "required": true,
+      "options": [
+        {
+          "label": "Pain sandwich",
+          "price_cents": 0,
+          "sort": 1
+        },
+        {
+          "label": "Tortilla",
+          "price_cents": 0,
+          "sort": 2
+        }
+      ]
+    },
+    {
+      "key": "plat-enfant",
+      "title": "Plat",
+      "description": "",
+      "min": 1,
+      "max": 1,
+      "required": true,
+      "options": [
+        {
+          "label": "Cheeseburger",
+          "price_cents": 0,
+          "sort": 1
+        },
+        {
+          "label": "6 nuggets",
+          "price_cents": 0,
+          "sort": 2
+        }
+      ]
+    },
+    {
+      "key": "texmex-bigduo",
+      "title": "Tex-Mex",
+      "description": "",
+      "min": 1,
+      "max": 1,
+      "required": true,
+      "options": [
+        {
+          "label": "8 tenders et 8 wings",
+          "price_cents": 0,
+          "sort": 1
+        },
+        {
+          "label": "16 wings",
+          "price_cents": 390,
+          "sort": 2
+        }
+      ]
+    },
+    {
+      "key": "naan-supp",
+      "title": "Supplément naan",
+      "description": "",
+      "min": 0,
+      "max": 6,
+      "required": false,
+      "options": [
+        {
+          "label": "Naan fromage",
+          "price_cents": 490,
+          "sort": 1
+        },
+        {
+          "label": "Naan nature",
+          "price_cents": 350,
+          "sort": 2
+        }
+      ]
+    },
+    {
+      "key": "boisson-supp",
+      "title": "Boisson supplémentaire",
+      "description": "",
+      "min": 0,
+      "max": 10,
+      "required": false,
+      "options": [
+        {
+          "label": "Coca-Cola",
+          "price_cents": 200,
+          "sort": 1
+        },
+        {
+          "label": "Coca-Cola zéro",
+          "price_cents": 200,
+          "sort": 2
+        },
+        {
+          "label": "Lipton Ice Tea",
+          "price_cents": 200,
+          "sort": 3
+        },
+        {
+          "label": "Perrier",
+          "price_cents": 200,
+          "sort": 4
+        },
+        {
+          "label": "Orangina",
+          "price_cents": 200,
+          "sort": 5
+        },
+        {
+          "label": "Schweppes agrumes",
+          "price_cents": 200,
+          "sort": 6
+        },
+        {
+          "label": "Tropico",
+          "price_cents": 200,
+          "sort": 7
+        },
+        {
+          "label": "Oasis Tropical",
+          "price_cents": 200,
+          "sort": 8
+        },
+        {
+          "label": "Fanta orange",
+          "price_cents": 200,
+          "sort": 9
+        },
+        {
+          "label": "Eau",
+          "price_cents": 200,
+          "sort": 10
+        },
+        {
+          "label": "Lassi mangue",
+          "price_cents": 200,
+          "sort": 11
+        },
+        {
+          "label": "Coca-Cola Cherry",
+          "price_cents": 200,
+          "sort": 12
+        },
+        {
+          "label": "Fanta Citron",
+          "price_cents": 200,
+          "sort": 13
+        },
+        {
+          "label": "7 Up Mojito",
+          "price_cents": 200,
+          "sort": 14
+        },
+        {
+          "label": "Oasis Pomme Cassis",
+          "price_cents": 200,
+          "sort": 15
+        }
+      ]
+    },
+    {
+      "key": "milkshake",
+      "title": "Gourmandise",
+      "description": "",
+      "min": 1,
+      "max": 1,
+      "required": true,
+      "options": [
+        {
+          "label": "Nutella",
+          "price_cents": 0,
+          "sort": 1
+        },
+        {
+          "label": "Spéculoos",
+          "price_cents": 0,
+          "sort": 2
+        },
+        {
+          "label": "Oreo",
+          "price_cents": 0,
+          "sort": 3
+        },
+        {
+          "label": "Kinder Bueno",
+          "price_cents": 0,
+          "sort": 4
+        },
+        {
+          "label": "Kinder Bueno white",
+          "price_cents": 0,
+          "sort": 5
+        },
+        {
+          "label": "Kinder Country",
+          "price_cents": 0,
+          "sort": 6
+        },
+        {
+          "label": "Shokobons",
+          "price_cents": 0,
+          "sort": 7
+        },
+        {
+          "label": "Caramel",
+          "price_cents": 0,
+          "sort": 8
+        },
+        {
+          "label": "Brownie",
+          "price_cents": 0,
+          "sort": 9
+        },
+        {
+          "label": "Cookie",
+          "price_cents": 0,
+          "sort": 10
+        }
+      ]
+    },
+    {
+      "key": "tiramisu",
+      "title": "Parfum",
+      "description": "",
+      "min": 1,
+      "max": 1,
+      "required": true,
+      "options": [
+        {
+          "label": "Spéculos Caramel",
+          "price_cents": 0,
+          "sort": 1
+        },
+        {
+          "label": "Nutella Oréo",
+          "price_cents": 0,
+          "sort": 2
+        },
+        {
+          "label": "Spéculos Nutella",
+          "price_cents": 0,
+          "sort": 3
+        }
+      ]
+    },
+    {
+      "key": "smoothie",
+      "title": "Parfum",
+      "description": "",
+      "min": 0,
+      "max": 1,
+      "required": false,
+      "options": [
+        {
+          "label": "Mangue",
+          "price_cents": 0,
+          "sort": 1
+        },
+        {
+          "label": "Fraise",
+          "price_cents": 0,
+          "sort": 2
+        },
+        {
+          "label": "Framboise",
+          "price_cents": 0,
+          "sort": 3
+        },
+        {
+          "label": "Ananas",
+          "price_cents": 0,
+          "sort": 4
+        },
+        {
+          "label": "Fruit de la passion",
+          "price_cents": 0,
+          "sort": 5
+        },
+        {
+          "label": "Coco",
+          "price_cents": 0,
+          "sort": 6
+        }
+      ]
+    },
+    {
+      "key": "smoothie-supp",
+      "title": "Parfums supplémentaires",
+      "description": "",
+      "min": 0,
+      "max": null,
+      "required": false,
+      "options": [
+        {
+          "label": "Mangue",
+          "price_cents": 100,
+          "sort": 1
+        },
+        {
+          "label": "Fraise",
+          "price_cents": 100,
+          "sort": 2
+        },
+        {
+          "label": "Framboise",
+          "price_cents": 100,
+          "sort": 3
+        },
+        {
+          "label": "Ananas",
+          "price_cents": 100,
+          "sort": 4
+        },
+        {
+          "label": "Fruit de la passion",
+          "price_cents": 100,
+          "sort": 5
+        },
+        {
+          "label": "Coco",
+          "price_cents": 100,
+          "sort": 6
+        }
+      ]
+    }
+  ],
+  "option_links": [
+    {
+      "group": "crudites",
+      "category_wp_id": 57,
+      "sort": 1
+    },
+    {
+      "group": "charcuteries",
+      "category_wp_id": 57,
+      "sort": 2
+    },
+    {
+      "group": "fromages",
+      "category_wp_id": 57,
+      "sort": 3
+    },
+    {
+      "group": "frites",
+      "category_wp_id": 57,
+      "sort": 4
+    },
+    {
+      "group": "boisson-33",
+      "category_wp_id": 57,
+      "sort": 5
+    },
+    {
+      "group": "crudites",
+      "category_wp_id": 58,
+      "sort": 1
+    },
+    {
+      "group": "charcuteries",
+      "category_wp_id": 58,
+      "sort": 2
+    },
+    {
+      "group": "fromages",
+      "category_wp_id": 58,
+      "sort": 3
+    },
+    {
+      "group": "frites",
+      "category_wp_id": 58,
+      "sort": 4
+    },
+    {
+      "group": "boisson-33",
+      "category_wp_id": 58,
+      "sort": 5
+    },
+    {
+      "group": "crudites",
+      "category_wp_id": 50,
+      "sort": 1
+    },
+    {
+      "group": "charcuteries",
+      "category_wp_id": 50,
+      "sort": 2
+    },
+    {
+      "group": "fromages",
+      "category_wp_id": 50,
+      "sort": 3
+    },
+    {
+      "group": "frites",
+      "category_wp_id": 50,
+      "sort": 4
+    },
+    {
+      "group": "boisson-33",
+      "category_wp_id": 50,
+      "sort": 5
+    },
+    {
+      "group": "crudites",
+      "category_wp_id": 51,
+      "sort": 1
+    },
+    {
+      "group": "charcuteries",
+      "category_wp_id": 51,
+      "sort": 2
+    },
+    {
+      "group": "fromages",
+      "category_wp_id": 51,
+      "sort": 3
+    },
+    {
+      "group": "frites",
+      "category_wp_id": 51,
+      "sort": 4
+    },
+    {
+      "group": "boisson-33",
+      "category_wp_id": 51,
+      "sort": 5
+    },
+    {
+      "group": "pain",
+      "category_wp_id": 52,
+      "sort": 1
+    },
+    {
+      "group": "sauces-2",
+      "category_wp_id": 52,
+      "sort": 2
+    },
+    {
+      "group": "crudites-oblig",
+      "category_wp_id": 52,
+      "sort": 3
+    },
+    {
+      "group": "charcuteries",
+      "category_wp_id": 52,
+      "sort": 4
+    },
+    {
+      "group": "fromages",
+      "category_wp_id": 52,
+      "sort": 5
+    },
+    {
+      "group": "frites",
+      "category_wp_id": 52,
+      "sort": 6
+    },
+    {
+      "group": "boisson-33",
+      "category_wp_id": 52,
+      "sort": 7
+    },
+    {
+      "group": "sauces-2",
+      "category_wp_id": 53,
+      "sort": 1
+    },
+    {
+      "group": "crudites-oblig",
+      "category_wp_id": 53,
+      "sort": 2
+    },
+    {
+      "group": "charcuteries",
+      "category_wp_id": 53,
+      "sort": 3
+    },
+    {
+      "group": "fromages",
+      "category_wp_id": 53,
+      "sort": 4
+    },
+    {
+      "group": "frites",
+      "category_wp_id": 53,
+      "sort": 5
+    },
+    {
+      "group": "boisson-33",
+      "category_wp_id": 53,
+      "sort": 6
+    },
+    {
+      "group": "sauces-2",
+      "category_wp_id": 54,
+      "sort": 1
+    },
+    {
+      "group": "crudites-oblig",
+      "category_wp_id": 54,
+      "sort": 2
+    },
+    {
+      "group": "charcuteries",
+      "category_wp_id": 54,
+      "sort": 3
+    },
+    {
+      "group": "fromages",
+      "category_wp_id": 54,
+      "sort": 4
+    },
+    {
+      "group": "frites",
+      "category_wp_id": 54,
+      "sort": 5
+    },
+    {
+      "group": "boisson-33",
+      "category_wp_id": 54,
+      "sort": 6
+    },
+    {
+      "group": "viande-1",
+      "product_wp_id": 2895,
+      "sort": 1
+    },
+    {
+      "group": "sauces-2",
+      "product_wp_id": 2895,
+      "sort": 2
+    },
+    {
+      "group": "crudites",
+      "product_wp_id": 2895,
+      "sort": 3
+    },
+    {
+      "group": "charcuteries",
+      "product_wp_id": 2895,
+      "sort": 4
+    },
+    {
+      "group": "fromages",
+      "product_wp_id": 2895,
+      "sort": 5
+    },
+    {
+      "group": "frites-facult",
+      "product_wp_id": 2895,
+      "sort": 6
+    },
+    {
+      "group": "boisson-33",
+      "product_wp_id": 2895,
+      "sort": 7
+    },
+    {
+      "group": "viandes-2",
+      "product_wp_id": 2896,
+      "sort": 1
+    },
+    {
+      "group": "sauces-2",
+      "product_wp_id": 2896,
+      "sort": 2
+    },
+    {
+      "group": "crudites",
+      "product_wp_id": 2896,
+      "sort": 3
+    },
+    {
+      "group": "charcuteries",
+      "product_wp_id": 2896,
+      "sort": 4
+    },
+    {
+      "group": "fromages",
+      "product_wp_id": 2896,
+      "sort": 5
+    },
+    {
+      "group": "frites-facult",
+      "product_wp_id": 2896,
+      "sort": 6
+    },
+    {
+      "group": "boisson-33",
+      "product_wp_id": 2896,
+      "sort": 7
+    },
+    {
+      "group": "viandes-3",
+      "product_wp_id": 2897,
+      "sort": 1
+    },
+    {
+      "group": "sauces-2",
+      "product_wp_id": 2897,
+      "sort": 2
+    },
+    {
+      "group": "crudites",
+      "product_wp_id": 2897,
+      "sort": 3
+    },
+    {
+      "group": "charcuteries",
+      "product_wp_id": 2897,
+      "sort": 4
+    },
+    {
+      "group": "fromages",
+      "product_wp_id": 2897,
+      "sort": 5
+    },
+    {
+      "group": "frites-facult",
+      "product_wp_id": 2897,
+      "sort": 6
+    },
+    {
+      "group": "boisson-33",
+      "product_wp_id": 2897,
+      "sort": 7
+    },
+    {
+      "group": "sauces-fried",
+      "category_wp_id": 55,
+      "sort": 1
+    },
+    {
+      "group": "texmex-bigduo",
+      "product_wp_id": 3344,
+      "sort": 1
+    },
+    {
+      "group": "boissons-33-x2",
+      "product_wp_id": 3344,
+      "sort": 2
+    },
+    {
+      "group": "boissons-33-x2",
+      "product_wp_id": 2939,
+      "sort": 1
+    },
+    {
+      "group": "boisson-15",
+      "product_wp_id": 2941,
+      "sort": 1
+    },
+    {
+      "group": "boisson-15",
+      "product_wp_id": 2942,
+      "sort": 1
+    },
+    {
+      "group": "boisson-15",
+      "product_wp_id": 2943,
+      "sort": 1
+    },
+    {
+      "group": "boisson-15",
+      "product_wp_id": 3346,
+      "sort": 1
+    },
+    {
+      "group": "boisson-15",
+      "product_wp_id": 3763,
+      "sort": 1
+    },
+    {
+      "group": "boisson-33",
+      "product_wp_id": 3760,
+      "sort": 1
+    },
+    {
+      "group": "boisson-33",
+      "product_wp_id": 3761,
+      "sort": 1
+    },
+    {
+      "group": "plat-enfant",
+      "category_wp_id": 56,
+      "sort": 1
+    },
+    {
+      "group": "frites",
+      "category_wp_id": 56,
+      "sort": 2
+    },
+    {
+      "group": "boisson-33",
+      "category_wp_id": 56,
+      "sort": 3
+    },
+    {
+      "group": "naan-supp",
+      "category_wp_id": 59,
+      "sort": 1
+    },
+    {
+      "group": "boisson-supp",
+      "category_wp_id": 59,
+      "sort": 2
+    },
+    {
+      "group": "milkshake",
+      "product_wp_id": 3782,
+      "sort": 1
+    },
+    {
+      "group": "tiramisu",
+      "product_wp_id": 3001,
+      "sort": 1
+    },
+    {
+      "group": "smoothie",
+      "product_wp_id": 3783,
+      "sort": 1
+    },
+    {
+      "group": "smoothie-supp",
+      "product_wp_id": 3783,
+      "sort": 2
+    }
+  ],
+  "promo_codes": [
+    {
+      "code": "bienvenue10",
+      "type": "percent",
+      "value": 10,
+      "first_order_only": true,
+      "per_customer_limit": 1
+    }
+  ],
+  "corrections": [
+    {
+      "produit": "Tacos Simple",
+      "id_wp": 2895,
+      "correction": "Tacos : description réécrite (fautes, ponctuation)."
+    },
+    {
+      "produit": "Tacos Double",
+      "id_wp": 2896,
+      "correction": "Tacos : description réécrite (fautes, ponctuation)."
+    },
+    {
+      "produit": "Tacos Maxi",
+      "id_wp": 2897,
+      "correction": "Tacos : description réécrite (fautes, ponctuation)."
+    },
+    {
+      "produit": "Menu sandwich chicken tandoori",
+      "id_wp": 2909,
+      "correction": "Sandwich tandoori : fautes corrigées."
+    },
+    {
+      "produit": "Menu sandwich chicken curry",
+      "id_wp": 2910,
+      "correction": "Sandwich curry : fautes corrigées."
+    },
+    {
+      "produit": "Menu sandwich grec",
+      "id_wp": 2911,
+      "correction": "Sandwich grec : fautes corrigées."
+    },
+    {
+      "produit": "Menu filet pané burger",
+      "id_wp": 2951,
+      "correction": "Filet pané : description du filet grillé inversée, corrigée ; « Taille au choix » retiré (aucune taille)."
+    },
+    {
+      "produit": "Menu filet grillé burger",
+      "id_wp": 2952,
+      "correction": "Filet grillé : description du filet pané inversée, corrigée ; « Taille au choix » retiré."
+    },
+    {
+      "produit": "Biggy Mac + Double Cheese Burger",
+      "id_wp": 2957,
+      "correction": "Biggy Mac + Double Cheese : la description disait « Chicken Burger »."
+    },
+    {
+      "produit": "Lassi mangue",
+      "id_wp": 3004,
+      "correction": "Lassi mangue : « Parfum au choix » retiré (aucun parfum configuré ; Lassi rose est un produit à part)."
+    },
+    {
+      "produit": "(tous)",
+      "correction": "Descriptions nettoyées : balises HTML collées depuis Uber Eats retirées, fautes courantes corrigées (garnit, boeuf, veaux, samourai…)."
+    },
+    {
+      "correction": "Options regroupées en listes réutilisables (une seule liste Sauces, Crudités, Boisson 33 cl… au lieu de 17 copies dans Orderable)."
+    },
+    {
+      "correction": "Libellés : « Frites cheddar becon » → bacon, « orangina » → Orangina, « oasis tropical » → Oasis Tropical, « Biggy burger » → Biggy."
+    },
+    {
+      "correction": "Minimum réglé explicitement (1 si obligatoire), le site n'en avait aucun."
+    },
+    {
+      "produit": "Menu Enfant",
+      "correction": "Les 3 choix (plat, frites, boisson) apparaissaient en double (2 groupes rattachés) : un seul groupe conservé."
+    },
+    {
+      "produit": "Menu big duo",
+      "correction": "Boissons : 2 au choix (le site n'en laissait choisir qu'une pour un menu « 2 boissons »)."
+    },
+    {
+      "produit": "Menu Solo Mix x3 / x5",
+      "correction": "Ajout du choix « Boisson 33 cl » annoncé dans la description (aucune option sur le site)."
+    },
+    {
+      "produit": "Friendly Box",
+      "correction": "Ajout du choix « Boisson 1,5 L » annoncé dans la description (aucune option sur le site)."
+    },
+    {
+      "produit": "Tacos",
+      "correction": "Ancien groupe d'options en double (brouillon sur le site) non importé."
+    },
+    {
+      "correction": "Zones : Andrésy et Chanteloup partagent le 78570 ; le site gérait Andrésy à 6 € par un extrait de code. Ici la zone se choisit par ville, sans code."
+    },
+    {
+      "correction": "Catégories vides (Offres, Non classé) non importées ; Salade et Frites Seules importées masquées (produits en brouillon)."
+    }
+  ],
+  "decisions": [
+    {
+      "n": 1,
+      "sujet": "Sauce des burgers",
+      "constat": "Burger, Menu Duo, Smash et Naan Burger n'ont plus aucun choix de sauce (le 29/10 il y en avait un, sans maximum).",
+      "question": "On ajoute « Sauces, 2 max » comme pour les sandwichs, ou les burgers restent avec leur sauce de recette ?",
+      "par_defaut": "pas de choix de sauce (comme le site)"
+    },
+    {
+      "n": 2,
+      "sujet": "Nouveaux produits : menu ou seul ?",
+      "constat": "Smash (4), Naan Burger (2), Cheese Naan Chicken / Country / Farmer et Sandwich 1080 reçoivent frites + boisson obligatoires (options de leur catégorie), mais leur description ne parle pas de menu et leurs prix viennent d'Uber Eats.",
+      "question": "Ce sont des menus (frites + boisson inclus) ou des produits seuls ?",
+      "par_defaut": "menus, comme le site"
+    },
+    {
+      "n": 3,
+      "sujet": "Cheese Naan Savoyard",
+      "constat": "Même description que le Cheese Naan Mix.",
+      "question": "Quelle est la vraie garniture du Savoyard ?",
+      "par_defaut": "description du site conservée"
+    },
+    {
+      "n": 4,
+      "sujet": "Lassi mangue en option",
+      "constat": "+4,50 € dans les menus, +2,00 € avec les plats indiens.",
+      "question": "Quel supplément pour chacun ?",
+      "par_defaut": "les deux prix du site"
+    },
+    {
+      "n": 5,
+      "sujet": "Biryani aux légumes",
+      "constat": "16,50 € alors que le biryani poulet est à 12,90 € et l'agneau à 14,90 €.",
+      "question": "Le prix est-il juste ?",
+      "par_defaut": "16,50 €"
+    },
+    {
+      "n": 6,
+      "sujet": "Wings et Tenders (Tex-Mex)",
+      "constat": "« Nombre de pièces au choix » mais aucun choix configuré (6,50 € / 6,90 €).",
+      "question": "Quels nombres de pièces et quels prix ? Sinon on retire la phrase.",
+      "par_defaut": "phrase conservée, pas de choix"
+    },
+    {
+      "n": 7,
+      "sujet": "Sauces des menus Fried Chicken",
+      "constat": "Choix obligatoire sans maximum.",
+      "question": "Combien de sauces maximum (par menu, ou selon la taille) ?",
+      "par_defaut": "sans maximum"
+    },
+    {
+      "n": 9,
+      "sujet": "Crevettes Korma / Massala",
+      "constat": "Le Korma est dit « légèrement épicé » et le Massala « curry et crème » ; c'est l'inverse des plats poulet du même nom (Korma = sauce douce coco).",
+      "question": "Descriptions inversées ?",
+      "par_defaut": "descriptions du site"
+    },
+    {
+      "n": 8,
+      "sujet": "Allergènes",
+      "constat": "ALLERGENES-PRODUITS.csv est un modèle vide (129 lignes, 0 rempli).",
+      "question": "Tu le remplis (module v1, pas bloquant pour le MVP) ?",
+      "par_defaut": "aucun allergène affiché"
+    }
+  ],
+  "source": "Sauvegarde UpdraftPlus du 04/11/2026 10:34 (base de données foodstationrestaurant.com)",
+  "demo_accounts": [
+    {
+      "email": "demo-cuisine@onyx.demo",
+      "role": "cuisine",
+      "password": "demo1234"
+    },
+    {
+      "email": "demo-admin@onyx.demo",
+      "role": "owner",
+      "password": "demo1234"
+    }
+  ]
+}

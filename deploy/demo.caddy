@@ -1,0 +1,13 @@
+# Page de démo commerciale (site statique) : à copier sur le serveur dans /etc/caddy/sites/demo.caddy
+# Prérequis : enregistrement DNS A « demo » → 51.254.130.80, dossier onyx-order-demo envoyé dans /srv/onyx/onyx-order-demo.
+demo.byonyx.fr {
+    import securite
+    # cette page ne peut être affichée dans aucun autre site
+    header Content-Security-Policy "frame-ancestors 'none'"
+    encode gzip
+    root * /srv/onyx/onyx-order-demo
+    # le serveur local de développement n'est pas à publier
+    @private path /serve.mjs
+    respond @private 404
+    file_server
+}

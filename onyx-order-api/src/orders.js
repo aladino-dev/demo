@@ -2,6 +2,7 @@ import crypto from 'node:crypto';
 import { EventEmitter } from 'node:events';
 import { q, tx } from './db.js';
 import { loadMenu, openingStatus } from './menu.js';
+import { usesUber, checkQuote, dispatch, cancel as cancelCourier } from './uberDirect.js';
 
 export const bus = new EventEmitter();
 bus.setMaxListeners(100);
@@ -82,13 +83,24 @@ export async function createOrder(r, body, ip) {
   let zone = null;
   let fee = 0;
   let address = null;
+  let uberQuoteId = null;
   if (mode === 'delivery') {
-    address = String(body.address?.line || '').trim();
+    const rawLine = String(body.address?.line || '').trim(); // adresse seule : c'est elle qui sert au devis Uber
+    const extra = String(body.address?.extra || '').trim().slice(0, 120); // étage, code, interphone
+    address = rawLine + (extra ? `, ${extra}` : '');
     if (address.length < 5) throw new OrderError('Indiquez l\'adresse de livraison.');
-    zone = await findZone(r.id, body.address?.postcode, body.address?.city);
-    if (!zone) throw new OrderError('Nous ne livrons pas cette adresse. Le retrait au restaurant reste possible.');
-    if (subtotal < zone.min_order_cents) throw new OrderError(`Minimum de commande pour ${zone.name} : ${(zone.min_order_cents / 100).toFixed(2).replace('.', ',')} €.`);
-    fee = zone.fee_cents;
+    if (usesUber(r)) {
+      // livraison par coursier Uber : le prix est celui du devis présenté au client (gardé côté serveur)
+      const qt = checkQuote(r, body.quote_id, { line: rawLine, postcode: body.address?.postcode, city: body.address?.city });
+      if (!qt) throw new OrderError("Le prix de livraison a expiré ou l'adresse a changé. Vérifiez l'adresse pour obtenir un nouveau prix.", 409);
+      fee = qt.fee_cents;
+      uberQuoteId = qt.uber_quote_id;
+    } else {
+      zone = await findZone(r.id, body.address?.postcode, body.address?.city);
+      if (!zone) throw new OrderError('Nous ne livrons pas cette adresse. Le retrait au restaurant reste possible.');
+      if (subtotal < zone.min_order_cents) throw new OrderError(`Minimum de commande pour ${zone.name} : ${(zone.min_order_cents / 100).toFixed(2).replace('.', ',')} €.`);
+      fee = zone.fee_cents;
+    }
   }
 
   let discount = 0;
@@ -116,11 +128,11 @@ export async function createOrder(r, body, ip) {
     const token = crypto.randomBytes(12).toString('base64url');
     const { rows: [o] } = await c.query(
       `INSERT INTO orders (restaurant_id, number, token, mode, customer_name, customer_phone, customer_email,
-          address, postcode, city, zone_id, subtotal_cents, discount_cents, fee_cents, total_cents, promo_code, slot, note, ip)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19) RETURNING *`,
+          address, postcode, city, zone_id, subtotal_cents, discount_cents, fee_cents, total_cents, promo_code, slot, note, ip, uber_quote_id)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20) RETURNING *`,
       [r.id, next, token, mode, name, phone, email, address, mode === 'delivery' ? body.address.postcode : null,
         mode === 'delivery' ? body.address.city : null, zone?.id ?? null, subtotal, discount, fee, total, promo,
-        String(body.slot || 'Dès que possible').slice(0, 60), String(body.note || '').slice(0, 500) || null, ip]);
+        String(body.slot || 'Dès que possible').slice(0, 60), String(body.note || '').slice(0, 500) || null, ip, uberQuoteId]);
     for (const l of lines) {
       const { rows: [it] } = await c.query(
         `INSERT INTO order_items (restaurant_id, order_id, product_id, name, quantity, unit_price_cents, note)
@@ -180,6 +192,20 @@ export async function setStatus(restaurantId, id, status, author) {
   if (o.customer_email && (['ready', 'delivering'].includes(status) || (status === 'done' && o.mode === 'delivery'))) {
     await q(`INSERT INTO email_queue (restaurant_id, order_id, recipient, template) VALUES ($1,$2,$3,$4)`,
       [restaurantId, id, o.customer_email, `status_${status}`]);
+  }
+  // livraison Uber : la course est lancée quand le restaurant accepte la commande, annulée si la commande l'est
+  if (o.mode === 'delivery' && (o.uber_quote_id || o.uber_delivery_id)) {
+    try {
+      const { rows: [rest] } = await q('SELECT * FROM restaurants WHERE id = $1', [restaurantId]);
+      if (status === 'preparing' && usesUber(rest) && !o.uber_delivery_id) await dispatch(rest, o);
+      if (status === 'cancelled' && o.uber_delivery_id) await cancelCourier(o);
+    } catch (e) {
+      console.error('Uber Direct :', e.message);
+      await q('UPDATE orders SET courier_error = $2 WHERE id = $1', [id, String(e.message).slice(0, 300)]);
+    }
+    const o2 = await getOrder(restaurantId, id);
+    bus.emit(`r${restaurantId}`, { type: 'status', order: o2 });
+    return o2;
   }
   bus.emit(`r${restaurantId}`, { type: 'status', order: o });
   return o;

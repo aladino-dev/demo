@@ -2,8 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { DndContext, closestCenter } from '@dnd-kit/core';
 import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { API, api, getSession } from '../../shared/session.js';
+import BulkPhotos from './BulkPhotos.jsx';
 import { Icon, Sortable, Switch, useDndSensors, useToast } from './ui.jsx';
-import { fromCents, ruleSentence, ruleText, toCents } from './util.js';
+import { fromCents, ruleSentence, ruleText, toCents, toSignedCents } from './util.js';
 import './carte.css';
 
 const plural = (n, one, many) => `${n} ${n > 1 ? many : one}`;
@@ -58,11 +59,13 @@ export default function Options() {
       <div className="cr-bar">
         <div className="tabs sub">
           <button className={view === 'liste' ? 'active' : ''} onClick={() => setView('liste')}>Listes d'options ({groups.length})</button>
+          <button className={view === 'photos' ? 'active' : ''} onClick={() => setView('photos')}>Photos en lot</button>
           <button className={view === 'archives' ? 'active' : ''} onClick={() => setView('archives')}>Archivées ({lib.archived.length})</button>
         </div>
         {view === 'liste' && <input className="cr-search" placeholder="Rechercher une liste" value={search} onChange={(e) => setSearch(e.target.value)} />}
       </div>
 
+      {view === 'photos' ? <BulkPhotos groups={groups} say={say} onDone={load} /> : (
       <div className="cr-grid opts-grid with-editor">
         <section className="cr-col" aria-label="Bibliothèque">
           <h2>{view === 'liste' ? 'Bibliothèque' : 'Listes archivées'}</h2>
@@ -109,6 +112,7 @@ export default function Options() {
           : <section className="cr-col cr-panel empty-editor"><div className="cr-empty"><Icon name="image" size={32} /><p>Choisissez une liste à gauche pour la modifier.</p>
             <p className="muted">Une liste d'options se crée une fois, puis se rattache à autant de produits que nécessaire.</p></div></section>}
       </div>
+      )}
       {toast}
     </div>
   );
@@ -151,7 +155,7 @@ function Editor({ g, cat, act, mutate, say, archived, onClose, onGone, onSelect 
   };
   const addOption = async () => {
     if (!newLabel.trim()) return;
-    const price = newPrice.trim() ? toCents(newPrice) : 0;
+    const price = newPrice.trim() ? toSignedCents(newPrice) : 0;
     if (!Number.isFinite(price)) return say('Supplément invalide (ex. 0,50).', true);
     const ok = await act(() => api(`${base}/options`, { method: 'POST', body: { label: newLabel, price_cents: price } }), 'Option ajoutée');
     if (ok) { setNewLabel(''); setNewPrice(''); document.getElementById('new-opt-label')?.focus(); }
@@ -159,7 +163,7 @@ function Editor({ g, cat, act, mutate, say, archived, onClose, onGone, onSelect 
   const allSupplement = () => {
     const v = window.prompt('Supplément à appliquer à toutes les options (en €, 0 = gratuit) :', '0');
     if (v === null) return;
-    const c = toCents(v);
+    const c = toSignedCents(v);
     if (!Number.isFinite(c)) return say('Montant invalide.', true);
     if (n > 0 && !window.confirm(`Ce changement s'applique aux ${plural(n, 'produit', 'produits')}. Continuer ?`)) return;
     putOptions(g.options.map((o) => ({ ...asBody(o), price_cents: c })), 'Supplément appliqué à toutes les options');
@@ -226,7 +230,7 @@ function Editor({ g, cat, act, mutate, say, archived, onClose, onGone, onSelect 
                   onBlur={(e) => { const v = e.target.value.trim(); if (!v) { e.target.value = o.label; return say('Le nom ne peut pas être vide.', true); } if (v !== o.label) patchOption(o, { label: v }); }}
                   onKeyDown={(e) => e.key === 'Enter' && e.target.blur()} />
                 <span className="cr-price"><input placeholder="gratuit" inputMode="decimal" aria-label="Supplément" defaultValue={o.price_cents ? fromCents(o.price_cents) : ''} key={`p${o.price_cents}`}
-                  onBlur={(e) => { const raw = e.target.value.trim(); const c = raw ? toCents(raw) : 0; if (!Number.isFinite(c)) { e.target.value = o.price_cents ? fromCents(o.price_cents) : ''; return say('Supplément invalide.', true); } if (c !== o.price_cents) patchOption(o, { price_cents: c }); }}
+                  onBlur={(e) => { const raw = e.target.value.trim(); const c = raw ? toSignedCents(raw) : 0; if (!Number.isFinite(c)) { e.target.value = o.price_cents ? fromCents(o.price_cents) : ''; return say('Supplément invalide.', true); } if (c !== o.price_cents) patchOption(o, { price_cents: c }); }}
                   onKeyDown={(e) => e.key === 'Enter' && e.target.blur()} /> €</span>
                 <Switch on={o.visible} label={o.visible ? 'Visible' : 'Masquée'} onChange={(v) => patchOption(o, { visible: v })} />
                 <button className="cr-mini" aria-label={`Retirer ${o.label}`} title="Retirer (archivée)" onClick={() => window.confirm(`Retirer « ${o.label} » de la liste ? Elle sera archivée.`) && putOptions(g.options.filter((x) => x.id !== o.id).map(asBody), 'Option retirée')}>✕</button>

@@ -32,7 +32,7 @@ export default async function Home() {
     );
   }
   const st = info.status;
-  const deliveryFrom = info.zones.length ? Math.min(...info.zones.map((z) => z.fee_cents)) : null;
+  const deliveryFrom = info.settings?.delivery_provider !== 'uber' && info.zones.length ? Math.min(...info.zones.map((z) => z.fee_cents)) : null;
   // données du restaurant telles qu'elles sont en base : rien n'est écrit en dur (type de cuisine, ville…)
   const jsonLd = {
     '@context': 'https://schema.org', '@type': 'Restaurant', name: info.name,

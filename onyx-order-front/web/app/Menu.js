@@ -19,6 +19,8 @@ export default function Menu({ categories, canOrder }) {
   const [product, setProduct] = useState(null);
   const cart = useCart();
   const tabsRef = useRef(null);
+  // nombre d'exemplaires de chaque produit déjà dans le panier : affiché sur la carte du produit
+  const inCart = useMemo(() => { const m = {}; for (const i of cart.items) m[i.product_id] = (m[i.product_id] || 0) + i.quantity; return m; }, [cart.items]);
 
   // onglet actif selon la section visible
   useEffect(() => {
@@ -54,11 +56,13 @@ export default function Menu({ categories, canOrder }) {
             <div className="grid">
               {c.products.map((p) => (
                 <button key={p.id} className={`card ${p.sold_out ? 'out' : ''}`} onClick={() => !p.sold_out && setProduct(p)}
-                  disabled={p.sold_out} aria-label={`${p.name}, ${eur(p.price_cents)}${p.sold_out ? ', épuisé aujourd\'hui' : ''}`}>
+                  disabled={p.sold_out} aria-label={`${p.name}, ${eur(p.price_cents)}${inCart[p.id] ? `, ${inCart[p.id]} dans le panier` : ''}${p.sold_out ? ', épuisé aujourd\'hui' : ''}`}>
                   <div className="pw">
                     <Photo src={p.photo} className="ph" name={p.name} />
                     <span className="pp">{eur(p.price_cents)}</span>
-                    {p.sold_out ? <span className="ribbon">Épuisé aujourd&apos;hui</span> : <span className="add" aria-hidden="true">+</span>}
+                    {p.sold_out ? <span className="ribbon">Épuisé aujourd&apos;hui</span>
+                      : inCart[p.id] ? <span key={inCart[p.id]} className="add in" aria-hidden="true">{inCart[p.id]}</span>
+                      : <span className="add" aria-hidden="true">+</span>}
                   </div>
                   <div className="b">
                     <span className="n">{p.name}</span>
@@ -77,7 +81,7 @@ export default function Menu({ categories, canOrder }) {
           <Link href="/commande" className="btn cartpill">
             <span className="bag" aria-hidden="true">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 7h12l-1 13H7L6 7zM9 7a3 3 0 016 0" /></svg>
-              <b className="cnt">{cart.count}</b>
+              <b key={cart.count} className="cnt">{cart.count}</b>
             </span>
             <span className="lbl">Voir mon panier</span><span>{eur(cart.total)}</span>
           </Link>
@@ -111,6 +115,20 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
   const unit = useMemo(() => p.price_cents + p.option_groups.reduce((a, g) =>
     a + (sel[g.id] || []).reduce((b, id) => b + (g.options.find((o) => o.id === id)?.price_cents || 0), 0), 0), [sel, p]);
 
+  // un choix obligatoire vient d'être terminé : on amène doucement l'écran sur le suivant (utile au téléphone)
+  const doneRef = useRef(new Set());
+  useEffect(() => {
+    const minOf = (g) => Math.max(g.min || 0, g.required ? 1 : 0);
+    const done = new Set(p.option_groups.filter((g) => minOf(g) > 0 && (sel[g.id] || []).length >= minOf(g)).map((g) => g.id));
+    const fresh = p.option_groups.some((g) => done.has(g.id) && !doneRef.current.has(g.id) && (g.max === 1 || (g.max != null && (sel[g.id] || []).length >= g.max)));
+    doneRef.current = done;
+    if (!fresh) return undefined;
+    const next = p.option_groups.find((g) => minOf(g) > 0 && !done.has(g.id));
+    if (!next) return undefined;
+    const t = setTimeout(() => document.getElementById(`g${next.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 220);
+    return () => clearTimeout(t);
+  }, [sel, p]);
+
   const add = () => {
     setTried(true);
     if (missing.length) {
@@ -122,9 +140,9 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
     for (const g of p.option_groups) for (const id of sel[g.id] || []) {
       const o = g.options.find((x) => x.id === id);
       options.push(id);
-      labels.push(o.label + (o.price_cents ? ` (+${eur(o.price_cents)})` : ''));
+      labels.push(o.label + (o.price_cents ? ` (${o.price_cents > 0 ? "+" : "−"}${eur(Math.abs(o.price_cents))})` : ""));
     }
-    onAdd({ product_id: p.id, name: p.name, quantity: qty, options, labels, unit_cents: unit });
+    onAdd({ product_id: p.id, name: p.name, photo: p.photo || null, quantity: qty, options, labels, unit_cents: unit });
   };
 
   const rule = (g) => {
@@ -157,7 +175,7 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
               const photos = g.options.some((o) => o.photo);
               const short = tried && cur.length < min;
               return (
-                <div key={g.id} id={`g${g.id}`} className={`group ${short ? 'missing' : ''}`}>
+                <div key={g.id} id={`g${g.id}`} className={`group ${short ? 'missing' : ''} ${min > 0 && cur.length >= min ? 'done' : ''}`}>
                   <h4>
                     <span>{g.title}<span className="sub">{rule(g)}{g.max > 1 ? ` · ${cur.length}/${g.max}` : ''}</span></span>
                     {min > 0
@@ -173,12 +191,22 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
                           {o.photo && <Photo src={o.photo} className="oph" name={o.label} />}
                           <span className="ind" aria-hidden="true" />
                           <span className="lbl">{o.label}</span>
-                          {o.price_cents > 0 && <span className="x">+{eur(o.price_cents)}</span>}
+                          {o.price_cents !== 0 && <span className="x">{o.price_cents > 0 ? "+" : "−"}{eur(Math.abs(o.price_cents))}</span>}
                         </button>
                       );
                     })}
                   </div>
                   {short && <p className="err">Ce choix est obligatoire.</p>}
+                  {min > 0 && cur.length >= min && !full && g.max !== 1 && (() => {
+                    // choix à plusieurs réponses : le minimum est atteint, on propose de passer au suivant sans deviner
+                    const after = p.option_groups.slice(p.option_groups.indexOf(g) + 1);
+                    const next = after.find((x) => (sel[x.id] || []).length < Math.max(x.min || 0, x.required ? 1 : 0));
+                    return next ? (
+                      <button type="button" className="nextg" onClick={() => document.getElementById(`g${next.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })}>
+                        Choix suivant : {next.title.replace(/\s*\(facultatif\)/i, '')} ↓
+                      </button>
+                    ) : null;
+                  })()}
                 </div>
               );
             })}
@@ -190,8 +218,8 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
             <span aria-live="polite">{qty}</span>
             <button onClick={() => setQty((q) => Math.min(20, q + 1))} aria-label="Plus">+</button>
           </div>
-          <button className="btn" onClick={add} disabled={!canOrder}>
-            <span>{canOrder ? 'Ajouter au panier' : 'Fermé'}</span><span>{eur(unit * qty)}</span>
+          <button className={`btn ${canOrder && missing.length ? 'need' : ''}`} onClick={add} disabled={!canOrder}>
+            <span>{!canOrder ? 'Fermé' : missing.length ? `${missing.length} choix à faire` : 'Ajouter au panier'}</span><span key={unit * qty} className="tick">{eur(unit * qty)}</span>
           </button>
         </div>
       </div>

@@ -1,0 +1,12 @@
+{
+  "products": {
+    "Cheeseburger": "Menu cheeseburger",
+    "Double cheese": "Menu double cheeseburger",
+    "1 viande (hors boisson)": "Tacos Simple",
+    "2 viandes (hors boisson)": "Tacos Double",
+    "Tarte au daim": "Tarte au Daim",
+    "Tiramisu": "Tiramisu au Choix",
+    "Eau cristalline": "Eau Cristalline",
+    "Kebab": "Menu sandwich grec"
+  }
+}

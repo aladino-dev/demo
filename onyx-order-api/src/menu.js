@@ -32,6 +32,9 @@ export async function openingStatus(r) {
   };
 }
 
+/** Listes obligatoires (ou à minimum >= 1) d'abord, les facultatives ensuite ; l'ordre reste celui du restaurateur à l'intérieur de chaque bloc. */
+const obligatoiresD = (gs) => [...gs.filter((g) => g.required || g.min >= 1), ...gs.filter((g) => !(g.required || g.min >= 1))];
+
 /** Groupes d'options applicables : ceux du produit s'il en a, sinon ceux de sa catégorie. */
 export async function loadMenu(restaurantId, { includeHidden = false } = {}) {
   // Ce qui est archivé n'apparaît jamais (site, commandes, back-office : voir catalog.js pour les archives)
@@ -65,7 +68,7 @@ export async function loadMenu(restaurantId, { includeHidden = false } = {}) {
     .filter((p) => includeHidden || p.visible)
     .map((p) => ({
       ...p,
-      option_groups: (byProduct.get(p.id) || byCategory.get(p.category_id) || []).map((id) => groupById.get(id)).filter(Boolean),
+      option_groups: obligatoiresD(((byProduct.get(p.id) || byCategory.get(p.category_id) || []).map((id) => groupById.get(id)).filter(Boolean))),
     }));
   const categories = cats.rows
     .filter((c) => includeHidden || c.visible)

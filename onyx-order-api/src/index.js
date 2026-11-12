@@ -7,7 +7,9 @@ import jwt from 'jsonwebtoken';
 import { connect, q, ROOT } from './db.js';
 import { getRestaurant, loadMenu, openingStatus } from './menu.js';
 import { catalogRouter } from './catalog.js';
+import { importRouter } from './menuImport.js';
 import { startMailer } from './mailer.js';
+import { usesUber, getQuote, validSignature } from './uberDirect.js';
 import { bus, createOrder, getOrder, listOrders, setStatus, OrderError, findZone } from './orders.js';
 
 dotenv.config({ path: path.join(ROOT, '.env') });
@@ -21,7 +23,7 @@ if (process.env.NODE_ENV === 'production' && SECRET === 'change-moi-en-local') {
 await connect();
 const app = express();
 app.set('trust proxy', 1);
-app.use(express.json({ limit: '200kb' }));
+app.use(express.json({ limit: '200kb', verify: (req, res, buf) => { if (req.originalUrl.startsWith('/api/uber/')) req.rawBody = buf; } }));
 const origins = (process.env.CORS_ORIGINS || '').split(',').map((s) => s.trim()).filter(Boolean);
 app.use(cors({ origin: origins.length ? origins : true }));
 app.disable('x-powered-by');
@@ -56,6 +58,14 @@ app.get('/api/r/:slug/menu', wrap(restaurant), wrap(async (req, res) => {
 }));
 
 app.get('/api/r/:slug/zone', wrap(restaurant), wrap(async (req, res) => {
+  if (usesUber(req.r)) {
+    // livraison par coursier Uber : le prix vient d'un devis Uber pour cette adresse
+    const line = String(req.query.line || '').trim();
+    if (line.length < 5 || !/^\d{5}$/.test(String(req.query.postcode || ''))) return res.json({ pending: true });
+    const qt = await getQuote(req.r, { line, postcode: req.query.postcode, city: String(req.query.city || '') }).catch((e) => { console.error('Uber Direct :', e.message); return undefined; });
+    if (qt === undefined) return res.status(503).json({ error: 'Livraison momentanément indisponible.' });
+    return res.json(qt ? { name: 'Livraison par coursier', provider: 'uber', quote_id: qt.quote_id, fee_cents: qt.fee_cents, min_order_cents: 0 } : null);
+  }
   const z = await findZone(req.r.id, req.query.postcode, req.query.city);
   res.json(z ? { name: z.name, fee_cents: z.fee_cents, min_order_cents: z.min_order_cents } : null);
 }));
@@ -73,6 +83,23 @@ app.get('/api/r/:slug/orders/:token', wrap(restaurant), wrap(async (req, res) =>
   res.json(pub);
 }));
 
+// Mises à jour envoyées par Uber (coursier en route, livré…). Le restaurant est retrouvé par la course.
+app.post('/api/uber/webhook', wrap(async (req, res) => {
+  const sig = req.get('x-postmates-signature') || req.get('x-uber-signature');
+  if (!validSignature(req.rawBody || Buffer.alloc(0), sig)) return res.status(401).end();
+  const b = req.body || {};
+  const deliveryId = b.delivery_id || b.data?.id;
+  const st = b.status || b.data?.status;
+  if (!deliveryId || !st) return res.status(200).end();
+  const { rows: [o] } = await q('SELECT id, restaurant_id FROM orders WHERE uber_delivery_id = $1', [deliveryId]);
+  if (!o) return res.status(200).end();
+  await q('UPDATE orders SET courier_status = $2, tracking_url = coalesce($3, tracking_url) WHERE id = $1', [o.id, st, b.tracking_url || b.data?.tracking_url || null]);
+  if (st === 'pickup_complete') await setStatus(o.restaurant_id, o.id, 'delivering', 'uber');
+  else if (st === 'delivered') await setStatus(o.restaurant_id, o.id, 'done', 'uber');
+  else bus.emit(`r${o.restaurant_id}`, { type: 'status', order: await getOrder(o.restaurant_id, o.id) });
+  res.status(200).end();
+}));
+
 // ---------- Connexion cuisine / back-office ----------
 app.post('/api/auth/login', wrap(async (req, res) => {
   const { restaurant: slug, email, password } = req.body || {};
@@ -86,8 +113,20 @@ app.post('/api/auth/login', wrap(async (req, res) => {
   res.json({ token, role: u.role, restaurant: { name: r.name, slug: r.slug } });
 }));
 
+// Le compte du jeton doit toujours exister : après une remise à zéro (démo) ou la suppression d'un compte,
+// un ancien jeton pointerait vers un restaurant disparu et l'écran resterait vide sans erreur.
+const knownUsers = new Map(); // « uid:rid » -> échéance du cache (30 s), uniquement pour les comptes trouvés
+async function userStillExists({ uid, rid }) {
+  const key = `${uid}:${rid}`;
+  if ((knownUsers.get(key) || 0) > Date.now()) return true;
+  const { rows } = await q('SELECT 1 FROM users WHERE id = $1 AND restaurant_id = $2', [uid, rid]);
+  if (!rows.length) return false;
+  knownUsers.set(key, Date.now() + 30_000);
+  return true;
+}
+
 function auth(...roles) {
-  return (req, res, next) => {
+  return async (req, res, next) => {
     const h = req.headers.authorization || '';
     const t = h.startsWith('Bearer ') ? h.slice(7) : req.query.t;
     try {
@@ -96,6 +135,11 @@ function auth(...roles) {
       return res.status(401).json({ error: 'Session expirée, reconnectez-vous.' });
     }
     if (roles.length && !roles.includes(req.user.role)) return res.status(403).json({ error: 'Accès refusé.' });
+    try {
+      if (!(await userStillExists(req.user))) return res.status(401).json({ error: 'Session expirée, reconnectez-vous.' });
+    } catch (e) {
+      return next(e);
+    }
     next();
   };
 }
@@ -129,6 +173,8 @@ app.get('/api/admin/menu', owner, wrap(async (req, res) => {
 
 // Gestion de la carte : catégories, produits, options, photos (voir catalog.js)
 app.use('/api/admin', catalogRouter({ owner, wrap, photosDir: PHOTOS_DIR }));
+// Import de la carte par IA (brouillon à valider ; nécessite ANTHROPIC_API_KEY)
+app.use('/api/admin', importRouter({ owner, wrap }));
 
 app.get('/api/admin/orders.csv', owner, wrap(async (req, res) => {
   const since = req.query.since || new Date(Date.now() - 31 * 24 * 3600e3).toISOString();

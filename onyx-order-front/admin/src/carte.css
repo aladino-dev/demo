@@ -145,6 +145,56 @@ body:has(.carte) .top { position: static; flex: 0 0 auto; }
 .op-prods label { display: flex; gap: 8px; align-items: center; min-height: 36px; }
 @media (max-width: 1100px) { .opts-grid { grid-template-columns: 1fr; grid-template-rows: auto; } }
 
+/* ===== Import de la carte par IA ===== */
+.imp { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
+.imp-card { max-width: 720px; margin: 0 auto; background: #fff; border: 1px solid var(--cr-line); border-radius: 18px; padding: 26px; box-shadow: 0 1px 2px rgba(0,0,0,.03); }
+.imp-card.center { text-align: center; }
+.imp-card h2 { margin: 0 0 8px; font-size: 1.35rem; letter-spacing: -.02em; }
+.imp-card p { margin: 0 0 12px; }
+.imp .small { font-size: .85rem; }
+.imp-drop { display: grid; place-items: center; gap: 4px; text-align: center; min-height: 170px; margin: 18px 0; padding: 20px; border: 2px dashed #d8d2c6; border-radius: 16px; background: #fcfbf9; color: #8a857c; cursor: pointer; transition: background .12s, border-color .12s; }
+.imp-drop:hover, .imp-drop.over { border-color: var(--cr-accent); background: var(--cr-sel); }
+.imp-drop p { margin: 0; color: var(--cr-ink); }
+.imp-ok { width: 64px; height: 64px; margin: 0 auto 10px; border-radius: 50%; background: #e3f4e6; color: var(--cr-ok); display: grid; place-items: center; font-size: 2rem; font-weight: 800; }
+.cr-btn.primary-ish { background: var(--cr-ink); color: #fff; border-color: var(--cr-ink); }
+.cr-btn.primary-ish:hover:not(:disabled) { background: #3a3733; }
+.imp-head { display: flex; gap: 16px; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; margin-bottom: 12px; position: sticky; top: 0; z-index: 3; background: var(--bg); padding: 4px 0 8px; }
+.imp-head h2 { margin: 0 0 4px; font-size: 1.3rem; }
+.imp-head p { margin: 0; max-width: 56ch; }
+.imp-actions { display: flex; gap: 8px; }
+.imp-note { margin: 0 0 12px; padding: 12px 16px; border-radius: 12px; background: var(--cr-soft); border: 1px solid var(--cr-line); }
+.imp-note.warn { background: #fff4d6; border-color: #f0dc9a; color: #7a5300; }
+.imp-note.bad { background: #fde8e6; border-color: #efb1aa; color: var(--cr-bad); }
+.imp-note ul { margin: 6px 0 0; padding-left: 20px; }
+.imp-cat { background: #fff; border: 1px solid var(--cr-line); border-radius: 16px; margin-bottom: 14px; overflow: hidden; }
+.imp-cat > header { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--cr-soft); border-bottom: 1px solid var(--cr-line); }
+.imp-catname { flex: 1; min-width: 0; min-height: 44px; border: 1px solid transparent; border-radius: 10px; background: transparent; font: inherit; font-weight: 700; padding: 0 10px; }
+.imp-catname:hover, .imp-catname:focus { border-color: var(--cr-line); background: #fff; outline: none; }
+.imp-row { display: grid; grid-template-columns: 24px minmax(0, 1fr) 110px; gap: 12px; align-items: start; padding: 10px 14px; border-bottom: 1px solid var(--cr-line); }
+.imp-row:last-child { border-bottom: 0; }
+.imp-row.off { opacity: .5; }
+.imp-row.check { background: #fffbe9; }
+.imp-row.bad { background: #fde8e6; }
+.imp-row input[type=checkbox], .imp-cat > header input[type=checkbox] { width: 22px; height: 22px; margin-top: 12px; accent-color: #17140f; }
+.imp-cat > header input[type=checkbox] { margin-top: 0; }
+.imp-fields { display: grid; gap: 6px; min-width: 0; }
+.imp-fields input, .imp-fields textarea, .imp-price input { width: 100%; min-height: 44px; padding: 8px 10px; border: 1px solid var(--cr-line); border-radius: 10px; font: inherit; background: #fff; resize: vertical; }
+.imp-fields input { font-weight: 600; }
+.imp-fields textarea { min-height: 40px; font-size: .9rem; color: #5b564d; }
+.imp-price { display: flex; align-items: center; gap: 6px; margin-top: 0; }
+.imp-price input { text-align: right; font-weight: 700; }
+@media (max-width: 640px) { .imp-row { grid-template-columns: 24px minmax(0, 1fr); } .imp-price { grid-column: 2; } .imp-head { position: static; } }
+
+/* photos en lot */
+.bp-row { display: flex; align-items: center; gap: 14px; padding: 10px 14px; border-bottom: 1px solid var(--cr-line); }
+.bp-row:last-child { border-bottom: 0; }
+.bp-row.check { background: #fffbe9; }
+.bp-row img { flex: 0 0 64px; width: 64px; height: 48px; object-fit: cover; border-radius: 8px; background: #efece6; }
+.bp-info { flex: 1; min-width: 0; display: grid; gap: 4px; }
+.bp-info b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bp-info small { color: var(--cr-ok); font-weight: 600; }
+.bp-info select { min-height: 44px; border: 1px solid var(--cr-line); border-radius: 10px; padding: 0 10px; font: inherit; background: #fff; max-width: 100%; }
+
 /* écrans moyens : la fiche remplace la liste des produits */
 @media (max-width: 1250px) {
   .cr-grid.with-panel { grid-template-columns: 210px minmax(0, 1fr); }

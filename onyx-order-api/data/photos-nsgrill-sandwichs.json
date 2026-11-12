@@ -1,0 +1,8 @@
+{
+  "products": {
+    "sandwitch_kebab.png": "Kebab", "kofte.png": "Köfte", "adana.png": "Adana",
+    "br_poulet.png": "Brochette de poulet", "chiken.png": "Chicken curry ou tandoori", "escalope.png": "Escalope poulet",
+    "merguez.png": "Merguez", "br_agneau.png": "Brochette d'agneau", "kebabfour.png": "Pain au four kebab",
+    "duofour.png": "Pain au four 2 viandes", "cheeseburger.png": "Cheeseburger", "doublecheese.png": "Double cheese"
+  }
+}

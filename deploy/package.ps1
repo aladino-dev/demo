@@ -10,7 +10,7 @@ New-Item -ItemType Directory -Force $out | Out-Null
 Write-Host 'Archive du code…'
 tar -czf (Join-Path $out 'onyx-order.tgz') `
   --exclude=node_modules --exclude=.pgdata --exclude='.pgdata.*' --exclude=.next --exclude=dist `
-  --exclude=backups --exclude=_archive --exclude=photos --exclude='.env' --exclude='*.bak*' `
+  --exclude=backups --exclude=_archive --exclude=.playwright-mcp --exclude=photos --exclude='.env' --exclude='*.bak*' `
   --exclude='deploy/restaurants' -C $root .
 
 $photos = Join-Path $root 'onyx-order-api\photos'

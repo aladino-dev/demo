@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { apiGet, apiPost, eur } from '../../lib/api';
+import { apiGet, apiPost, eur, photoUrl } from '../../lib/api';
 import { useCart } from '../../lib/cart';
 
 // Auto-complétion d'adresse : Géoplateforme IGN (base adresse nationale), sans clé
@@ -28,13 +28,24 @@ export default function Commande() {
   const [hp, setHp] = useState('');
   const [err, setErr] = useState('');
   const [sending, setSending] = useState(false);
+  const [quoting, setQuoting] = useState(false);
   const timer = useRef();
 
   useEffect(() => { apiGet('').then(setInfo).catch((e) => setErr(e.message)); }, []);
+  // zones du restaurant : prix selon le code postal. Livraison par coursier Uber : prix demandé pour l'adresse complète.
+  const uber = info?.settings?.delivery_provider === 'uber';
   useEffect(() => {
-    if (mode !== 'delivery' || !/^\d{5}$/.test(addr.postcode)) { setZone(undefined); return; }
-    apiGet(`/zone?postcode=${addr.postcode}&city=${encodeURIComponent(addr.city)}`).then(setZone).catch(() => setZone(null));
-  }, [mode, addr.postcode, addr.city]);
+    if (mode !== 'delivery' || !/^\d{5}$/.test(addr.postcode) || (uber && addr.line.trim().length < 5)) { setZone(undefined); setQuoting(false); return; }
+    let stale = false;
+    setQuoting(uber);
+    const t = setTimeout(() => {
+      apiGet(`/zone?postcode=${addr.postcode}&city=${encodeURIComponent(addr.city)}&line=${encodeURIComponent(addr.line)}`)
+        .then((z) => !stale && setZone(z?.pending ? undefined : z))
+        .catch(() => !stale && setZone(null))
+        .finally(() => !stale && setQuoting(false));
+    }, uber ? 600 : 0);
+    return () => { stale = true; clearTimeout(t); };
+  }, [mode, addr.postcode, addr.city, addr.line, uber]);
 
   const onAddr = (v) => {
     setAddr((a) => ({ ...a, line: v }));
@@ -53,8 +64,8 @@ export default function Commande() {
     setSending(true);
     try {
       const res = await apiPost('/orders', {
-        mode, customer, promo_code: promo.trim() || undefined, note: note || undefined, website: hp,
-        address: mode === 'delivery' ? { line: addr.line + (addr.extra ? `, ${addr.extra}` : ''), postcode: addr.postcode, city: addr.city } : undefined,
+        mode, customer, quote_id: mode === 'delivery' ? zone?.quote_id : undefined, promo_code: promo.trim() || undefined, note: note || undefined, website: hp,
+        address: mode === 'delivery' ? { line: addr.line, extra: addr.extra, postcode: addr.postcode, city: addr.city } : undefined,
         items: cart.items.map((i) => ({ product_id: i.product_id, quantity: i.quantity, options: i.options })),
       });
       cart.clear();
@@ -84,13 +95,16 @@ export default function Commande() {
           <h2>Votre commande</h2>
           {cart.items.map((i) => (
             <div key={i.key} className="line">
+              {photoUrl(i.photo) && <div className="lph" style={{ backgroundImage: `url("${photoUrl(i.photo)}")` }} aria-hidden="true" />}
               <div className="info">
                 <strong>{i.name}</strong>
                 {i.labels?.length > 0 && <div className="o">{i.labels.join(', ')}</div>}
-                <div style={{ marginTop: 6 }}>{eur(i.unit_cents * i.quantity)}</div>
+                <div className="lp">{eur(i.unit_cents * i.quantity)}</div>
               </div>
               <div className="qty" style={{ alignSelf: 'center' }}>
-                <button type="button" onClick={() => cart.setQty(i.key, i.quantity - 1)} aria-label="Moins">−</button>
+                <button type="button" onClick={() => cart.setQty(i.key, i.quantity - 1)} aria-label={i.quantity === 1 ? 'Retirer du panier' : 'Moins'}>{i.quantity === 1
+                  ? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3" /></svg>
+                  : '−'}</button>
                 <span>{i.quantity}</span>
                 <button type="button" onClick={() => cart.setQty(i.key, i.quantity + 1)} aria-label="Plus">+</button>
               </div>
@@ -101,9 +115,9 @@ export default function Commande() {
         <div className="panel">
           <h2>Mode</h2>
           <div className="seg">
-            <button type="button" className={mode === 'pickup' ? 'on' : ''} onClick={() => setMode('pickup')}>Retrait</button>
+            <button type="button" className={mode === 'pickup' ? 'on' : ''} onClick={() => setMode('pickup')}>Retrait<small>Gratuit</small></button>
             {info?.settings?.modes?.includes('delivery') && (
-              <button type="button" className={mode === 'delivery' ? 'on' : ''} onClick={() => setMode('delivery')}>Livraison</button>
+              <button type="button" className={mode === 'delivery' ? 'on' : ''} onClick={() => setMode('delivery')}>Livraison{uber ? <small>selon l&apos;adresse</small> : info.zones?.length ? <small>dès {eur(Math.min(...info.zones.map((z) => z.fee_cents)))}</small> : null}</button>
             )}
           </div>
           {mode === 'pickup' && info?.address && <p className="note">À retirer au {info.address}{info.city ? `, ${info.city}` : ''}.</p>}
@@ -125,7 +139,8 @@ export default function Commande() {
               </div>
               <label className="f">Étage, code, interphone (facultatif)<input value={addr.extra} onChange={(e) => setAddr((a) => ({ ...a, extra: e.target.value }))} /></label>
               {zone === null && <p className="err">Nous ne livrons pas cette adresse. Le retrait au restaurant reste possible.</p>}
-              {zone && <p className="note">Livraison {zone.name} : {eur(zone.fee_cents)}{zone.min_order_cents ? `, minimum ${eur(zone.min_order_cents)}` : ''}.</p>}
+              {quoting && <p className="note">Calcul du prix de livraison…</p>}
+              {zone && !quoting && <p className="note">{zone.name} : {eur(zone.fee_cents)}{zone.min_order_cents ? `, minimum ${eur(zone.min_order_cents)}` : ''}.</p>}
             </>
           )}
         </div>
@@ -151,7 +166,7 @@ export default function Commande() {
 
         <div className="cartbar">
           <button className="btn" style={{ maxWidth: 600, margin: '0 auto', width: '100%' }}
-            disabled={sending || !info?.status?.open || (mode === 'delivery' && (!zone || tooLow))}>
+            disabled={sending || !info?.status?.open || (mode === 'delivery' && (!zone || quoting || tooLow))}>
             <span>{sending ? 'Envoi…' : info && !info.status.open ? 'Restaurant fermé' : 'Commander'}</span>
             <span>{eur(cart.total + fee)}</span>
           </button>

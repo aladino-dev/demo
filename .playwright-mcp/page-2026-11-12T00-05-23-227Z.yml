@@ -1,0 +1,906 @@
+- generic [active] [ref=f5e1]:
+  - note [ref=f5e2]: "Démonstration : aucune commande n'est réellement préparée"
+  - generic [ref=f5e3]:
+    - banner [ref=f5e4]:
+      - generic [ref=f5e5]:
+        - generic [ref=f5e6]: Fermé pour le moment
+        - heading "FastCamion" [level=1] [ref=f5e8]
+        - paragraph [ref=f5e9]: 12 rue de la Démo, 75000 Paris
+        - paragraph [ref=f5e10]: Tous les jours 11h30–23h55 (vendredi 14h30–23h55)
+        - generic [ref=f5e11]:
+          - generic [ref=f5e12]: "Démo : commandes acceptées"
+          - generic [ref=f5e13]: Démonstration
+          - generic [ref=f5e14]: Retrait
+        - link "Appeler le restaurant" [ref=f5e15] [cursor=pointer]:
+          - /url: tel:0199001234
+    - navigation "Catégories" [ref=f5e16]:
+      - generic [ref=f5e17]:
+        - button "Burger" [ref=f5e18] [cursor=pointer]
+        - button "Smash Burger" [ref=f5e19] [cursor=pointer]
+        - button "Naan Burger" [ref=f5e20] [cursor=pointer]
+        - button "Menu Duo" [ref=f5e21] [cursor=pointer]
+        - button "Sandwichs" [ref=f5e22] [cursor=pointer]
+        - button "Chicken Rolls" [ref=f5e23] [cursor=pointer]
+        - button "Naan" [ref=f5e24] [cursor=pointer]
+        - button "Sandwich Naan" [ref=f5e25] [cursor=pointer]
+        - button "Tacos" [ref=f5e26] [cursor=pointer]
+        - button "Tasty" [ref=f5e27] [cursor=pointer]
+        - button "Menu Fried Chicken" [ref=f5e28] [cursor=pointer]
+        - button "Tex-Mex" [ref=f5e29] [cursor=pointer]
+        - button "Plats Indien" [ref=f5e30] [cursor=pointer]
+        - button "Menu Enfant" [ref=f5e31] [cursor=pointer]
+        - button "Dessert" [ref=f5e32] [cursor=pointer]
+        - button "Lassi" [ref=f5e33] [cursor=pointer]
+        - button "Boissons" [ref=f5e34] [cursor=pointer]
+    - main [ref=f5e35]:
+      - generic [ref=f5e36]:
+        - heading "Burger" [level=2] [ref=f5e37]
+        - generic [ref=f5e38]:
+          - button "Menu cheeseburger, 9,50 €" [ref=f5e39] [cursor=pointer]:
+            - generic [ref=f5e40]:
+              - img "Menu cheeseburger" [ref=f5e41]
+              - generic [ref=f5e42]: 9,50 €
+              - generic [aria-hidden] [ref=f5e43]: +
+            - generic [ref=f5e44]:
+              - generic [ref=f5e45]: Menu cheeseburger
+              - generic [ref=f5e46]: Steak 45 g, salade, cornichons, sauce biggy et Cheddar. Servi avec frites et 1 boisson au choix.
+          - button "Menu fish burger, 9,90 €" [ref=f5e47] [cursor=pointer]:
+            - generic [ref=f5e48]:
+              - img "Menu fish burger" [ref=f5e49]
+              - generic [ref=f5e50]: 9,90 €
+              - generic [aria-hidden] [ref=f5e51]: +
+            - generic [ref=f5e52]:
+              - generic [ref=f5e53]: Menu fish burger
+              - generic [ref=f5e54]: Sauce fish, Cheddar et poisson pané. Servi avec frites et 1 boisson au choix.
+          - button "Menu chicken burger, 10,90 €" [ref=f5e55] [cursor=pointer]:
+            - generic [ref=f5e56]:
+              - img "Menu chicken burger" [ref=f5e57]
+              - generic [ref=f5e58]: 10,90 €
+              - generic [aria-hidden] [ref=f5e59]: +
+            - generic [ref=f5e60]:
+              - generic [ref=f5e61]: Menu chicken burger
+              - generic [ref=f5e62]: Salade, sauce blanche, Cheddar et chicken burger. Servi avec frites et 1 boisson au choix.
+          - button "Menu double cheeseburger, 11,90 €" [ref=f5e63] [cursor=pointer]:
+            - generic [ref=f5e64]:
+              - img "Menu double cheeseburger" [ref=f5e65]
+              - generic [ref=f5e66]: 11,90 €
+              - generic [aria-hidden] [ref=f5e67]: +
+            - generic [ref=f5e68]:
+              - generic [ref=f5e69]: Menu double cheeseburger
+              - generic [ref=f5e70]: 2 steaks 45 g, salade, cornichons, sauce biggy et Cheddar. Servi avec frites et 1 boisson au choix.
+          - button "Menu filet grillé burger, 11,90 €" [ref=f5e71] [cursor=pointer]:
+            - generic [ref=f5e72]:
+              - img "Menu filet grillé burger" [ref=f5e73]
+              - generic [ref=f5e74]: 11,90 €
+              - generic [aria-hidden] [ref=f5e75]: +
+            - generic [ref=f5e76]:
+              - generic [ref=f5e77]: Menu filet grillé burger
+              - generic [ref=f5e78]: Poulet grillé, salade, Cheddar, sauce samouraï et barbecue. Servi avec frites et 1 boisson au choix.
+          - button "Menu filet pané burger, 11,90 €" [ref=f5e79] [cursor=pointer]:
+            - generic [ref=f5e80]:
+              - img "Menu filet pané burger" [ref=f5e81]
+              - generic [ref=f5e82]: 11,90 €
+              - generic [aria-hidden] [ref=f5e83]: +
+            - generic [ref=f5e84]:
+              - generic [ref=f5e85]: Menu filet pané burger
+              - generic [ref=f5e86]: Poulet pané, salade, Cheddar et sauce blanche. Servi avec frites et 1 boisson au choix.
+          - button "Menu biggy mac, 12,50 €" [ref=f5e87] [cursor=pointer]:
+            - generic [ref=f5e88]:
+              - img "Menu biggy mac" [ref=f5e89]
+              - generic [ref=f5e90]: 12,50 €
+              - generic [aria-hidden] [ref=f5e91]: +
+            - generic [ref=f5e92]:
+              - generic [ref=f5e93]: Menu biggy mac
+              - generic [ref=f5e94]: 2 steaks 45 g, Cheddar, salade, cornichons et biggy. Servi avec frites et 1 boisson au choix.
+          - button "Menu rösti beef burger, 12,90 €" [ref=f5e95] [cursor=pointer]:
+            - generic [ref=f5e96]:
+              - img "Menu rösti beef burger" [ref=f5e97]
+              - generic [ref=f5e98]: 12,90 €
+              - generic [aria-hidden] [ref=f5e99]: +
+            - generic [ref=f5e100]:
+              - generic [ref=f5e101]: Menu rösti beef burger
+              - generic [ref=f5e102]: 1 steak 90 g, galette de pommes de terre, salade, Cheddar et biggy. Servi avec frites et 1 boisson au choix.
+          - button "Menu rösti chicken burger, 12,90 €" [ref=f5e103] [cursor=pointer]:
+            - generic [ref=f5e104]:
+              - img "Menu rösti chicken burger" [ref=f5e105]
+              - generic [ref=f5e106]: 12,90 €
+              - generic [aria-hidden] [ref=f5e107]: +
+            - generic [ref=f5e108]:
+              - generic [ref=f5e109]: Menu rösti chicken burger
+              - generic [ref=f5e110]: Poulet pané, galette de pommes de terre, mayonnaise, Cheddar et salade. Servi avec frites et 1 boisson au choix.
+          - button "Menu big bacon, 13,50 €" [ref=f5e111] [cursor=pointer]:
+            - generic [ref=f5e112]:
+              - img "Menu big bacon" [ref=f5e113]
+              - generic [ref=f5e114]: 13,50 €
+              - generic [aria-hidden] [ref=f5e115]: +
+            - generic [ref=f5e116]:
+              - generic [ref=f5e117]: Menu big bacon
+              - generic [ref=f5e118]: Salade, cornichons, 1 steak 90 g, Cheddar, bacon de dinde et biggy. Servi avec frites et 1 boisson au choix.
+          - button "Naan Royal Burger, 13,50 €" [ref=f5e119] [cursor=pointer]:
+            - generic [ref=f5e120]:
+              - img "Naan Royal Burger" [ref=f5e121]
+              - generic [ref=f5e122]: 13,50 €
+              - generic [aria-hidden] [ref=f5e123]: +
+            - generic [ref=f5e124]:
+              - generic [ref=f5e125]: Naan Royal Burger
+              - generic [ref=f5e126]: "Le Naan Royal Burger : la rencontre du burger et du naan, préparé à la commande."
+          - button "Menu mix burger, 14,50 €" [ref=f5e127] [cursor=pointer]:
+            - generic [ref=f5e128]:
+              - img "Menu mix burger" [ref=f5e129]
+              - generic [ref=f5e130]: 14,50 €
+              - generic [aria-hidden] [ref=f5e131]: +
+            - generic [ref=f5e132]:
+              - generic [ref=f5e133]: Menu mix burger
+              - generic [ref=f5e134]: 1 steak 90 g, filet de poulet pané, salade, double Cheddar et biggy. Servi avec frites et 1 boisson au choix.
+      - generic [ref=f5e135]:
+        - heading "Smash Burger" [level=2] [ref=f5e136]
+        - generic [ref=f5e137]:
+          - button "Le Bacon Smash, 13,00 €" [ref=f5e138] [cursor=pointer]:
+            - generic [ref=f5e139]:
+              - img "Le Bacon Smash" [ref=f5e140]
+              - generic [ref=f5e141]: 13,00 €
+              - generic [aria-hidden] [ref=f5e142]: +
+            - generic [ref=f5e143]:
+              - generic [ref=f5e144]: Le Bacon Smash
+              - generic [ref=f5e145]: 1 steak smashé Black Angus, bacon, sauce BBQ, fromage.
+          - button "Le Big Smash, 14,50 €" [ref=f5e146] [cursor=pointer]:
+            - generic [ref=f5e147]:
+              - img "Le Big Smash" [ref=f5e148]
+              - generic [ref=f5e149]: 14,50 €
+              - generic [aria-hidden] [ref=f5e150]: +
+            - generic [ref=f5e151]:
+              - generic [ref=f5e152]: Le Big Smash
+              - generic [ref=f5e153]: 2 steaks Black Angus smashés, sauce classique, fromage.
+          - button "Le Chicken Smash, 15,00 €" [ref=f5e154] [cursor=pointer]:
+            - generic [ref=f5e155]:
+              - img "Le Chicken Smash" [ref=f5e156]
+              - generic [ref=f5e157]: 15,00 €
+              - generic [aria-hidden] [ref=f5e158]: +
+            - generic [ref=f5e159]:
+              - generic [ref=f5e160]: Le Chicken Smash
+              - generic [ref=f5e161]: Filet de poulet pané, mayonnaise, fromage.
+          - button "Le Royal Smash, 15,00 €" [ref=f5e162] [cursor=pointer]:
+            - generic [ref=f5e163]:
+              - img "Le Royal Smash" [ref=f5e164]
+              - generic [ref=f5e165]: 15,00 €
+              - generic [aria-hidden] [ref=f5e166]: +
+            - generic [ref=f5e167]:
+              - generic [ref=f5e168]: Le Royal Smash
+              - generic [ref=f5e169]: 2 steaks smashés Black Angus, ketchup & moutarde, fromage.
+      - generic [ref=f5e170]:
+        - heading "Naan Burger" [level=2] [ref=f5e171]
+        - generic [ref=f5e172]:
+          - button "Chicken Naan Burger, 14,50 €" [ref=f5e173] [cursor=pointer]:
+            - generic [ref=f5e174]:
+              - img "Chicken Naan Burger" [ref=f5e175]
+              - generic [ref=f5e176]: 14,50 €
+              - generic [aria-hidden] [ref=f5e177]: +
+            - generic [ref=f5e178]:
+              - generic [ref=f5e179]: Chicken Naan Burger
+              - generic [ref=f5e180]: Filet de poulet pané, mayonnaise, fromage.
+          - button "Bacon Naan Burger, 15,50 €" [ref=f5e181] [cursor=pointer]:
+            - generic [ref=f5e182]:
+              - img "Bacon Naan Burger" [ref=f5e183]
+              - generic [ref=f5e184]: 15,50 €
+              - generic [aria-hidden] [ref=f5e185]: +
+            - generic [ref=f5e186]:
+              - generic [ref=f5e187]: Bacon Naan Burger
+              - generic [ref=f5e188]: Steak smashé Black Angus, bacon, sauce BBQ, fromage.
+      - generic [ref=f5e189]:
+        - heading "Menu Duo" [level=2] [ref=f5e190]
+        - generic [ref=f5e191]:
+          - button "Cheese Burger + Double Cheese Burger, 14,90 €" [ref=f5e192] [cursor=pointer]:
+            - generic [ref=f5e193]:
+              - img "Cheese Burger + Double Cheese Burger" [ref=f5e194]
+              - generic [ref=f5e195]: 14,90 €
+              - generic [aria-hidden] [ref=f5e196]: +
+            - generic [ref=f5e197]:
+              - generic [ref=f5e198]: Cheese Burger + Double Cheese Burger
+              - generic [ref=f5e199]: Double cheeseburger et cheeseburger. Servi avec frites et 1 boisson au choix.
+          - button "Double Cheeseburger + Fish Burger, 15,90 €" [ref=f5e200] [cursor=pointer]:
+            - generic [ref=f5e201]:
+              - img "Double Cheeseburger + Fish Burger" [ref=f5e202]
+              - generic [ref=f5e203]: 15,90 €
+              - generic [aria-hidden] [ref=f5e204]: +
+            - generic [ref=f5e205]:
+              - generic [ref=f5e206]: Double Cheeseburger + Fish Burger
+              - generic [ref=f5e207]: Double cheeseburger et fish burger. Servi avec frites et 1 boisson au choix.
+          - button "Biggy Mac + Chicken Burger, 16,90 €" [ref=f5e208] [cursor=pointer]:
+            - generic [ref=f5e209]:
+              - img "Biggy Mac + Chicken Burger" [ref=f5e210]
+              - generic [ref=f5e211]: 16,90 €
+              - generic [aria-hidden] [ref=f5e212]: +
+            - generic [ref=f5e213]:
+              - generic [ref=f5e214]: Biggy Mac + Chicken Burger
+              - generic [ref=f5e215]: Biggy Mac et Chicken Burger. Servi avec frites et 1 boisson au choix.
+          - button "Biggy Mac + Double Cheese Burger, 16,90 €" [ref=f5e216] [cursor=pointer]:
+            - generic [ref=f5e217]:
+              - img "Biggy Mac + Double Cheese Burger" [ref=f5e218]
+              - generic [ref=f5e219]: 16,90 €
+              - generic [aria-hidden] [ref=f5e220]: +
+            - generic [ref=f5e221]:
+              - generic [ref=f5e222]: Biggy Mac + Double Cheese Burger
+              - generic [ref=f5e223]: Biggy Mac et double cheeseburger. Servi avec frites et 1 boisson au choix.
+      - generic [ref=f5e224]:
+        - heading "Sandwichs" [level=2] [ref=f5e225]
+        - generic [ref=f5e226]:
+          - button "Sandwich 1080, 10,00 €" [ref=f5e227] [cursor=pointer]:
+            - generic [ref=f5e228]:
+              - img "Sandwich 1080" [ref=f5e229]
+              - generic [ref=f5e230]: 10,00 €
+              - generic [aria-hidden] [ref=f5e231]: +
+            - generic [ref=f5e232]:
+              - generic [ref=f5e233]: Sandwich 1080
+              - generic [ref=f5e234]: Pain ciabattino, 4 steaks hachés de bœuf, œuf, bacon, fromage.
+          - button "Menu sandwich chicken curry, 12,90 €" [ref=f5e235] [cursor=pointer]:
+            - generic [ref=f5e236]:
+              - img "Menu sandwich chicken curry" [ref=f5e237]
+              - generic [ref=f5e238]: 12,90 €
+              - generic [aria-hidden] [ref=f5e239]: +
+            - generic [ref=f5e240]:
+              - generic [ref=f5e241]: Menu sandwich chicken curry
+              - generic [ref=f5e242]: Poulet curry mariné, fromage, sauces et crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.
+          - button "Menu sandwich chicken tandoori, 12,90 €" [ref=f5e243] [cursor=pointer]:
+            - generic [ref=f5e244]:
+              - img "Menu sandwich chicken tandoori" [ref=f5e245]
+              - generic [ref=f5e246]: 12,90 €
+              - generic [aria-hidden] [ref=f5e247]: +
+            - generic [ref=f5e248]:
+              - generic [ref=f5e249]: Menu sandwich chicken tandoori
+              - generic [ref=f5e250]: Poulet tandoori légèrement épicé et mariné, fromage, sauces et crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.
+          - button "Menu sandwich grec, 12,90 €" [ref=f5e251] [cursor=pointer]:
+            - generic [ref=f5e252]:
+              - img "Menu sandwich grec" [ref=f5e253]
+              - generic [ref=f5e254]: 12,90 €
+              - generic [aria-hidden] [ref=f5e255]: +
+            - generic [ref=f5e256]:
+              - generic [ref=f5e257]: Menu sandwich grec
+              - generic [ref=f5e258]: Kebab de veau et dinde, sauces et crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.
+          - button "Menu sandwich Country, 13,90 €" [ref=f5e259] [cursor=pointer]:
+            - generic [ref=f5e260]:
+              - img "Menu sandwich Country" [ref=f5e261]
+              - generic [ref=f5e262]: 13,90 €
+              - generic [aria-hidden] [ref=f5e263]: +
+            - generic [ref=f5e264]:
+              - generic [ref=f5e265]: Menu sandwich Country
+              - generic [ref=f5e266]: 2 steaks 45 g, galette de pommes de terre, Cheddar, pain et crudités au choix. Servi avec frites et 1 boisson au choix.
+          - button "Menu sandwich Nevada, 13,90 €" [ref=f5e267] [cursor=pointer]:
+            - generic [ref=f5e268]:
+              - img "Menu sandwich Nevada" [ref=f5e269]
+              - generic [ref=f5e270]: 13,90 €
+              - generic [aria-hidden] [ref=f5e271]: +
+            - generic [ref=f5e272]:
+              - generic [ref=f5e273]: Menu sandwich Nevada
+              - generic [ref=f5e274]: 2 steaks 45 g, émincé de kebab, Cheddar, pain et crudités au choix. Servi avec frites et 1 boisson au choix.
+          - button "Menu sandwich big tasty, 13,90 €" [ref=f5e275] [cursor=pointer]:
+            - generic [ref=f5e276]:
+              - img "Menu sandwich big tasty" [ref=f5e277]
+              - generic [ref=f5e278]: 13,90 €
+              - generic [aria-hidden] [ref=f5e279]: +
+            - generic [ref=f5e280]:
+              - generic [ref=f5e281]: Menu sandwich big tasty
+              - generic [ref=f5e282]: 2 steaks 45 g, cordon bleu, Cheddar, pain et crudités au choix. Servi avec frites et 1 boisson au choix.
+          - button "Menu sandwich fameux, 13,90 €" [ref=f5e283] [cursor=pointer]:
+            - generic [ref=f5e284]:
+              - img "Menu sandwich fameux" [ref=f5e285]
+              - generic [ref=f5e286]: 13,90 €
+              - generic [aria-hidden] [ref=f5e287]: +
+            - generic [ref=f5e288]:
+              - generic [ref=f5e289]: Menu sandwich fameux
+              - generic [ref=f5e290]: 3 steaks 45 g, œuf, bacon, Cheddar, pain et crudités au choix. Servi avec frites et 1 boisson au choix.
+          - button "Menu sandwich farmer, 13,90 €" [ref=f5e291] [cursor=pointer]:
+            - generic [ref=f5e292]:
+              - img "Menu sandwich farmer" [ref=f5e293]
+              - generic [ref=f5e294]: 13,90 €
+              - generic [aria-hidden] [ref=f5e295]: +
+            - generic [ref=f5e296]:
+              - generic [ref=f5e297]: Menu sandwich farmer
+              - generic [ref=f5e298]: 2 steaks 45 g, tenders, Cheddar, pain et crudités au choix. Servi avec frites et 1 boisson au choix.
+          - button "Menu sandwich mix, 13,90 €" [ref=f5e299] [cursor=pointer]:
+            - generic [ref=f5e300]:
+              - img "Menu sandwich mix" [ref=f5e301]
+              - generic [ref=f5e302]: 13,90 €
+              - generic [aria-hidden] [ref=f5e303]: +
+            - generic [ref=f5e304]:
+              - generic [ref=f5e305]: Menu sandwich mix
+              - generic [ref=f5e306]: 2 steaks 45 g, émincé d'escalope mariné au curry, Cheddar, pain et crudités au choix. Servi avec frites et 1 boisson au choix.
+          - button "Menu sandwich savoyard, 13,90 €" [ref=f5e307] [cursor=pointer]:
+            - generic [ref=f5e308]:
+              - img "Menu sandwich savoyard" [ref=f5e309]
+              - generic [ref=f5e310]: 13,90 €
+              - generic [aria-hidden] [ref=f5e311]: +
+            - generic [ref=f5e312]:
+              - generic [ref=f5e313]: Menu sandwich savoyard
+              - generic [ref=f5e314]: Escalope de poulet, crème fraîche, lardons de veau, Cheddar, pain et crudités au choix. Servi avec frites et 1 boisson au choix.
+      - generic [ref=f5e315]:
+        - heading "Chicken Rolls" [level=2] [ref=f5e316]
+        - generic [ref=f5e317]:
+          - button "Chicken Roll, 12,00 €" [ref=f5e318] [cursor=pointer]:
+            - generic [ref=f5e319]:
+              - img "Chicken Roll" [ref=f5e320]
+              - generic [ref=f5e321]: 12,00 €
+              - generic [aria-hidden] [ref=f5e322]: +
+            - generic [ref=f5e323]:
+              - generic [ref=f5e324]: Chicken Roll
+              - generic [ref=f5e325]: Tortilla, filet de poulet pané, crudités, fromage et 2 sauces au choix. Servi avec frites et 1 boisson 33 cl au choix.
+          - button "Chicken Roll Extra, 12,70 €" [ref=f5e326] [cursor=pointer]:
+            - generic [ref=f5e327]:
+              - img "Chicken Roll Extra" [ref=f5e328]
+              - generic [ref=f5e329]: 12,70 €
+              - generic [aria-hidden] [ref=f5e330]: +
+            - generic [ref=f5e331]:
+              - generic [ref=f5e332]: Chicken Roll Extra
+              - generic [ref=f5e333]: Tortilla, filet de poulet pané, galette de pommes de terre, crudités, fromage et 2 sauces au choix. Servi avec frites et 1 boisson 33 cl au choix.
+      - generic [ref=f5e334]:
+        - heading "Naan" [level=2] [ref=f5e335]
+        - generic [ref=f5e336]:
+          - button "Naan Nature, 3,50 €" [ref=f5e337] [cursor=pointer]:
+            - generic [ref=f5e338]:
+              - img "Naan Nature" [ref=f5e339]
+              - generic [ref=f5e340]: 3,50 €
+              - generic [aria-hidden] [ref=f5e341]: +
+            - generic [ref=f5e342]:
+              - generic [ref=f5e343]: Naan Nature
+              - generic [ref=f5e344]: Pain traditionnel cuit au four.
+          - button "Naan au Fromage, 4,90 €" [ref=f5e345] [cursor=pointer]:
+            - generic [ref=f5e346]:
+              - img "Naan au Fromage" [ref=f5e347]
+              - generic [ref=f5e348]: 4,90 €
+              - generic [aria-hidden] [ref=f5e349]: +
+            - generic [ref=f5e350]:
+              - generic [ref=f5e351]: Naan au Fromage
+              - generic [ref=f5e352]: Pain traditionnel au fromage.
+      - generic [ref=f5e353]:
+        - heading "Sandwich Naan" [level=2] [ref=f5e354]
+        - generic [ref=f5e355]:
+          - button "Cheese Naan Chicken, 11,85 €" [ref=f5e356] [cursor=pointer]:
+            - generic [ref=f5e357]:
+              - img "Cheese Naan Chicken" [ref=f5e358]
+              - generic [ref=f5e359]: 11,85 €
+              - generic [aria-hidden] [ref=f5e360]: +
+            - generic [ref=f5e361]:
+              - generic [ref=f5e362]: Cheese Naan Chicken
+              - generic [ref=f5e363]: Pain traditionnel garni au fromage, tenders (aiguillettes de poulet pané), cheddar et crudités au choix.
+          - button "Cheese Naan Country, 11,85 €" [ref=f5e364] [cursor=pointer]:
+            - generic [ref=f5e365]:
+              - img "Cheese Naan Country" [ref=f5e366]
+              - generic [ref=f5e367]: 11,85 €
+              - generic [aria-hidden] [ref=f5e368]: +
+            - generic [ref=f5e369]:
+              - generic [ref=f5e370]: Cheese Naan Country
+              - generic [ref=f5e371]: Pain traditionnel garni au fromage, 2 steaks hachés de bœuf, 1 galette de pomme de terre, cheddar et crudités au choix.
+          - button "Cheese Naan Farmer, 12,50 €" [ref=f5e372] [cursor=pointer]:
+            - generic [ref=f5e373]:
+              - img "Cheese Naan Farmer" [ref=f5e374]
+              - generic [ref=f5e375]: 12,50 €
+              - generic [aria-hidden] [ref=f5e376]: +
+            - generic [ref=f5e377]:
+              - generic [ref=f5e378]: Cheese Naan Farmer
+              - generic [ref=f5e379]: Pain traditionnel garni au fromage, steak haché de bœuf, escalope, cheddar et crudités au choix.
+          - button "Menu naan kebab, 14,50 €" [ref=f5e380] [cursor=pointer]:
+            - generic [ref=f5e381]:
+              - img "Menu naan kebab" [ref=f5e382]
+              - generic [ref=f5e383]: 14,50 €
+              - generic [aria-hidden] [ref=f5e384]: +
+            - generic [ref=f5e385]:
+              - generic [ref=f5e386]: Menu naan kebab
+              - generic [ref=f5e387]: Pain traditionnel garni au fromage, viande kebab, cheddar et crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.
+          - button "Menu naan poulet curry, 14,50 €" [ref=f5e388] [cursor=pointer]:
+            - generic [ref=f5e389]:
+              - img "Menu naan poulet curry" [ref=f5e390]
+              - generic [ref=f5e391]: 14,50 €
+              - generic [aria-hidden] [ref=f5e392]: +
+            - generic [ref=f5e393]:
+              - generic [ref=f5e394]: Menu naan poulet curry
+              - generic [ref=f5e395]: Pain traditionnel garni au fromage, poulet curry, cheddar et crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.
+          - button "Menu naan poulet tandoori, 14,50 €" [ref=f5e396] [cursor=pointer]:
+            - generic [ref=f5e397]:
+              - img "Menu naan poulet tandoori" [ref=f5e398]
+              - generic [ref=f5e399]: 14,50 €
+              - generic [aria-hidden] [ref=f5e400]: +
+            - generic [ref=f5e401]:
+              - generic [ref=f5e402]: Menu naan poulet tandoori
+              - generic [ref=f5e403]: Pain traditionnel garni au fromage, viande tandoori, cheddar et crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.
+          - button "Menu naan steak, 14,50 €" [ref=f5e404] [cursor=pointer]:
+            - generic [ref=f5e405]:
+              - img "Menu naan steak" [ref=f5e406]
+              - generic [ref=f5e407]: 14,50 €
+              - generic [aria-hidden] [ref=f5e408]: +
+            - generic [ref=f5e409]:
+              - generic [ref=f5e410]: Menu naan steak
+              - generic [ref=f5e411]: Pain traditionnel garni au fromage, 3 steaks hachés de bœuf, cheddar et crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.
+          - button "Menu naan tenders, 14,90 €" [ref=f5e412] [cursor=pointer]:
+            - generic [ref=f5e413]:
+              - img "Menu naan tenders" [ref=f5e414]
+              - generic [ref=f5e415]: 14,90 €
+              - generic [aria-hidden] [ref=f5e416]: +
+            - generic [ref=f5e417]:
+              - generic [ref=f5e418]: Menu naan tenders
+              - generic [ref=f5e419]: Pain traditionnel garni au fromage, tenders (aiguillettes de poulet pané), cheddar et crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.
+          - button "Cheese Naan Mix, 15,90 €" [ref=f5e420] [cursor=pointer]:
+            - generic [ref=f5e421]:
+              - img "Cheese Naan Mix" [ref=f5e422]
+              - generic [ref=f5e423]: 15,90 €
+              - generic [aria-hidden] [ref=f5e424]: +
+            - generic [ref=f5e425]:
+              - generic [ref=f5e426]: Cheese Naan Mix
+              - generic [ref=f5e427]: Pain traditionnel garni au fromage, tenders panés, préparés et marinés, lardons de veau, cheddar, sauces, crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.
+          - button "Cheese Naan Savoyard, 15,90 €" [ref=f5e428] [cursor=pointer]:
+            - generic [ref=f5e429]:
+              - img "Cheese Naan Savoyard" [ref=f5e430]
+              - generic [ref=f5e431]: 15,90 €
+              - generic [aria-hidden] [ref=f5e432]: +
+            - generic [ref=f5e433]:
+              - generic [ref=f5e434]: Cheese Naan Savoyard
+              - generic [ref=f5e435]: Pain traditionnel garni au fromage, tenders panés, préparés et marinés, lardons de veau, cheddar, sauces, crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.
+          - button "Menu naan big tasty, 15,90 €" [ref=f5e436] [cursor=pointer]:
+            - generic [ref=f5e437]:
+              - img "Menu naan big tasty" [ref=f5e438]
+              - generic [ref=f5e439]: 15,90 €
+              - generic [aria-hidden] [ref=f5e440]: +
+            - generic [ref=f5e441]:
+              - generic [ref=f5e442]: Menu naan big tasty
+              - generic [ref=f5e443]: Pain traditionnel garni au fromage, 2 steaks hachés de bœuf, cordon bleu de dinde, cheddar et crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.
+          - button "Menu naan fameux, 15,90 €" [ref=f5e444] [cursor=pointer]:
+            - generic [ref=f5e445]:
+              - img "Menu naan fameux" [ref=f5e446]
+              - generic [ref=f5e447]: 15,90 €
+              - generic [aria-hidden] [ref=f5e448]: +
+            - generic [ref=f5e449]:
+              - generic [ref=f5e450]: Menu naan fameux
+              - generic [ref=f5e451]: Pain traditionnel garni au fromage, 3 steaks hachés de bœuf, jambon de dinde, œufs, cheddar et crudités au choix. Servi avec frites et 1 boisson 33 cl au choix.
+      - generic [ref=f5e452]:
+        - heading "Tacos" [level=2] [ref=f5e453]
+        - generic [ref=f5e454]:
+          - button "Tacos Simple, 11,50 €" [ref=f5e455] [cursor=pointer]:
+            - generic [ref=f5e456]:
+              - img "Tacos Simple" [ref=f5e457]
+              - generic [ref=f5e458]: 11,50 €
+              - generic [aria-hidden] [ref=f5e459]: +
+            - generic [ref=f5e460]:
+              - generic [ref=f5e461]: Tacos Simple
+              - generic [ref=f5e462]: 1 viande au choix, 2 sauces au choix. Frites et sauce fromagère à l'intérieur.
+          - button "Tacos Double, 14,50 €" [ref=f5e463] [cursor=pointer]:
+            - generic [ref=f5e464]:
+              - img "Tacos Double" [ref=f5e465]
+              - generic [ref=f5e466]: 14,50 €
+              - generic [aria-hidden] [ref=f5e467]: +
+            - generic [ref=f5e468]:
+              - generic [ref=f5e469]: Tacos Double
+              - generic [ref=f5e470]: 2 viandes au choix, 2 sauces au choix. Frites et sauce fromagère à l'intérieur.
+          - button "Tacos Maxi, 15,50 €" [ref=f5e471] [cursor=pointer]:
+            - generic [ref=f5e472]:
+              - img "Tacos Maxi" [ref=f5e473]
+              - generic [ref=f5e474]: 15,50 €
+              - generic [aria-hidden] [ref=f5e475]: +
+            - generic [ref=f5e476]:
+              - generic [ref=f5e477]: Tacos Maxi
+              - generic [ref=f5e478]: 3 viandes au choix, 2 sauces au choix. Frites et sauce fromagère à l'intérieur.
+      - generic [ref=f5e479]:
+        - heading "Tasty" [level=2] [ref=f5e480]
+        - generic [ref=f5e481]:
+          - button "Tasty Curry, 13,90 €" [ref=f5e482] [cursor=pointer]:
+            - generic [ref=f5e483]:
+              - img "Tasty Curry" [ref=f5e484]
+              - generic [ref=f5e485]: 13,90 €
+              - generic [aria-hidden] [ref=f5e486]: +
+            - generic [ref=f5e487]:
+              - generic [ref=f5e488]: Tasty Curry
+              - generic [ref=f5e489]: Riz et poulet curry fraîchement préparé et mariné.
+          - button "Tasty Tandoori, 13,90 €" [ref=f5e490] [cursor=pointer]:
+            - generic [ref=f5e491]:
+              - img "Tasty Tandoori" [ref=f5e492]
+              - generic [ref=f5e493]: 13,90 €
+              - generic [aria-hidden] [ref=f5e494]: +
+            - generic [ref=f5e495]:
+              - generic [ref=f5e496]: Tasty Tandoori
+              - generic [ref=f5e497]: Riz et poulet tandoori fraîchement préparé et mariné.
+          - button "Tasty Tenders, 13,90 €" [ref=f5e498] [cursor=pointer]:
+            - generic [ref=f5e499]:
+              - img "Tasty Tenders" [ref=f5e500]
+              - generic [ref=f5e501]: 13,90 €
+              - generic [aria-hidden] [ref=f5e502]: +
+            - generic [ref=f5e503]:
+              - generic [ref=f5e504]: Tasty Tenders
+              - generic [ref=f5e505]: Riz et poulet tenders fraîchement préparé et mariné.
+      - generic [ref=f5e506]:
+        - heading "Menu Fried Chicken" [level=2] [ref=f5e507]
+        - generic [ref=f5e508]:
+          - button "Menu Solo Mix x3, 10,50 €" [ref=f5e509] [cursor=pointer]:
+            - generic [ref=f5e510]:
+              - img "Menu Solo Mix x3" [ref=f5e511]
+              - generic [ref=f5e512]: 10,50 €
+              - generic [aria-hidden] [ref=f5e513]: +
+            - generic [ref=f5e514]:
+              - generic [ref=f5e515]: Menu Solo Mix x3
+              - generic [ref=f5e516]: 3 wings, 3 tenders, servis avec 1 frite et 1 boisson 33 cl au choix.
+          - button "Menu Solo Mix x5, 15,50 €" [ref=f5e517] [cursor=pointer]:
+            - generic [ref=f5e518]:
+              - img "Menu Solo Mix x5" [ref=f5e519]
+              - generic [ref=f5e520]: 15,50 €
+              - generic [aria-hidden] [ref=f5e521]: +
+            - generic [ref=f5e522]:
+              - generic [ref=f5e523]: Menu Solo Mix x5
+              - generic [ref=f5e524]: 5 wings, 5 tenders, servis avec 1 frite et 1 boisson 33 cl au choix.
+          - button "Menu big duo, 23,20 €" [ref=f5e525] [cursor=pointer]:
+            - generic [ref=f5e526]:
+              - img "Menu big duo" [ref=f5e527]
+              - generic [ref=f5e528]: 23,20 €
+              - generic [aria-hidden] [ref=f5e529]: +
+            - generic [ref=f5e530]:
+              - generic [ref=f5e531]: Menu big duo
+              - generic [ref=f5e532]: Tex-Mex au choix, servi avec 2 portions de frites et 2 boissons de 33 cl au choix.
+          - button "Menu big duo 2, 25,90 €" [ref=f5e533] [cursor=pointer]:
+            - generic [ref=f5e534]:
+              - img "Menu big duo 2" [ref=f5e535]
+              - generic [ref=f5e536]: 25,90 €
+              - generic [aria-hidden] [ref=f5e537]: +
+            - generic [ref=f5e538]:
+              - generic [ref=f5e539]: Menu big duo 2
+              - generic [ref=f5e540]: 16 tenders, servi avec 2 portions de frites et 2 boissons de 33 cl au choix.
+          - button "Menu family big tenders, 30,90 €" [ref=f5e541] [cursor=pointer]:
+            - generic [ref=f5e542]:
+              - img "Menu family big tenders" [ref=f5e543]
+              - generic [ref=f5e544]: 30,90 €
+              - generic [aria-hidden] [ref=f5e545]: +
+            - generic [ref=f5e546]:
+              - generic [ref=f5e547]: Menu family big tenders
+              - generic [ref=f5e548]: 30 tenders, servi avec 4 portions de frites et 1 boisson 1,5 L au choix.
+          - button "Menu family tenders, 30,90 €" [ref=f5e549] [cursor=pointer]:
+            - generic [ref=f5e550]:
+              - img "Menu family tenders" [ref=f5e551]
+              - generic [ref=f5e552]: 30,90 €
+              - generic [aria-hidden] [ref=f5e553]: +
+            - generic [ref=f5e554]:
+              - generic [ref=f5e555]: Menu family tenders
+              - generic [ref=f5e556]: 20 tenders, servi avec 4 portions de frites et 1 boisson 1,5 L au choix.
+          - button "Friendly Box, 33,50 €" [ref=f5e557] [cursor=pointer]:
+            - generic [ref=f5e558]:
+              - img "Friendly Box" [ref=f5e559]
+              - generic [ref=f5e560]: 33,50 €
+              - generic [aria-hidden] [ref=f5e561]: +
+            - generic [ref=f5e562]:
+              - generic [ref=f5e563]: Friendly Box
+              - generic [ref=f5e564]: 10 tenders, 10 wings, servis avec 3 frites et 1 boisson 1,5 L au choix.
+          - button "Menu family hot, 33,50 €" [ref=f5e565] [cursor=pointer]:
+            - generic [ref=f5e566]:
+              - img "Menu family hot" [ref=f5e567]
+              - generic [ref=f5e568]: 33,50 €
+              - generic [aria-hidden] [ref=f5e569]: +
+            - generic [ref=f5e570]:
+              - generic [ref=f5e571]: Menu family hot
+              - generic [ref=f5e572]: 30 wings, servi avec 4 portions de frites et 1 boisson 1,5 L au choix.
+          - button "Menu family mix, 36,90 €" [ref=f5e573] [cursor=pointer]:
+            - generic [ref=f5e574]:
+              - img "Menu family mix" [ref=f5e575]
+              - generic [ref=f5e576]: 36,90 €
+              - generic [aria-hidden] [ref=f5e577]: +
+            - generic [ref=f5e578]:
+              - generic [ref=f5e579]: Menu family mix
+              - generic [ref=f5e580]: 15 tenders et 15 wings. Servi avec 4 portions de frites et 1 boisson 1,5 L au choix.
+      - generic [ref=f5e581]:
+        - heading "Tex-Mex" [level=2] [ref=f5e582]
+        - generic [ref=f5e583]:
+          - button "Bouchées Camembert x3, 4,50 €" [ref=f5e584] [cursor=pointer]:
+            - generic [ref=f5e585]:
+              - img "Bouchées Camembert x3" [ref=f5e586]
+              - generic [ref=f5e587]: 4,50 €
+              - generic [aria-hidden] [ref=f5e588]: +
+            - generic [ref=f5e589]: Bouchées Camembert x3
+          - button "Mozza Stick x3, 4,50 €" [ref=f5e591] [cursor=pointer]:
+            - generic [ref=f5e592]:
+              - img "Mozza Stick x3" [ref=f5e593]
+              - generic [ref=f5e594]: 4,50 €
+              - generic [aria-hidden] [ref=f5e595]: +
+            - generic [ref=f5e596]: Mozza Stick x3
+          - button "Samosa Légumes x3, 5,00 €" [ref=f5e598] [cursor=pointer]:
+            - generic [ref=f5e599]:
+              - img "Samosa Légumes x3" [ref=f5e600]
+              - generic [ref=f5e601]: 5,00 €
+              - generic [aria-hidden] [ref=f5e602]: +
+            - generic [ref=f5e603]: Samosa Légumes x3
+          - button "Samosa Chicken x3, 6,00 €" [ref=f5e605] [cursor=pointer]:
+            - generic [ref=f5e606]:
+              - img "Samosa Chicken x3" [ref=f5e607]
+              - generic [ref=f5e608]: 6,00 €
+              - generic [aria-hidden] [ref=f5e609]: +
+            - generic [ref=f5e610]: Samosa Chicken x3
+          - button "Wings, 6,50 €" [ref=f5e612] [cursor=pointer]:
+            - generic [ref=f5e613]:
+              - img "Wings" [ref=f5e614]
+              - generic [ref=f5e615]: 6,50 €
+              - generic [aria-hidden] [ref=f5e616]: +
+            - generic [ref=f5e617]:
+              - generic [ref=f5e618]: Wings
+              - generic [ref=f5e619]: Nombre de pièces au choix.
+          - button "Tenders, 6,90 €" [ref=f5e620] [cursor=pointer]:
+            - generic [ref=f5e621]:
+              - img "Tenders" [ref=f5e622]
+              - generic [ref=f5e623]: 6,90 €
+              - generic [aria-hidden] [ref=f5e624]: +
+            - generic [ref=f5e625]:
+              - generic [ref=f5e626]: Tenders
+              - generic [ref=f5e627]: Nombre de pièces au choix.
+          - button "Samosa Chicken x6, 7,50 €" [ref=f5e628] [cursor=pointer]:
+            - generic [ref=f5e629]:
+              - img "Samosa Chicken x6" [ref=f5e630]
+              - generic [ref=f5e631]: 7,50 €
+              - generic [aria-hidden] [ref=f5e632]: +
+            - generic [ref=f5e633]: Samosa Chicken x6
+          - button "Bouchées Camembert x6, 8,00 €" [ref=f5e635] [cursor=pointer]:
+            - generic [ref=f5e636]:
+              - img "Bouchées Camembert x6" [ref=f5e637]
+              - generic [ref=f5e638]: 8,00 €
+              - generic [aria-hidden] [ref=f5e639]: +
+            - generic [ref=f5e640]: Bouchées Camembert x6
+          - button "Mozza Stick x6, 8,00 €" [ref=f5e642] [cursor=pointer]:
+            - generic [ref=f5e643]:
+              - img "Mozza Stick x6" [ref=f5e644]
+              - generic [ref=f5e645]: 8,00 €
+              - generic [aria-hidden] [ref=f5e646]: +
+            - generic [ref=f5e647]: Mozza Stick x6
+      - generic [ref=f5e649]:
+        - heading "Plats Indien" [level=2] [ref=f5e650]
+        - generic [ref=f5e651]:
+          - button "Palak Paneer, 11,50 €" [ref=f5e652] [cursor=pointer]:
+            - generic [ref=f5e653]:
+              - img "Palak Paneer" [ref=f5e654]
+              - generic [ref=f5e655]: 11,50 €
+              - generic [aria-hidden] [ref=f5e656]: +
+            - generic [ref=f5e657]:
+              - generic [ref=f5e658]: Palak Paneer
+              - generic [ref=f5e659]: Fromage frais indien (paneer) dans une sauce onctueuse aux épinards. Servi avec riz basmati.
+          - button "Biryani Poulet, 12,90 €" [ref=f5e660] [cursor=pointer]:
+            - generic [ref=f5e661]:
+              - img "Biryani Poulet" [ref=f5e662]
+              - generic [ref=f5e663]: 12,90 €
+              - generic [aria-hidden] [ref=f5e664]: +
+            - generic [ref=f5e665]:
+              - generic [ref=f5e666]: Biryani Poulet
+              - generic [ref=f5e667]: Riz basmati parfumé, poulet mariné et épices indiennes.
+          - button "Poulet Korma, 13,50 €" [ref=f5e668] [cursor=pointer]:
+            - generic [ref=f5e669]:
+              - img "Poulet Korma" [ref=f5e670]
+              - generic [ref=f5e671]: 13,50 €
+              - generic [aria-hidden] [ref=f5e672]: +
+            - generic [ref=f5e673]:
+              - generic [ref=f5e674]: Poulet Korma
+              - generic [ref=f5e675]: Poulet dans une sauce douce et crémeuse à la noix de coco et aux amandes. Servi avec riz basmati.
+          - button "Butter Chicken, 13,90 €" [ref=f5e676] [cursor=pointer]:
+            - generic [ref=f5e677]:
+              - img "Butter Chicken" [ref=f5e678]
+              - generic [ref=f5e679]: 13,90 €
+              - generic [aria-hidden] [ref=f5e680]: +
+            - generic [ref=f5e681]:
+              - generic [ref=f5e682]: Butter Chicken
+              - generic [ref=f5e683]: Poulet mariné grillé au tandoor dans une sauce onctueuse à la tomate, beurre et crème. Servi avec riz basmati.
+          - button "Poulet Tikka Masala, 13,90 €" [ref=f5e684] [cursor=pointer]:
+            - generic [ref=f5e685]:
+              - img "Poulet Tikka Masala" [ref=f5e686]
+              - generic [ref=f5e687]: 13,90 €
+              - generic [aria-hidden] [ref=f5e688]: +
+            - generic [ref=f5e689]:
+              - generic [ref=f5e690]: Poulet Tikka Masala
+              - generic [ref=f5e691]: Morceaux de poulet tikka dans une sauce masala légèrement épicée. Servi avec riz basmati.
+          - button "Crevettes Korma, 15,90 €" [ref=f5e692] [cursor=pointer]:
+            - generic [ref=f5e693]:
+              - img "Crevettes Korma" [ref=f5e694]
+              - generic [ref=f5e695]: 15,90 €
+              - generic [aria-hidden] [ref=f5e696]: +
+            - generic [ref=f5e697]:
+              - generic [ref=f5e698]: Crevettes Korma
+              - generic [ref=f5e699]: Sauce légèrement épicée, crevettes et riz basmati.
+          - button "Crevettes Massala, 15,90 €" [ref=f5e700] [cursor=pointer]:
+            - generic [ref=f5e701]:
+              - img "Crevettes Massala" [ref=f5e702]
+              - generic [ref=f5e703]: 15,90 €
+              - generic [aria-hidden] [ref=f5e704]: +
+            - generic [ref=f5e705]:
+              - generic [ref=f5e706]: Crevettes Massala
+              - generic [ref=f5e707]: Sauce curry et crème, crevettes et riz basmati.
+          - button "Biryani aux légumes, 16,50 €" [ref=f5e708] [cursor=pointer]:
+            - generic [ref=f5e709]:
+              - img "Biryani aux légumes" [ref=f5e710]
+              - generic [ref=f5e711]: 16,50 €
+              - generic [aria-hidden] [ref=f5e712]: +
+            - generic [ref=f5e713]:
+              - generic [ref=f5e714]: Biryani aux légumes
+              - generic [ref=f5e715]: Mélange de riz basmati, légumes et épices indiennes.
+      - generic [ref=f5e716]:
+        - heading "Menu Enfant" [level=2] [ref=f5e717]
+        - button "Menu Enfant, 9,50 €" [ref=f5e719] [cursor=pointer]:
+          - generic [ref=f5e720]:
+            - img "Menu Enfant" [ref=f5e721]
+            - generic [ref=f5e722]: 9,50 €
+            - generic [aria-hidden] [ref=f5e723]: +
+          - generic [ref=f5e724]:
+            - generic [ref=f5e725]: Menu Enfant
+            - generic [ref=f5e726]: Plat au choix, sauce biggy, servi avec frites, boisson au choix et 1 compote de pomme.
+      - generic [ref=f5e727]:
+        - heading "Dessert" [level=2] [ref=f5e728]
+        - generic [ref=f5e729]:
+          - button "Tarte au Daim, 4,50 €" [ref=f5e730] [cursor=pointer]:
+            - generic [ref=f5e731]:
+              - img "Tarte au Daim" [ref=f5e732]
+              - generic [ref=f5e733]: 4,50 €
+              - generic [aria-hidden] [ref=f5e734]: +
+            - generic [ref=f5e735]:
+              - generic [ref=f5e736]: Tarte au Daim
+              - generic [ref=f5e737]: Douceur sucrée au daim.
+          - button "Tiramisu au Choix, 4,90 €" [ref=f5e738] [cursor=pointer]:
+            - generic [ref=f5e739]:
+              - img "Tiramisu au Choix" [ref=f5e740]
+              - generic [ref=f5e741]: 4,90 €
+              - generic [aria-hidden] [ref=f5e742]: +
+            - generic [ref=f5e743]:
+              - generic [ref=f5e744]: Tiramisu au Choix
+              - generic [ref=f5e745]: Fait maison 🤎
+          - button "Milkshake, 5,90 €" [ref=f5e746] [cursor=pointer]:
+            - generic [ref=f5e747]:
+              - img "Milkshake" [ref=f5e748]
+              - generic [ref=f5e749]: 5,90 €
+              - generic [aria-hidden] [ref=f5e750]: +
+            - generic [ref=f5e751]: Milkshake
+          - button "Smoothie au choix, 5,90 €" [ref=f5e753] [cursor=pointer]:
+            - generic [ref=f5e754]:
+              - img "Smoothie au choix" [ref=f5e755]
+              - generic [ref=f5e756]: 5,90 €
+              - generic [aria-hidden] [ref=f5e757]: +
+            - generic [ref=f5e758]:
+              - generic [ref=f5e759]: Smoothie au choix
+              - generic [ref=f5e760]: Fait maison 💛
+      - generic [ref=f5e761]:
+        - heading "Lassi" [level=2] [ref=f5e762]
+        - generic [ref=f5e763]:
+          - button "Lassi rose, 4,90 €" [ref=f5e764] [cursor=pointer]:
+            - generic [ref=f5e765]:
+              - img "Lassi rose" [ref=f5e766]
+              - generic [ref=f5e767]: 4,90 €
+              - generic [aria-hidden] [ref=f5e768]: +
+            - generic [ref=f5e769]: Lassi rose
+          - button "Lassi mangue, 5,90 €" [ref=f5e771] [cursor=pointer]:
+            - generic [ref=f5e772]:
+              - img "Lassi mangue" [ref=f5e773]
+              - generic [ref=f5e774]: 5,90 €
+              - generic [aria-hidden] [ref=f5e775]: +
+            - generic [ref=f5e776]: Lassi mangue
+      - generic [ref=f5e778]:
+        - heading "Boissons" [level=2] [ref=f5e779]
+        - generic [ref=f5e780]:
+          - button "7 Up Mojito, 2,00 €" [ref=f5e781] [cursor=pointer]:
+            - generic [ref=f5e782]:
+              - img "7 Up Mojito" [ref=f5e783]
+              - generic [ref=f5e784]: 2,00 €
+              - generic [aria-hidden] [ref=f5e785]: +
+            - generic [ref=f5e786]:
+              - generic [ref=f5e787]: 7 Up Mojito
+              - generic [ref=f5e788]: Soda citron menthe.
+          - button "Coca-Cola, 2,00 €" [ref=f5e789] [cursor=pointer]:
+            - generic [ref=f5e790]:
+              - img "Coca-Cola" [ref=f5e791]: C
+              - generic [ref=f5e792]: 2,00 €
+              - generic [aria-hidden] [ref=f5e793]: +
+            - generic [ref=f5e794]: Coca-Cola
+          - button "Coca-Cola Cherry, 2,00 €" [ref=f5e796] [cursor=pointer]:
+            - generic [ref=f5e797]:
+              - img "Coca-Cola Cherry" [ref=f5e798]: C
+              - generic [ref=f5e799]: 2,00 €
+              - generic [aria-hidden] [ref=f5e800]: +
+            - generic [ref=f5e801]: Coca-Cola Cherry
+          - button "Coca-Cola Zéro, 2,00 €" [ref=f5e803] [cursor=pointer]:
+            - generic [ref=f5e804]:
+              - img "Coca-Cola Zéro" [ref=f5e805]: C
+              - generic [ref=f5e806]: 2,00 €
+              - generic [aria-hidden] [ref=f5e807]: +
+            - generic [ref=f5e808]: Coca-Cola Zéro
+          - button "Cristaline Citron, 2,00 €" [ref=f5e810] [cursor=pointer]:
+            - generic [ref=f5e811]:
+              - img "Cristaline Citron" [ref=f5e812]
+              - generic [ref=f5e813]: 2,00 €
+              - generic [aria-hidden] [ref=f5e814]: +
+            - generic [ref=f5e815]:
+              - generic [ref=f5e816]: Cristaline Citron
+              - generic [ref=f5e817]: Eau aromatisée citron.
+          - button "Cristaline Pêche, 2,00 €" [ref=f5e818] [cursor=pointer]:
+            - generic [ref=f5e819]:
+              - img "Cristaline Pêche" [ref=f5e820]
+              - generic [ref=f5e821]: 2,00 €
+              - generic [aria-hidden] [ref=f5e822]: +
+            - generic [ref=f5e823]:
+              - generic [ref=f5e824]: Cristaline Pêche
+              - generic [ref=f5e825]: Eau aromatisée pêche.
+          - button "Cristalline Fraise, 2,00 €" [ref=f5e826] [cursor=pointer]:
+            - generic [ref=f5e827]:
+              - img "Cristalline Fraise" [ref=f5e828]
+              - generic [ref=f5e829]: 2,00 €
+              - generic [aria-hidden] [ref=f5e830]: +
+            - generic [ref=f5e831]:
+              - generic [ref=f5e832]: Cristalline Fraise
+              - generic [ref=f5e833]: Eau aromatisée fraise.
+          - button "Eau Cristalline, 2,00 €" [ref=f5e834] [cursor=pointer]:
+            - generic [ref=f5e835]:
+              - img "Eau Cristalline" [ref=f5e836]
+              - generic [ref=f5e837]: 2,00 €
+              - generic [aria-hidden] [ref=f5e838]: +
+            - generic [ref=f5e839]:
+              - generic [ref=f5e840]: Eau Cristalline
+              - generic [ref=f5e841]: Eau minérale.
+          - button "Fanta Citron, 2,00 €" [ref=f5e842] [cursor=pointer]:
+            - generic [ref=f5e843]:
+              - img "Fanta Citron" [ref=f5e844]: F
+              - generic [ref=f5e845]: 2,00 €
+              - generic [aria-hidden] [ref=f5e846]: +
+            - generic [ref=f5e847]: Fanta Citron
+          - button "Fanta Orange, 2,00 €" [ref=f5e849] [cursor=pointer]:
+            - generic [ref=f5e850]:
+              - img "Fanta Orange" [ref=f5e851]
+              - generic [ref=f5e852]: 2,00 €
+              - generic [aria-hidden] [ref=f5e853]: +
+            - generic [ref=f5e854]:
+              - generic [ref=f5e855]: Fanta Orange
+              - generic [ref=f5e856]: Soda à l'orange.
+          - button "Hawaï, 2,00 €" [ref=f5e857] [cursor=pointer]:
+            - generic [ref=f5e858]:
+              - img "Hawaï" [ref=f5e859]
+              - generic [ref=f5e860]: 2,00 €
+              - generic [aria-hidden] [ref=f5e861]: +
+            - generic [ref=f5e862]:
+              - generic [ref=f5e863]: Hawaï
+              - generic [ref=f5e864]: Boisson fruitée.
+          - button "Ice Tea, 2,00 €" [ref=f5e865] [cursor=pointer]:
+            - generic [ref=f5e866]:
+              - img "Ice Tea" [ref=f5e867]
+              - generic [ref=f5e868]: 2,00 €
+              - generic [aria-hidden] [ref=f5e869]: +
+            - generic [ref=f5e870]:
+              - generic [ref=f5e871]: Ice Tea
+              - generic [ref=f5e872]: Thé glacé.
+          - button "Oasis Fraise Framboise, 2,00 €" [ref=f5e873] [cursor=pointer]:
+            - generic [ref=f5e874]:
+              - img "Oasis Fraise Framboise" [ref=f5e875]
+              - generic [ref=f5e876]: 2,00 €
+              - generic [aria-hidden] [ref=f5e877]: +
+            - generic [ref=f5e878]:
+              - generic [ref=f5e879]: Oasis Fraise Framboise
+              - generic [ref=f5e880]: Oasis Fraise Framboise
+          - button "Oasis Pomme Cassis, 2,00 €" [ref=f5e881] [cursor=pointer]:
+            - generic [ref=f5e882]:
+              - img "Oasis Pomme Cassis" [ref=f5e883]
+              - generic [ref=f5e884]: 2,00 €
+              - generic [aria-hidden] [ref=f5e885]: +
+            - generic [ref=f5e886]:
+              - generic [ref=f5e887]: Oasis Pomme Cassis
+              - generic [ref=f5e888]: Boisson aux fruits.
+          - button "Oasis Pomme Poire, 2,00 €" [ref=f5e889] [cursor=pointer]:
+            - generic [ref=f5e890]:
+              - img "Oasis Pomme Poire" [ref=f5e891]
+              - generic [ref=f5e892]: 2,00 €
+              - generic [aria-hidden] [ref=f5e893]: +
+            - generic [ref=f5e894]:
+              - generic [ref=f5e895]: Oasis Pomme Poire
+              - generic [ref=f5e896]: Boisson aux fruits.
+          - button "Oasis Tropical, 2,00 €" [ref=f5e897] [cursor=pointer]:
+            - generic [ref=f5e898]:
+              - img "Oasis Tropical" [ref=f5e899]
+              - generic [ref=f5e900]: 2,00 €
+              - generic [aria-hidden] [ref=f5e901]: +
+            - generic [ref=f5e902]:
+              - generic [ref=f5e903]: Oasis Tropical
+              - generic [ref=f5e904]: Boisson aux fruits.
+          - button "Perrier, 2,00 €" [ref=f5e905] [cursor=pointer]:
+            - generic [ref=f5e906]:
+              - img "Perrier" [ref=f5e907]
+              - generic [ref=f5e908]: 2,00 €
+              - generic [aria-hidden] [ref=f5e909]: +
+            - generic [ref=f5e910]:
+              - generic [ref=f5e911]: Perrier
+              - generic [ref=f5e912]: Eau gazeuse.
+          - button "Schweppes Agrum, 2,00 €" [ref=f5e913] [cursor=pointer]:
+            - generic [ref=f5e914]:
+              - img "Schweppes Agrum" [ref=f5e915]
+              - generic [ref=f5e916]: 2,00 €
+              - generic [aria-hidden] [ref=f5e917]: +
+            - generic [ref=f5e918]:
+              - generic [ref=f5e919]: Schweppes Agrum
+              - generic [ref=f5e920]: Boisson aux agrumes.
+  - button "Open Next.js Dev Tools" [ref=f5e927] [cursor=pointer]

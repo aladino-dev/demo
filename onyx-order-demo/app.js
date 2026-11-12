@@ -25,6 +25,35 @@
     document.getElementById('crm-note').hidden = true;
   }
 
+  // tarifs : formules, frais de service payé par le client, options (tout vient de config.js)
+  const esc = (s) => String(s).replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+  const plansEl = document.getElementById('plans');
+  const plans = c.plans || [];
+  if (!plans.length) {
+    document.getElementById('tarifs').hidden = true;
+    document.querySelectorAll('a[href="#tarifs"]').forEach((a) => { a.hidden = true; });
+  } else {
+    plansEl.innerHTML = plans.map((p) => `
+      <article class="plan ${p.featured ? 'featured' : ''}">
+        ${p.featured ? '<span class="ribbon">Le plus choisi</span>' : ''}
+        <h3>${esc(p.name)}</h3>
+        <p class="tagline">${esc(p.tagline || '')}</p>
+        ${p.quote
+          ? '<p class="price"><span class="amount quote">Sur devis</span></p><p class="setup">Étude gratuite de votre besoin</p>'
+          : `<p class="price"><span class="amount">${esc(p.price)} €</span><span class="per">/mois</span></p><p class="setup">+ ${esc(p.setup)} € de mise en service</p>`}
+        <ul>${(p.features || []).map((f) => `<li>${esc(f)}</li>`).join('')}</ul>
+        <a class="btn ${p.featured ? 'primary' : 'ghost-dark'}" href="#contact">${p.quote ? 'Demander un devis' : `Choisir ${esc(p.name)}`}</a>
+      </article>`).join('');
+    if (c.headline) document.getElementById('plans-sub').textContent = c.headline;
+    const setNote = (id, text) => { const el = document.getElementById(id); el.textContent = text || ''; el.hidden = !text; };
+    setNote('annual-note', c.annualNote);
+    setNote('launch-offer', c.launchOffer);
+    document.getElementById('tax-note').textContent = c.taxNote || '';
+    document.getElementById('fee-amount').textContent = c.serviceFee || '';
+    document.getElementById('fee-box').hidden = !(c.showServiceFee && c.serviceFee);
+    document.getElementById('options').innerHTML = (c.options || []).map((o) => `<li><strong>${esc(o.name)}</strong><span>${esc(o.text)}</span></li>`).join('');
+  }
+
   // tarifs et contact
   document.getElementById('pricing-text').textContent = c.pricing || 'Une question ? Une démonstration pour votre restaurant ? Contactez-nous.';
   const ct = c.contact || {};

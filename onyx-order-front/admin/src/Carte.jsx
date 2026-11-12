@@ -3,6 +3,7 @@ import { DndContext, closestCenter } from '@dnd-kit/core';
 import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { API, api, getSession } from '../../shared/session.js';
 import ProductPanel from './ProductPanel.jsx';
+import ImportMenu from './ImportMenu.jsx';
 import { Icon, Sortable, Switch, useDndSensors } from './ui.jsx';
 import { byOrder, fromCents, ruleText, toCents } from './util.js';
 import './carte.css';
@@ -129,13 +130,16 @@ export default function Carte() {
       <div className="cr-bar">
         <div className="tabs sub">
           <button className={view === 'carte' ? 'active' : ''} onClick={() => setView('carte')}>Carte</button>
+          <button className={view === 'import' ? 'active' : ''} onClick={() => setView('import')}>Importer ma carte</button>
           <button className={view === 'archives' ? 'active' : ''} onClick={() => setView('archives')}>
             Archivés ({data.archived.categories.length + data.archived.products.length})</button>
         </div>
         {view === 'carte' && <input className="cr-search" placeholder="Rechercher un produit dans toute la carte" value={search} onChange={(e) => setSearch(e.target.value)} />}
       </div>
 
-      {view === 'archives' ? (
+      {view === 'import' ? (
+        <ImportMenu say={say} onDone={() => { load(); setView('carte'); }} />
+      ) : view === 'archives' ? (
         <Archives data={data} onRestore={(kind, id) => act(() => api(`/api/admin/${kind}/${id}/restore`, { method: 'POST' }), 'Restauré')} />
       ) : (
         <div className={`cr-grid ${product ? 'with-panel' : ''}`}>

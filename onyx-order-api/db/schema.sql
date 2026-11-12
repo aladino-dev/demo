@@ -243,3 +243,10 @@ INSERT INTO allergens (code, name) VALUES
  ('celeri','Céleri'),('moutarde','Moutarde'),('sesame','Sésame'),('sulfites','Sulfites'),
  ('lupin','Lupin'),('mollusques','Mollusques')
 ON CONFLICT (code) DO NOTHING;
+
+-- Livraison par coursier Uber (Uber Direct)
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS uber_quote_id    text;
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS uber_delivery_id text;
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS tracking_url     text;
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS courier_status   text;
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS courier_error    text;

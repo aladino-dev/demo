@@ -64,6 +64,10 @@ SMTP_SECURE=false
 SMTP_USER=
 SMTP_PASS=
 SMTP_FROM=
+# Import de la carte par IA : clé du service d'analyse (vide = désactivé). Ne jamais la partager.
+ANTHROPIC_API_KEY=
+ANTHROPIC_MODEL=
+IMPORT_MAX_PER_HOUR=10
 FRONT_PORT=${frontPort}
 API_PORT=${apiPort}
 # Limites de ressources de CE restaurant (un pic chez lui ne ralentit pas les autres)

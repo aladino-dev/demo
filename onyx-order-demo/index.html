@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Onyx Order – Commande en ligne pour restaurants, sans commission</title>
-  <meta name="description" content="Site de commande, écran cuisine et back-office pour votre restaurant. Sans commission. Essayez la démo en 3 minutes.">
+  <title>Onyx Order – Commande en ligne pour restaurants, sans commission pour le restaurant</title>
+  <meta name="description" content="Site de commande, écran cuisine et back-office pour votre restaurant. Aucune commission pour le restaurant. Essayez la démo en 3 minutes.">
   <meta name="theme-color" content="#14110d">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -16,6 +16,7 @@
     <nav aria-label="Navigation">
       <a href="#demo">La démo</a>
       <a href="#modules">Les modules</a>
+      <a href="#tarifs">Tarifs</a>
       <a href="#pourquoi">Pourquoi Onyx</a>
       <a class="btn small" href="#contact">Nous contacter</a>
     </nav>
@@ -28,14 +29,14 @@
     <div class="wrap hero-grid">
       <div class="hero-text">
         <p class="eyebrow">Pour les restaurants, food trucks et snacks</p>
-        <h1>Vos commandes en ligne.<br><span class="grad">Zéro commission.</span></h1>
-        <p class="lead">Un site de commande sur mesure pour votre clientèle, un écran cuisine qui sonne à chaque commande et un back-office simple pour tout gérer. Prêt à l'emploi, à votre adresse.</p>
+        <h1>Vos commandes en ligne.<br><span class="grad">Aucune commission pour vous.</span></h1>
+        <p class="lead">Un site de commande pour votre clientèle, un écran cuisine qui sonne à chaque commande et un back-office simple pour tout gérer. Prêt à l'emploi, à votre adresse. Le restaurant ne paie aucun pourcentage sur ses ventes.</p>
         <div class="cta">
           <a class="btn primary" href="#demo">Essayer la démo</a>
           <a class="btn ghost" href="#contact">Parler de mon restaurant</a>
         </div>
         <ul class="chips" aria-label="Points forts">
-          <li>Sans commission</li><li>Retrait &amp; livraison</li><li>100 % mobile</li><li>Cuisine en temps réel</li>
+          <li>Aucune commission pour le restaurant</li><li>Retrait &amp; livraison</li><li>100 % mobile</li><li>Cuisine en temps réel</li>
         </ul>
       </div>
 
@@ -140,12 +141,30 @@
     </div>
   </section>
 
+  <!-- ========== Tarifs ========== -->
+  <section class="wrap section" id="tarifs">
+    <h2>Des tarifs simples</h2>
+    <p class="sub" id="plans-sub">Un abonnement fixe. Aucune commission pour le restaurant.</p>
+    <p class="launch" id="launch-offer" hidden></p>
+    <div class="plans" id="plans"></div>
+    <p class="fine" id="annual-note" hidden></p>
+    <p class="fine" id="tax-note"></p>
+
+    <div class="fee-box" id="fee-box" hidden>
+      <h3>Les frais de service, payés par le client</h3>
+      <p>Sur chaque commande en <strong>livraison</strong>, le client paie <strong id="fee-amount"></strong> de frais de service, affichés clairement avant qu'il valide. Le restaurant ne paie aucune commission : son abonnement est tout ce qu'il règle.</p>
+    </div>
+
+    <h3 class="opt-title">Options</h3>
+    <ul class="options" id="options"></ul>
+  </section>
+
   <!-- ========== Pourquoi ========== -->
   <section class="band dark" id="pourquoi">
     <div class="wrap">
       <h2>Pourquoi Onyx Order</h2>
       <div class="why">
-        <div><h3>Sans commission</h3><p>Vos commandes sont à vous : pas de pourcentage prélevé sur chaque vente.</p></div>
+        <div><h3>Aucune commission pour le restaurant</h3><p>Pas de pourcentage prélevé sur vos ventes : votre abonnement est tout ce que vous réglez.</p></div>
         <div><h3>À votre adresse</h3><p>Votre site de commande vit sur votre nom de domaine, avec votre nom et vos photos.</p></div>
         <div><h3>Vos données chez vous</h3><p>Chaque restaurant a sa propre installation : votre base de données n'est jamais mélangée à celle d'un autre.</p></div>
         <div><h3>Simple à tenir à jour</h3><p>Vous changez un prix ou une photo vous-même, sans développeur.</p></div>

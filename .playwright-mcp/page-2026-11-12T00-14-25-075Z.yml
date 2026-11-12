@@ -1,0 +1,38 @@
+- generic [active] [ref=f7e1]:
+  - note [ref=f7e2]: "Démonstration : aucune commande n'est réellement préparée"
+  - main [ref=f7e3]:
+    - 'heading "FastCamion : vos 3 accès" [level=1] [ref=f7e4]'
+    - paragraph [ref=f7e5]: Scannez le code avec l'appareil photo du téléphone, ou touchez le bouton. Enregistrez cette page dans vos favoris.
+    - generic [ref=f7e6]:
+      - generic [ref=f7e7]:
+        - heading "1 Site de commande" [level=2] [ref=f7e8]:
+          - generic [ref=f7e9]: "1"
+          - text: Site de commande
+        - 'link "Site de commande : http://localhost:3000/" [ref=f7e10] [cursor=pointer]':
+          - /url: http://localhost:3000/
+        - paragraph [ref=f7e14]: "Ce que vos clients voient : la carte, le panier, la commande et le suivi."
+        - link "Ouvrir le site" [ref=f7e15] [cursor=pointer]:
+          - /url: http://localhost:3000/
+        - paragraph [ref=f7e16]: localhost:3000/
+      - generic [ref=f7e17]:
+        - heading "2 Écran cuisine" [level=2] [ref=f7e18]:
+          - generic [ref=f7e19]: "2"
+          - text: Écran cuisine
+        - 'link "Écran cuisine : http://localhost:3000/cuisine/" [ref=f7e20] [cursor=pointer]':
+          - /url: http://localhost:3000/cuisine/
+        - paragraph [ref=f7e24]: "À ouvrir sur la tablette ou le téléphone de la cuisine : les commandes arrivent en direct et avancent d'un geste."
+        - link "Ouvrir la cuisine" [ref=f7e25] [cursor=pointer]:
+          - /url: http://localhost:3000/cuisine/
+        - paragraph [ref=f7e26]: localhost:3000/cuisine/
+      - generic [ref=f7e27]:
+        - heading "3 Gestion du restaurant" [level=2] [ref=f7e28]:
+          - generic [ref=f7e29]: "3"
+          - text: Gestion du restaurant
+        - 'link "Gestion du restaurant : http://localhost:3000/admin/" [ref=f7e30] [cursor=pointer]':
+          - /url: http://localhost:3000/admin/
+        - paragraph [ref=f7e34]: Pour modifier votre carte, vos prix et vos photos.
+        - link "Ouvrir la gestion" [ref=f7e35] [cursor=pointer]:
+          - /url: http://localhost:3000/admin/
+        - paragraph [ref=f7e36]: localhost:3000/admin/
+    - paragraph [ref=f7e37]: Vos identifiants de connexion (cuisine et gestion) vous sont envoyés séparément.
+  - button "Open Next.js Dev Tools" [ref=f7e43] [cursor=pointer]

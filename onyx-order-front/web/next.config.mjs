@@ -8,6 +8,8 @@ dotenv.config({ path: path.join(here, '../.env') }); // .env à la racine du fro
 /** @type {import('next').NextConfig} */
 export default {
   output: 'standalone',
+  // dossier de build propre à chaque restaurant en test local (voir dev-restaurant.mjs)
+  distDir: process.env.NEXT_DIST_DIR || '.next',
   outputFileTracingRoot: path.join(here, '..'),
   // /cuisine et /admin : interfaces Vite construites dans public/ (npm run build)
   async rewrites() {

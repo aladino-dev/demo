@@ -79,6 +79,9 @@ export default function Suivi({ params }) {
         </div>
       )}
       <div className="panel" style={{ marginTop: 20, textAlign: 'center' }}>
+        {o.status === 'new' && (
+          <svg className="okmark" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="24" /><path d="M17 29l8 8 14-16" /></svg>
+        )}
         <p style={{ margin: 0 }}>Merci {o.customer_name.split(' ')[0]} !</p>
         <p className="big-num">N° {o.number}</p>
         <p className="now">{now}</p>
@@ -92,6 +95,9 @@ export default function Suivi({ params }) {
               <li key={s} className={i < idx ? 'done' : i === idx ? 'cur' : ''}><span className="dot" />{label}</li>
             ))}
           </ul>
+        )}
+        {o.tracking_url && !['done', 'cancelled'].includes(o.status) && (
+          <a className="btn center" href={o.tracking_url} target="_blank" rel="noopener noreferrer" style={{ marginTop: 10 }}>Suivre le coursier</a>
         )}
         <p className="note">Cette page se met à jour toute seule{o.customer_email ? ' ; vous êtes aussi prévenu par e-mail.' : '.'}</p>
         {perm === 'default' && !['done', 'cancelled'].includes(o.status) && (

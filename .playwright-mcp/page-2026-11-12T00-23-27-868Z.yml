@@ -1,0 +1,56 @@
+- generic [active] [ref=f10e1]:
+  - note [ref=f10e2]: "Démonstration : aucune commande n'est réellement préparée"
+  - main [ref=f10e3]:
+    - 'heading "NS Grill : vos 3 accès" [level=1] [ref=f10e4]'
+    - paragraph [ref=f10e5]: Scannez le code avec l'appareil photo du téléphone, ou touchez le bouton. Enregistrez cette page dans vos favoris.
+    - generic [ref=f10e6]:
+      - generic [ref=f10e7]:
+        - heading "1 Site de commande" [level=2] [ref=f10e8]:
+          - generic [ref=f10e9]: "1"
+          - text: Site de commande
+        - 'link "Site de commande : https://nsgrill.byonyx.fr/" [ref=f10e10] [cursor=pointer]':
+          - /url: https://nsgrill.byonyx.fr/
+        - paragraph [ref=f10e14]: "Ce que vos clients voient : la carte, le panier, la commande et le suivi."
+        - link "Ouvrir le site" [ref=f10e15] [cursor=pointer]:
+          - /url: https://nsgrill.byonyx.fr/
+        - paragraph [ref=f10e16]: nsgrill.byonyx.fr/
+      - generic [ref=f10e17]:
+        - heading "2 Écran cuisine" [level=2] [ref=f10e18]:
+          - generic [ref=f10e19]: "2"
+          - text: Écran cuisine
+        - 'link "Écran cuisine : https://nsgrill.byonyx.fr/cuisine/" [ref=f10e20] [cursor=pointer]':
+          - /url: https://nsgrill.byonyx.fr/cuisine/
+        - paragraph [ref=f10e24]: "À ouvrir sur la tablette ou le téléphone de la cuisine : les commandes arrivent en direct et avancent d'un geste."
+        - link "Ouvrir la cuisine" [ref=f10e25] [cursor=pointer]:
+          - /url: https://nsgrill.byonyx.fr/cuisine/
+        - paragraph [ref=f10e26]: nsgrill.byonyx.fr/cuisine/
+      - generic [ref=f10e27]:
+        - heading "3 Gestion du restaurant" [level=2] [ref=f10e28]:
+          - generic [ref=f10e29]: "3"
+          - text: Gestion du restaurant
+        - 'link "Gestion du restaurant : https://nsgrill.byonyx.fr/admin/" [ref=f10e30] [cursor=pointer]':
+          - /url: https://nsgrill.byonyx.fr/admin/
+        - paragraph [ref=f10e34]: Pour modifier votre carte, vos prix et vos photos.
+        - link "Ouvrir la gestion" [ref=f10e35] [cursor=pointer]:
+          - /url: https://nsgrill.byonyx.fr/admin/
+        - paragraph [ref=f10e36]: nsgrill.byonyx.fr/admin/
+    - generic [ref=f10e37]:
+      - heading "Comptes de démonstration" [level=2] [ref=f10e38]
+      - paragraph [ref=f10e39]: "Pour vous connecter à l'écran cuisine et à la gestion. Ce sont des comptes de test : vous pouvez tout essayer."
+      - generic [ref=f10e40]:
+        - strong [ref=f10e41]: Écran cuisine
+        - generic [ref=f10e42]:
+          - text: "Identifiant :"
+          - code [ref=f10e43]: demo-cuisine@onyx.demo
+        - generic [ref=f10e44]:
+          - text: "Mot de passe :"
+          - code [ref=f10e45]: demo1234
+      - generic [ref=f10e46]:
+        - strong [ref=f10e47]: Gestion du restaurant
+        - generic [ref=f10e48]:
+          - text: "Identifiant :"
+          - code [ref=f10e49]: demo-admin@onyx.demo
+        - generic [ref=f10e50]:
+          - text: "Mot de passe :"
+          - code [ref=f10e51]: demo1234
+  - alert [ref=f10e52]

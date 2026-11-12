@@ -1,0 +1,76 @@
+- generic [ref=f1e1]:
+  - note [ref=f1e2]: "Démonstration : aucune commande n'est réellement préparée"
+  - button "Open Next.js Dev Tools" [ref=f1e8] [cursor=pointer]
+  - alert [ref=f1e12]
+  - main [ref=f1e13]:
+    - paragraph [ref=f1e14]:
+      - link "← Retour à la carte" [ref=f1e15] [cursor=pointer]:
+        - /url: /
+    - generic [ref=f1e16]:
+      - generic [ref=f1e17]:
+        - heading "Votre commande" [level=2] [ref=f1e18]
+        - generic [ref=f1e19]:
+          - generic [ref=f1e21]:
+            - strong [ref=f1e22]: Menu biggy mac
+            - generic [ref=f1e23]: Frites cheddar bacon (+4,90 €), Coca-Cola zéro
+            - generic [ref=f1e24]: 17,40 €
+          - generic [ref=f1e25]:
+            - button "Retirer du panier" [ref=f1e26] [cursor=pointer]
+            - generic [ref=f1e29]: "1"
+            - button "Plus" [ref=f1e30] [cursor=pointer]: +
+      - generic [ref=f1e31]:
+        - heading "Mode" [level=2] [ref=f1e32]
+        - generic [ref=f1e33]:
+          - button "Retrait Gratuit" [ref=f1e34] [cursor=pointer]:
+            - text: Retrait
+            - generic [ref=f1e35]: Gratuit
+          - button "Livraison selon l'adresse" [active] [ref=f1e36] [cursor=pointer]:
+            - text: Livraison
+            - generic [ref=f1e37]: selon l'adresse
+        - generic [ref=f1e38]:
+          - text: Adresse
+          - textbox "Adresse" [ref=f1e39]:
+            - /placeholder: N° et rue
+        - generic [ref=f1e40]:
+          - generic [ref=f1e41]:
+            - text: Code postal
+            - textbox "Code postal" [ref=f1e42]
+          - generic [ref=f1e43]:
+            - text: Ville
+            - textbox "Ville" [ref=f1e44]
+        - generic [ref=f1e45]:
+          - text: Étage, code, interphone (facultatif)
+          - textbox "Étage, code, interphone (facultatif)" [ref=f1e46]
+      - generic [ref=f1e47]:
+        - heading "Vos coordonnées" [level=2] [ref=f1e48]
+        - generic [ref=f1e49]:
+          - text: Nom
+          - textbox "Nom" [ref=f1e50]
+        - generic [ref=f1e51]:
+          - text: Téléphone
+          - textbox "Téléphone" [ref=f1e52]
+        - generic [ref=f1e53]:
+          - text: E-mail (pour la confirmation, facultatif)
+          - textbox "E-mail (pour la confirmation, facultatif)" [ref=f1e54]
+        - generic [ref=f1e55]:
+          - text: Remarque (facultatif)
+          - textbox "Remarque (facultatif)" [ref=f1e56]
+        - generic [ref=f1e57]:
+          - text: Code promo
+          - textbox "Code promo" [ref=f1e58]:
+            - /placeholder: Facultatif
+        - textbox [aria-hidden] [ref=f1e59]
+      - generic [ref=f1e60]:
+        - generic [ref=f1e61]:
+          - generic [ref=f1e62]: Sous-total
+          - generic [ref=f1e63]: 17,40 €
+        - generic [ref=f1e64]:
+          - generic [ref=f1e65]: Livraison
+          - generic [ref=f1e66]: —
+        - generic [ref=f1e67]:
+          - generic [ref=f1e68]: Total
+          - generic [ref=f1e69]: 17,40 €
+        - paragraph [ref=f1e70]: "Réglez sur place : espèces, carte bancaire ou titres-restaurant, à la livraison ou au retrait."
+      - button "Commander 17,40 €" [disabled] [ref=f1e71]:
+        - generic [ref=f1e72]: Commander
+        - generic [ref=f1e73]: 17,40 €

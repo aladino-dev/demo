@@ -1,0 +1,12 @@
+{
+  "groups": [
+    { "key": "canette", "title": "Canette 33 cl", "description": "Choisissez votre boisson.", "min": 1, "max": 1, "required": true,
+      "options": [{"label":"Coca-Cola"},{"label":"Coca-Cola zéro"},{"label":"Coca-Cola Cherry"},{"label":"Lipton Ice Tea"},{"label":"Fanta orange"},{"label":"Fanta Citron"},{"label":"Orangina"},{"label":"Schweppes agrumes"},{"label":"Tropico"},{"label":"Oasis Tropical"},{"label":"Oasis Pomme Cassis"},{"label":"7 Up Mojito"},{"label":"Perrier"}] }
+  ],
+  "expand": [
+    { "label": "Canette 33 cl", "into": ["Coca-Cola","Coca-Cola zéro","Coca-Cola Cherry","Lipton Ice Tea","Fanta orange","Fanta Citron","Orangina","Schweppes agrumes","Tropico","Oasis Tropical","Oasis Pomme Cassis","7 Up Mojito","Perrier"] }
+  ],
+  "links": [
+    { "group": "canette", "category": "Boissons", "only": ["Canettes 33cl"] }
+  ]
+}

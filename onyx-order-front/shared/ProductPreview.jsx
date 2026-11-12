@@ -44,7 +44,7 @@ export default function ProductPreview({ name, description, price_cents, photoUr
                 return (
                   <button key={o.id} type="button" className={`pv-opt ${on ? 'on' : ''} ${o.photo ? 'withph' : ''}`} disabled={!on && full} onClick={() => toggle(g, o)}>
                     {o.photo && <span className="pv-oph" style={{ backgroundImage: `url("${o.photo.startsWith('http') ? o.photo : photoBase + o.photo}")` }} />}
-                    <span>{o.label}</span>{o.price_cents > 0 && <span className="pv-x">+{eur(o.price_cents)}</span>}
+                    <span>{o.label}</span>{o.price_cents !== 0 && <span className="pv-x">{o.price_cents > 0 ? "+" : "−"}{eur(Math.abs(o.price_cents))}</span>}
                   </button>
                 );
               })}

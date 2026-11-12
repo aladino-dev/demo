@@ -1,0 +1,15 @@
+{
+  "groups": [
+    { "key": "dessert-option", "title": "Dessert (facultatif)", "description": "Ajoutez un dessert à votre assiette.", "min": 0, "max": 1, "required": false,
+      "options": [
+        {"label":"Künefe","price_cents":600},{"label":"Künefe avec glace","price_cents":700},{"label":"Trileçe / Tiralice","price_cents":400},
+        {"label":"Tarte au daim","price_cents":350},{"label":"Tiramisu","price_cents":350},{"label":"Baklava (3 pièces)","price_cents":400},{"label":"Sütlaç / Riz au lait","price_cents":400}
+      ] },
+    { "key": "boisson-option", "title": "Boisson (facultatif)", "description": "", "min": 0, "max": 1, "required": false,
+      "options": [{"label":"Canette 33 cl","price_cents":150},{"label":"Eau cristalline","price_cents":100},{"label":"Ayran","price_cents":150},{"label":"Şalgam","price_cents":150}] }
+  ],
+  "links": [
+    { "group": "boisson-option", "category": "Les assiettes / Grillades" },
+    { "group": "dessert-option", "category": "Les assiettes / Grillades" }
+  ]
+}

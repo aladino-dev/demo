@@ -8,6 +8,7 @@ Poste : Windows, Node.js 24, **pas de Docker**, PowerShell dans VS Code.
   - `src/db.js` : sans `DATABASE_URL`, lance un PostgreSQL intégré (`embedded-postgres`, dossier `.pgdata`, port 5433, utilisateur/mot de passe/base `onyx`). Il est lancé **indépendamment de l'API** (journal dans `.pgdata.log`) : il survit aux redémarrages de `node --watch` et est réutilisé s'il tourne déjà. Pour l'arrêter : `npm run db:stop`.
   - `src/catalog.js` : routes `/api/admin` de la carte (catégories, produits, listes d'options `/option-groups`, options, photos). Rien ne se supprime : archivage (`archived_at`). Journal des modifications : `src/audit.js` → table `audit_log`.
   - `src/mailer.js` : envoi des e-mails au client (file `email_queue` : confirmation, commande prête, en livraison) via SMTP configuré dans `.env` (`SMTP_HOST`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`, `SITE_URL`). Sans `SMTP_HOST`, les e-mails restent en attente. Essais répétés puis abandon après 5 échecs ; jamais d'e-mail pour une commande de plus de 24 h. Test : `npm run email:test -- adresse`.
+  - `src/menuImport.js` : **import de la carte par IA** (photo/PDF -> brouillon de produits que le restaurateur valide ; produits créés masqués ; l'IA n'invente jamais un prix). Écran : onglet « Importer ma carte » dans « Carte ». Nécessite `ANTHROPIC_API_KEY` dans `.env` (clé jamais dans le chat ni dans Git) ; modèle réglable par `ANTHROPIC_MODEL` (défaut `claude-opus-5-5`, `claude-sonnet-5-5` moins cher). Testé avec un faux modèle seulement : à essayer avec une vraie carte dès qu'une clé est renseignée.
   - `db/schema.sql` : schéma (appliqué à chaque démarrage, idempotent). Prix en centimes.
   - `scripts/seed.js` : importe `data/seed-food-station.json` (19 catégories, 129 produits, 23 groupes d'options) et crée 2 comptes (owner, cuisine) dont les mots de passe s'affichent une seule fois dans le terminal. `--reset` remplace tout.
   - `scripts/photos.js` : convertit les photos de la sauvegarde WordPress (`…-uploads.zip`) en WebP dans `photos/`.
@@ -19,6 +20,7 @@ Poste : Windows, Node.js 24, **pas de Docker**, PowerShell dans VS Code.
 
 ## Documents
 - `docs/SPEC-BACKOFFICE.md` : spécification du back-office à construire (principes, écrans, API, ordre de réalisation, critères de réussite).
+- `docs/ARCHITECTURE.md` : architecture, outils génériques (`menu:csv`, `menu:options`, `menu:photos`, `menu:import-photos`, export/import de restaurant), test local, déploiement et « où modifier quoi ». **À mettre à jour à chaque changement d'architecture.**
 
 ## Lancer en local
 Terminal 1 : `cd onyx-order-api` → `npm install` → `npm run seed` (1re fois) → `npm run dev`

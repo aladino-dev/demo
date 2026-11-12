@@ -1,0 +1,9 @@
+{
+  "products": {
+    "petit.jpg": ["Frites petite"],
+    "grand.jpg": ["Frites grande"],
+    "barquette_ble.png": ["Blé petite", "Blé grande"],
+    "viande.jpg": ["Viande petite"],
+    "viande grand.jpg": ["Viande grande"]
+  }
+}

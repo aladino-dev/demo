@@ -31,3 +31,4 @@ Thumbs.db
 
 # ---- Anciens fichiers du projet ----
 _archive/
+.next-*/

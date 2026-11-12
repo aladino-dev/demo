@@ -1,0 +1,9 @@
+{
+  "links": [
+    { "group": "boisson-option", "category": "Pideler" },
+    { "group": "boisson-option", "category": "Les tacos" },
+    { "group": "dessert-option", "category": "Pideler" },
+    { "group": "dessert-option", "category": "Les tacos" },
+    { "group": "dessert-option", "category": "Les sandwichs", "except": ["Menu enfant"] }
+  ]
+}

@@ -92,6 +92,32 @@ h2 { font-size: clamp(1.7rem, 5vw, 2.5rem); font-weight: 800; }
 .why h3 { font-size: 1.12rem; margin-bottom: 6px; color: #ffb98d; }
 .why p { margin: 0; color: #d9d2c5; }
 
+/* ---- Tarifs ---- */
+.plans { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); align-items: stretch; }
+.plan { position: relative; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 28px 24px; display: flex; flex-direction: column; gap: 6px; box-shadow: var(--shadow); }
+.plan.featured { border: 2px solid var(--accent); box-shadow: 0 18px 44px color-mix(in srgb, var(--accent) 22%, transparent); }
+.plan .ribbon { position: absolute; top: -13px; left: 24px; background: var(--accent); color: #fff; font-size: .75rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; padding: 4px 12px; border-radius: 99px; }
+.plan h3 { font-size: 1.35rem; }
+.plan .tagline { margin: 0; color: var(--muted); font-size: .95rem; min-height: 2.8em; }
+.plan .price { margin: 14px 0 0; display: flex; align-items: baseline; gap: 6px; }
+.plan .amount { font-size: 2.6rem; font-weight: 800; letter-spacing: -.03em; }
+.plan .per { color: var(--muted); font-weight: 600; }
+.plan .setup { margin: 0 0 14px; color: #4a453d; font-weight: 600; font-size: .95rem; }
+.plan ul { margin: 0 0 22px; padding: 0; list-style: none; display: grid; gap: 9px; flex: 1; }
+.plan li { position: relative; padding-left: 26px; color: #3b362f; }
+.plan li::before { content: ''; position: absolute; left: 2px; top: 6px; width: 6px; height: 11px; border: solid var(--ok); border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
+.plan .btn { width: 100%; }
+.plan .amount.quote { font-size: 2rem; }
+.launch { margin: 0 0 22px; padding: 12px 18px; border-radius: 14px; background: var(--ink); color: #fff; font-weight: 700; display: inline-block; }
+.fine { margin: 14px 0 0; }
+.fee-box { margin: 34px 0 0; padding: 22px 24px; border-radius: var(--radius); background: color-mix(in srgb, var(--accent) 8%, #fff); border: 1px solid color-mix(in srgb, var(--accent) 25%, #fff); }
+.fee-box h3 { font-size: 1.15rem; margin-bottom: 6px; }
+.fee-box p { margin: 0; color: #3b362f; }
+.opt-title { margin: 34px 0 12px; font-size: 1.15rem; }
+.options { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.options li { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; }
+.options span { color: var(--muted); font-size: .92rem; }
+
 .contact { text-align: center; }
 .contact h2 { margin-bottom: 4px; }
 .contact-box { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }

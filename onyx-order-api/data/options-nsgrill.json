@@ -1,0 +1,153 @@
+{
+  "groups": [
+    {
+      "key": "sauces",
+      "title": "Sauces",
+      "description": "2 au choix maximum.",
+      "min": 1,
+      "max": 2,
+      "required": true,
+      "options": [
+        {
+          "label": "Mayonnaise"
+        },
+        {
+          "label": "Barbecue"
+        },
+        {
+          "label": "Ketchup"
+        },
+        {
+          "label": "Blanche"
+        },
+        {
+          "label": "Biggy"
+        },
+        {
+          "label": "Algérienne"
+        },
+        {
+          "label": "Samouraï"
+        },
+        {
+          "label": "Chili thaï"
+        },
+        {
+          "label": "Harissa"
+        },
+        {
+          "label": "Sans sauce"
+        }
+      ]
+    },
+    {
+      "key": "crudites",
+      "title": "Crudités",
+      "description": "Jusqu'à 3.",
+      "min": 1,
+      "max": 3,
+      "required": true,
+      "options": [
+        {
+          "label": "Salade"
+        },
+        {
+          "label": "Tomates"
+        },
+        {
+          "label": "Oignons"
+        },
+        {
+          "label": "Sans crudité"
+        }
+      ]
+    },
+    {
+      "key": "boisson",
+      "title": "Boisson",
+      "description": "Boisson comprise dans le prix. Sans boisson : 1,00 € de moins.",
+      "min": 1,
+      "max": 1,
+      "required": true,
+      "options": [
+        {
+          "label": "Sans boisson",
+          "price_cents": -100
+        },
+        {
+          "label": "Canette 33 cl"
+        },
+        {
+          "label": "Eau cristalline"
+        },
+        {
+          "label": "Ayran"
+        },
+        {
+          "label": "Şalgam"
+        }
+      ]
+    },
+    {
+      "key": "boisson-150",
+      "title": "Boisson",
+      "description": "Boisson comprise dans le prix. Sans boisson : 1,50 € de moins.",
+      "min": 1,
+      "max": 1,
+      "required": true,
+      "options": [
+        {
+          "label": "Sans boisson",
+          "price_cents": -150
+        },
+        {
+          "label": "Canette 33 cl"
+        },
+        {
+          "label": "Eau cristalline"
+        },
+        {
+          "label": "Ayran"
+        },
+        {
+          "label": "Şalgam"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "group": "sauces",
+      "category": "Les sandwichs",
+      "except": [
+        "Menu enfant"
+      ]
+    },
+    {
+      "group": "crudites",
+      "category": "Les sandwichs",
+      "except": [
+        "Menu enfant"
+      ]
+    },
+    {
+      "group": "boisson",
+      "category": "Les sandwichs",
+      "except": [
+        "Menu enfant",
+        "Brochette d'agneau",
+        "Pain au four kebab",
+        "Pain au four 2 viandes"
+      ]
+    },
+    {
+      "group": "boisson-150",
+      "category": "Les sandwichs",
+      "only": [
+        "Brochette d'agneau",
+        "Pain au four kebab",
+        "Pain au four 2 viandes"
+      ]
+    }
+  ]
+}

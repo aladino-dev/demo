@@ -5,12 +5,20 @@ import { API, api, getSession, saveSession, eur, time, MODE, STATUS } from '../.
 const COLS = ['new', 'preparing', 'ready', 'delivering'];
 const NEXT = { new: 'preparing', preparing: 'ready', ready: (o) => (o.mode === 'delivery' ? 'delivering' : 'done'), delivering: 'done' };
 const NEXT_LABEL = { preparing: 'Préparer', ready: 'Prête', delivering: 'En livraison', done: 'Terminée' };
+const COL_ICON = { new: '', preparing: '', ready: '', delivering: '' }; // pas d'emoji : écran de travail sobre
+
+// Âge d'une commande : « 3 min » ; devient orange après 10 min, rouge après 20 min (commande encore en cours)
+function age(created, now) {
+  const m = Math.max(0, Math.floor((now - new Date(created).getTime()) / 60000));
+  return { m, label: m < 1 ? 'À l’instant' : m < 60 ? `${m} min` : `${Math.floor(m / 60)} h ${String(m % 60).padStart(2, '0')}`, tone: m >= 20 ? 'late' : m >= 10 ? 'warn' : 'ok' };
+}
 
 // Sonnerie : bip répété tant qu'il reste une commande « Nouvelle » (son activé par un geste, exigé par les navigateurs)
 function useRinger() {
   const ctx = useRef(null);
   const [enabled, setEnabled] = useState(false);
   const enable = () => {
+    if (enabled) { setEnabled(false); return; } // 2e appui : couper le son
     try {
       ctx.current = ctx.current || new (window.AudioContext || window.webkitAudioContext)();
       ctx.current.resume();
@@ -41,7 +49,13 @@ function Board({ session, onLogout }) {
   const [orders, setOrders] = useState([]);
   const [live, setLive] = useState(false);
   const [ticket, setTicket] = useState(null);
+  const [tab, setTab] = useState('new'); // téléphone : une colonne à la fois
   const { enabled, enable, ring } = useRinger();
+  // Rythme du rappel (3 bips à chaque fois) : « fast » toutes les 4 s, « calm » toutes les 30 s ; choix mémorisé sur l'appareil
+  const [rhythm, setRhythm] = useState(() => { try { return localStorage.getItem('ringRhythm') === 'calm' ? 'calm' : 'fast'; } catch { return 'fast'; } });
+  const toggleRhythm = () => setRhythm((r) => { const n = r === 'fast' ? 'calm' : 'fast'; try { localStorage.setItem('ringRhythm', n); } catch {} return n; });
+  const [now, setNow] = useState(Date.now());
+  useEffect(() => { const t = setInterval(() => setNow(Date.now()), 30000); return () => clearInterval(t); }, []);
 
   const load = useCallback(() => api('/api/admin/orders?status=new,preparing,ready,delivering').then(setOrders).catch(() => {}), []);
 
@@ -66,13 +80,21 @@ function Board({ session, onLogout }) {
     return () => { es?.close(); clearTimeout(retry); clearInterval(poll); };
   }, [session.token, load]);
 
-  const hasNew = orders.some((o) => o.status === 'new');
+  const newIds = orders.filter((o) => o.status === 'new').map((o) => o.id).sort((a, b) => a - b).join(',');
+  const hasNew = newIds !== '';
+  const seen = useRef(new Set());
+  // Chaque nouvelle commande sonne tout de suite (même si une autre attend déjà), puis rappel au rythme choisi
   useEffect(() => {
     if (!hasNew) return;
-    ring();
-    const t = setInterval(ring, 4000);
+    const alert = () => { ring(); navigator.vibrate?.([200, 100, 200]); };
+    const ids = newIds.split(',').map(Number);
+    const fresh = ids.some((i) => !seen.current.has(i));
+    seen.current = new Set(ids);
+    if (fresh) alert();
+    const t = setInterval(alert, rhythm === 'calm' ? 30000 : 4000);
     return () => clearInterval(t);
-  }, [hasNew, ring]);
+  }, [newIds, hasNew, ring, rhythm]);
+  useEffect(() => { if (!hasNew) seen.current = new Set(); }, [hasNew]);
 
   const move = async (o, status) => {
     try {
@@ -84,25 +106,38 @@ function Board({ session, onLogout }) {
   const print = (o) => { setTicket(o); setTimeout(() => window.print(), 50); };
 
   return (
-    <>
+    <div className="kitchen">
       <div className="top">
-        <h1>{session.restaurant.name} · Cuisine</h1>
-        <span className="muted" style={{ color: live ? '#7ee2a4' : '#ffab95' }}>{live ? '● En direct' : '● Reconnexion…'}</span>
-        <button className={enabled ? 'on' : hasNew ? 'warn' : ''} onClick={enable}>{enabled ? '🔔 Son activé' : '🔕 Activer le son'}</button>
-        <button onClick={onLogout}>Déconnexion</button>
+        <h1>{session.restaurant.name} <small>Cuisine</small></h1>
+        <span className={`live ${live ? 'on' : 'off'}`}><i />{live ? 'En direct' : 'Reconnexion…'}</span>
+        <button className={enabled ? 'on' : hasNew ? 'warn' : ''} onClick={enable}><span aria-hidden="true">{enabled ? '🔔' : '🔕'}</span><span className="lbl"> {enabled ? 'Son activé · couper' : 'Activer le son'}</span></button>
+        <button onClick={toggleRhythm} title="Rythme du rappel tant qu'une commande n'est pas prise en charge"><span aria-hidden="true">⏱</span><span className="lbl"> Rappel {rhythm === 'calm' ? '30 s' : '4 s'}</span></button>
+        <button onClick={onLogout} aria-label="Déconnexion"><span aria-hidden="true">⎋</span><span className="lbl"> Déconnexion</span></button>
       </div>
+      <nav className="tabs" aria-label="Commandes par état">
+        {COLS.map((c) => {
+          const n = orders.filter((o) => o.status === c).length;
+          return (
+            <button key={c} className={`tab ${c}${tab === c ? ' on' : ''}${c === 'new' && n ? ' alert' : ''}`} onClick={() => setTab(c)} aria-pressed={tab === c}>
+              <span className="ic" aria-hidden="true">{COL_ICON[c]}</span><span className="n">{n}</span><span className="t">{STATUS[c]}</span>
+            </button>
+          );
+        })}
+      </nav>
       <div className="board">
         {COLS.map((c) => {
           const list = orders.filter((o) => o.status === c).sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
           return (
-            <div key={c} className="col">
-              <h2>{STATUS[c]} <span>{list.length}</span></h2>
+            <div key={c} className={`col${tab === c ? " is-active" : ""}`}>
+              <h2><span className="ci" aria-hidden="true">{COL_ICON[c]}</span>{STATUS[c]} <span className="cnt">{list.length}</span></h2>
+              {list.length === 0 && <p className="empty">Aucune commande</p>}
               {list.map((o) => {
                 const nx = typeof NEXT[c] === 'function' ? NEXT[c](o) : NEXT[c];
+                const a = age(o.created_at, now);
                 return (
                   <div key={o.id} className={`ord ${c}`}>
-                    <div className="h"><span className="num">#{o.number}</span><span className="mode">{MODE[o.mode]}</span></div>
-                    <div className="muted">{time(o.created_at)} · {o.customer_name} · {o.customer_phone}</div>
+                    <div className="h"><span className="num">#{o.number}</span><span className={`age ${a.tone}`}>⏱ {a.label}</span><span className="mode">{MODE[o.mode]}</span></div>
+                    <div className="who"><strong>{o.customer_name}</strong><span>{time(o.created_at)} · <a href={`tel:${o.customer_phone}`}>{o.customer_phone}</a></span></div>
                     {o.mode === 'delivery' && <div>{o.address}, {o.postcode} {o.city}</div>}
                     <ul>
                       {o.items.map((i) => (
@@ -113,7 +148,7 @@ function Board({ session, onLogout }) {
                       ))}
                     </ul>
                     {o.note && <div className="note">📝 {o.note}</div>}
-                    <div><strong>{eur(o.total_cents)}</strong> <span className="muted">à régler sur place</span></div>
+                    <div className="tot"><strong>{eur(o.total_cents)}</strong><span>à régler sur place</span></div>
                     <div className="acts">
                       <button onClick={() => print(o)}>🖨 Ticket</button>
                       <button className="go" onClick={() => move(o, nx)}>{NEXT_LABEL[nx]}</button>
@@ -126,7 +161,7 @@ function Board({ session, onLogout }) {
         })}
       </div>
       {ticket && <Ticket o={ticket} name={session.restaurant.name} />}
-    </>
+    </div>
   );
 }
 

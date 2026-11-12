@@ -1,0 +1,469 @@
+- generic [active] [ref=f6e1]:
+  - note [ref=f6e2]: "Démonstration : aucune commande n'est réellement préparée"
+  - generic [ref=f6e3]:
+    - banner [ref=f6e4]:
+      - generic [ref=f6e5]:
+        - generic [ref=f6e6]: Fermé pour le moment
+        - heading "NS Grill" [level=1] [ref=f6e8]
+        - paragraph [ref=f6e9]: 9 Rue d'Andrésy, 78570 Chanteloup-les-Vignes
+        - paragraph [ref=f6e10]: Tous les jours 11h00–22h00
+        - generic [ref=f6e11]:
+          - generic [ref=f6e12]: "Démo : commandes acceptées"
+          - generic [ref=f6e13]: Retrait
+        - link "Appeler le restaurant" [ref=f6e14] [cursor=pointer]:
+          - /url: tel:0984146167
+    - navigation "Catégories" [ref=f6e15]:
+      - generic [ref=f6e16]:
+        - button "Les entrées" [ref=f6e17] [cursor=pointer]
+        - button "Pideler" [ref=f6e18] [cursor=pointer]
+        - button "Les assiettes / Grillades" [ref=f6e19] [cursor=pointer]
+        - button "Les sandwichs" [ref=f6e20] [cursor=pointer]
+        - button "Les tacos" [ref=f6e21] [cursor=pointer]
+        - button "Les barquettes" [ref=f6e22] [cursor=pointer]
+        - button "Desserts" [ref=f6e23] [cursor=pointer]
+        - button "Boissons" [ref=f6e24] [cursor=pointer]
+    - main [ref=f6e25]:
+      - generic [ref=f6e26]:
+        - heading "Les entrées" [level=2] [ref=f6e27]
+        - generic [ref=f6e28]:
+          - button "Mercimek (Soupe aux lentilles), 6,00 €, 1 dans le panier" [ref=f6e29] [cursor=pointer]:
+            - generic [ref=f6e30]:
+              - img "Mercimek (Soupe aux lentilles)" [ref=f6e31]
+              - generic [ref=f6e32]: 6,00 €
+              - generic [aria-hidden] [ref=f6e33]: "1"
+            - generic [ref=f6e34]: Mercimek (Soupe aux lentilles)
+          - button "İşkembe (Soupe aux tripes), 6,00 €" [ref=f6e36] [cursor=pointer]:
+            - generic [ref=f6e37]:
+              - img "İşkembe (Soupe aux tripes)" [ref=f6e38]
+              - generic [ref=f6e39]: 6,00 €
+              - generic [aria-hidden] [ref=f6e40]: +
+            - generic [ref=f6e41]: İşkembe (Soupe aux tripes)
+          - button "Patlıcan ezmesi / Caviar d'aubergines, 5,00 €" [ref=f6e43] [cursor=pointer]:
+            - generic [ref=f6e44]:
+              - img "Patlıcan ezmesi / Caviar d'aubergines" [ref=f6e45]
+              - generic [ref=f6e46]: 5,00 €
+              - generic [aria-hidden] [ref=f6e47]: +
+            - generic [ref=f6e48]: Patlıcan ezmesi / Caviar d'aubergines
+          - button "Antep ezmesi, 5,00 €" [ref=f6e50] [cursor=pointer]:
+            - generic [ref=f6e51]:
+              - img "Antep ezmesi" [ref=f6e52]
+              - generic [ref=f6e53]: 5,00 €
+              - generic [aria-hidden] [ref=f6e54]: +
+            - generic [ref=f6e55]: Antep ezmesi
+          - button "Cacık, 5,00 €" [ref=f6e57] [cursor=pointer]:
+            - generic [ref=f6e58]:
+              - img "Cacık" [ref=f6e59]
+              - generic [ref=f6e60]: 5,00 €
+              - generic [aria-hidden] [ref=f6e61]: +
+            - generic [ref=f6e62]: Cacık
+          - button "Sarma / Feuilles de vigne, 5,00 €" [ref=f6e64] [cursor=pointer]:
+            - generic [ref=f6e65]:
+              - img "Sarma / Feuilles de vigne" [ref=f6e66]
+              - generic [ref=f6e67]: 5,00 €
+              - generic [aria-hidden] [ref=f6e68]: +
+            - generic [ref=f6e69]: Sarma / Feuilles de vigne
+          - button "Börek / Brick au fromage, 5,00 €" [ref=f6e71] [cursor=pointer]:
+            - generic [ref=f6e72]:
+              - img "Börek / Brick au fromage" [ref=f6e73]
+              - generic [ref=f6e74]: 5,00 €
+              - generic [aria-hidden] [ref=f6e75]: +
+            - generic [ref=f6e76]: Börek / Brick au fromage
+          - button "İçli köfte, 9,00 €" [ref=f6e78] [cursor=pointer]:
+            - generic [ref=f6e79]:
+              - img "İçli köfte" [ref=f6e80]
+              - generic [ref=f6e81]: 9,00 €
+              - generic [aria-hidden] [ref=f6e82]: +
+            - generic [ref=f6e83]: İçli köfte
+          - button "Humus / Houmous, 5,00 €" [ref=f6e85] [cursor=pointer]:
+            - generic [ref=f6e86]:
+              - img "Humus / Houmous" [ref=f6e87]
+              - generic [ref=f6e88]: 5,00 €
+              - generic [aria-hidden] [ref=f6e89]: +
+            - generic [ref=f6e90]: Humus / Houmous
+          - button "Mezze mix, 13,00 €" [ref=f6e92] [cursor=pointer]:
+            - generic [ref=f6e93]:
+              - img "Mezze mix" [ref=f6e94]
+              - generic [ref=f6e95]: 13,00 €
+              - generic [aria-hidden] [ref=f6e96]: +
+            - generic [ref=f6e97]: Mezze mix
+          - button "Ali Nazik, 5,00 €" [ref=f6e99] [cursor=pointer]:
+            - generic [ref=f6e100]:
+              - img "Ali Nazik" [ref=f6e101]
+              - generic [ref=f6e102]: 5,00 €
+              - generic [aria-hidden] [ref=f6e103]: +
+            - generic [ref=f6e104]: Ali Nazik
+      - generic [ref=f6e106]:
+        - heading "Pideler" [level=2] [ref=f6e107]
+        - generic [ref=f6e108]:
+          - button "Lahmacun, 3,00 €" [ref=f6e109] [cursor=pointer]:
+            - generic [ref=f6e110]:
+              - img "Lahmacun" [ref=f6e111]
+              - generic [ref=f6e112]: 3,00 €
+              - generic [aria-hidden] [ref=f6e113]: +
+            - generic [ref=f6e114]: Lahmacun
+          - button "Lahmacun avec Kebab, 7,00 €" [ref=f6e116] [cursor=pointer]:
+            - generic [ref=f6e117]:
+              - img "Lahmacun avec Kebab" [ref=f6e118]
+              - generic [ref=f6e119]: 7,00 €
+              - generic [aria-hidden] [ref=f6e120]: +
+            - generic [ref=f6e121]: Lahmacun avec Kebab
+          - button "Pide Kebab, 8,00 €" [ref=f6e123] [cursor=pointer]:
+            - generic [ref=f6e124]:
+              - img "Pide Kebab" [ref=f6e125]
+              - generic [ref=f6e126]: 8,00 €
+              - generic [aria-hidden] [ref=f6e127]: +
+            - generic [ref=f6e128]: Pide Kebab
+          - button "Pide Kuş başı / à la viande, 8,00 €" [ref=f6e130] [cursor=pointer]:
+            - generic [ref=f6e131]:
+              - img "Pide Kuş başı / à la viande" [ref=f6e132]
+              - generic [ref=f6e133]: 8,00 €
+              - generic [aria-hidden] [ref=f6e134]: +
+            - generic [ref=f6e135]: Pide Kuş başı / à la viande
+          - button "Pide Sucuklu / au sucuk, 8,00 €" [ref=f6e137] [cursor=pointer]:
+            - generic [ref=f6e138]:
+              - img "Pide Sucuklu / au sucuk" [ref=f6e139]
+              - generic [ref=f6e140]: 8,00 €
+              - generic [aria-hidden] [ref=f6e141]: +
+            - generic [ref=f6e142]: Pide Sucuklu / au sucuk
+          - button "Pide Épinard, 8,00 €" [ref=f6e144] [cursor=pointer]:
+            - generic [ref=f6e145]:
+              - img "Pide Épinard" [ref=f6e146]
+              - generic [ref=f6e147]: 8,00 €
+              - generic [aria-hidden] [ref=f6e148]: +
+            - generic [ref=f6e149]: Pide Épinard
+          - button "Pide Poulet, 8,00 €" [ref=f6e151] [cursor=pointer]:
+            - generic [ref=f6e152]:
+              - img "Pide Poulet" [ref=f6e153]
+              - generic [ref=f6e154]: 8,00 €
+              - generic [aria-hidden] [ref=f6e155]: +
+            - generic [ref=f6e156]: Pide Poulet
+          - button "Pide Viande hachée, 8,00 €" [ref=f6e158] [cursor=pointer]:
+            - generic [ref=f6e159]:
+              - img "Pide Viande hachée" [ref=f6e160]
+              - generic [ref=f6e161]: 8,00 €
+              - generic [aria-hidden] [ref=f6e162]: +
+            - generic [ref=f6e163]: Pide Viande hachée
+          - button "Pide Mixte, 10,00 €" [ref=f6e165] [cursor=pointer]:
+            - generic [ref=f6e166]:
+              - img "Pide Mixte" [ref=f6e167]
+              - generic [ref=f6e168]: 10,00 €
+              - generic [aria-hidden] [ref=f6e169]: +
+            - generic [ref=f6e170]: Pide Mixte
+      - generic [ref=f6e172]:
+        - heading "Les assiettes / Grillades" [level=2] [ref=f6e173]
+        - generic [ref=f6e174]:
+          - button "Chicken curry ou tandoori, 12,00 €" [ref=f6e175] [cursor=pointer]:
+            - generic [ref=f6e176]:
+              - img "Chicken curry ou tandoori" [ref=f6e177]
+              - generic [ref=f6e178]: 12,00 €
+              - generic [aria-hidden] [ref=f6e179]: +
+            - generic [ref=f6e180]: Chicken curry ou tandoori
+          - button "Escalope poulet (Assiette), 12,00 €" [ref=f6e182] [cursor=pointer]:
+            - generic [ref=f6e183]:
+              - img "Escalope poulet (Assiette)" [ref=f6e184]
+              - generic [ref=f6e185]: 12,00 €
+              - generic [aria-hidden] [ref=f6e186]: +
+            - generic [ref=f6e187]: Escalope poulet (Assiette)
+          - button "Kanat / Ailes de poulet (Assiette), 13,00 €" [ref=f6e189] [cursor=pointer]:
+            - generic [ref=f6e190]:
+              - img "Kanat / Ailes de poulet (Assiette)" [ref=f6e191]
+              - generic [ref=f6e192]: 13,00 €
+              - generic [aria-hidden] [ref=f6e193]: +
+            - generic [ref=f6e194]: Kanat / Ailes de poulet (Assiette)
+          - button "Adana (Assiette), 13,00 €" [ref=f6e196] [cursor=pointer]:
+            - generic [ref=f6e197]:
+              - img "Adana (Assiette)" [ref=f6e198]
+              - generic [ref=f6e199]: 13,00 €
+              - generic [aria-hidden] [ref=f6e200]: +
+            - generic [ref=f6e201]: Adana (Assiette)
+          - button "Köfte, 13,00 €" [ref=f6e203] [cursor=pointer]:
+            - generic [ref=f6e204]:
+              - img "Köfte" [ref=f6e205]
+              - generic [ref=f6e206]: 13,00 €
+              - generic [aria-hidden] [ref=f6e207]: +
+            - generic [ref=f6e208]: Köfte
+          - button "Brochette de Poulet, 13,00 €" [ref=f6e210] [cursor=pointer]:
+            - generic [ref=f6e211]:
+              - img "Brochette de Poulet" [ref=f6e212]
+              - generic [ref=f6e213]: 13,00 €
+              - generic [aria-hidden] [ref=f6e214]: +
+            - generic [ref=f6e215]: Brochette de Poulet
+          - button "Merguez, 13,00 €" [ref=f6e217] [cursor=pointer]:
+            - generic [ref=f6e218]:
+              - img "Merguez" [ref=f6e219]
+              - generic [ref=f6e220]: 13,00 €
+              - generic [aria-hidden] [ref=f6e221]: +
+            - generic [ref=f6e222]: Merguez
+          - button "Brochette d'agneau / Côtelettes, 15,00 €" [ref=f6e224] [cursor=pointer]:
+            - generic [ref=f6e225]:
+              - img "Brochette d'agneau / Côtelettes" [ref=f6e226]
+              - generic [ref=f6e227]: 15,00 €
+              - generic [aria-hidden] [ref=f6e228]: +
+            - generic [ref=f6e229]: Brochette d'agneau / Côtelettes
+          - button "kebab, 16,00 €" [ref=f6e231] [cursor=pointer]:
+            - generic [ref=f6e232]:
+              - img "kebab" [ref=f6e233]
+              - generic [ref=f6e234]: 16,00 €
+              - generic [aria-hidden] [ref=f6e235]: +
+            - generic [ref=f6e236]: kebab
+          - button "NS grill, 18,00 €" [ref=f6e238] [cursor=pointer]:
+            - generic [ref=f6e239]:
+              - img "NS grill" [ref=f6e240]
+              - generic [ref=f6e241]: 18,00 €
+              - generic [aria-hidden] [ref=f6e242]: +
+            - generic [ref=f6e243]: NS grill
+          - button "İskender, 16,00 €" [ref=f6e245] [cursor=pointer]:
+            - generic [ref=f6e246]:
+              - img "İskender" [ref=f6e247]
+              - generic [ref=f6e248]: 16,00 €
+              - generic [aria-hidden] [ref=f6e249]: +
+            - generic [ref=f6e250]: İskender
+          - button "Yoğurtlu Adana / Adana au yaourt, 16,00 €" [ref=f6e252] [cursor=pointer]:
+            - generic [ref=f6e253]:
+              - img "Yoğurtlu Adana / Adana au yaourt" [ref=f6e254]
+              - generic [ref=f6e255]: 16,00 €
+              - generic [aria-hidden] [ref=f6e256]: +
+            - generic [ref=f6e257]: Yoğurtlu Adana / Adana au yaourt
+          - button "La Dorade, 16,00 €" [ref=f6e259] [cursor=pointer]:
+            - generic [ref=f6e260]:
+              - img "La Dorade" [ref=f6e261]
+              - generic [ref=f6e262]: 16,00 €
+              - generic [aria-hidden] [ref=f6e263]: +
+            - generic [ref=f6e264]: La Dorade
+          - button "Beyti Adana, 16,00 €" [ref=f6e266] [cursor=pointer]:
+            - generic [ref=f6e267]:
+              - img "Beyti Adana" [ref=f6e268]
+              - generic [ref=f6e269]: 16,00 €
+              - generic [aria-hidden] [ref=f6e270]: +
+            - generic [ref=f6e271]: Beyti Adana
+          - button "Ali Nazik, 16,00 €" [ref=f6e273] [cursor=pointer]:
+            - generic [ref=f6e274]:
+              - img "Ali Nazik" [ref=f6e275]
+              - generic [ref=f6e276]: 16,00 €
+              - generic [aria-hidden] [ref=f6e277]: +
+            - generic [ref=f6e278]: Ali Nazik
+      - generic [ref=f6e280]:
+        - heading "Les sandwichs" [level=2] [ref=f6e281]
+        - generic [ref=f6e282]:
+          - button "Kebab, 9,50 €" [ref=f6e283] [cursor=pointer]:
+            - generic [ref=f6e284]:
+              - img "Kebab" [ref=f6e285]
+              - generic [ref=f6e286]: 9,50 €
+              - generic [aria-hidden] [ref=f6e287]: +
+            - generic [ref=f6e288]: Kebab
+          - button "Köfte, 9,50 €" [ref=f6e290] [cursor=pointer]:
+            - generic [ref=f6e291]:
+              - img "Köfte" [ref=f6e292]
+              - generic [ref=f6e293]: 9,50 €
+              - generic [aria-hidden] [ref=f6e294]: +
+            - generic [ref=f6e295]: Köfte
+          - button "Adana, 9,50 €" [ref=f6e297] [cursor=pointer]:
+            - generic [ref=f6e298]:
+              - img "Adana" [ref=f6e299]
+              - generic [ref=f6e300]: 9,50 €
+              - generic [aria-hidden] [ref=f6e301]: +
+            - generic [ref=f6e302]: Adana
+          - button "Brochette de poulet, 9,50 €" [ref=f6e304] [cursor=pointer]:
+            - generic [ref=f6e305]:
+              - img "Brochette de poulet" [ref=f6e306]
+              - generic [ref=f6e307]: 9,50 €
+              - generic [aria-hidden] [ref=f6e308]: +
+            - generic [ref=f6e309]: Brochette de poulet
+          - button "Chicken curry ou tandoori, 9,50 €" [ref=f6e311] [cursor=pointer]:
+            - generic [ref=f6e312]:
+              - img "Chicken curry ou tandoori" [ref=f6e313]
+              - generic [ref=f6e314]: 9,50 €
+              - generic [aria-hidden] [ref=f6e315]: +
+            - generic [ref=f6e316]: Chicken curry ou tandoori
+          - button "Escalope poulet, 9,50 €" [ref=f6e318] [cursor=pointer]:
+            - generic [ref=f6e319]:
+              - img "Escalope poulet" [ref=f6e320]
+              - generic [ref=f6e321]: 9,50 €
+              - generic [aria-hidden] [ref=f6e322]: +
+            - generic [ref=f6e323]: Escalope poulet
+          - button "Merguez, 9,50 €" [ref=f6e325] [cursor=pointer]:
+            - generic [ref=f6e326]:
+              - img "Merguez" [ref=f6e327]
+              - generic [ref=f6e328]: 9,50 €
+              - generic [aria-hidden] [ref=f6e329]: +
+            - generic [ref=f6e330]: Merguez
+          - button "Brochette d'agneau, 11,00 €" [ref=f6e332] [cursor=pointer]:
+            - generic [ref=f6e333]:
+              - img "Brochette d'agneau" [ref=f6e334]
+              - generic [ref=f6e335]: 11,00 €
+              - generic [aria-hidden] [ref=f6e336]: +
+            - generic [ref=f6e337]: Brochette d'agneau
+          - button "Pain au four kebab, 10,00 €" [ref=f6e339] [cursor=pointer]:
+            - generic [ref=f6e340]:
+              - img "Pain au four kebab" [ref=f6e341]
+              - generic [ref=f6e342]: 10,00 €
+              - generic [aria-hidden] [ref=f6e343]: +
+            - generic [ref=f6e344]: Pain au four kebab
+          - button "Pain au four 2 viandes, 11,00 €" [ref=f6e346] [cursor=pointer]:
+            - generic [ref=f6e347]:
+              - img "Pain au four 2 viandes" [ref=f6e348]
+              - generic [ref=f6e349]: 11,00 €
+              - generic [aria-hidden] [ref=f6e350]: +
+            - generic [ref=f6e351]: Pain au four 2 viandes
+          - button "Cheeseburger, 7,50 €" [ref=f6e353] [cursor=pointer]:
+            - generic [ref=f6e354]:
+              - img "Cheeseburger" [ref=f6e355]
+              - generic [ref=f6e356]: 7,50 €
+              - generic [aria-hidden] [ref=f6e357]: +
+            - generic [ref=f6e358]: Cheeseburger
+          - button "Double cheese, 9,00 €" [ref=f6e360] [cursor=pointer]:
+            - generic [ref=f6e361]:
+              - img "Double cheese" [ref=f6e362]
+              - generic [ref=f6e363]: 9,00 €
+              - generic [aria-hidden] [ref=f6e364]: +
+            - generic [ref=f6e365]: Double cheese
+          - button "Menu enfant, 7,00 €" [ref=f6e367] [cursor=pointer]:
+            - generic [ref=f6e368]:
+              - img "Menu enfant" [ref=f6e369]
+              - generic [ref=f6e370]: 7,00 €
+              - generic [aria-hidden] [ref=f6e371]: +
+            - generic [ref=f6e372]: Menu enfant
+      - generic [ref=f6e374]:
+        - heading "Les tacos" [level=2] [ref=f6e375]
+        - generic [ref=f6e376]:
+          - button "1 viande (hors boisson), 9,00 €" [ref=f6e377] [cursor=pointer]:
+            - generic [ref=f6e378]:
+              - img "1 viande (hors boisson)" [ref=f6e379]
+              - generic [ref=f6e380]: 9,00 €
+              - generic [aria-hidden] [ref=f6e381]: +
+            - generic [ref=f6e382]: 1 viande (hors boisson)
+          - button "2 viandes (hors boisson), 10,00 €" [ref=f6e384] [cursor=pointer]:
+            - generic [ref=f6e385]:
+              - img "2 viandes (hors boisson)" [ref=f6e386]
+              - generic [ref=f6e387]: 10,00 €
+              - generic [aria-hidden] [ref=f6e388]: +
+            - generic [ref=f6e389]: 2 viandes (hors boisson)
+      - generic [ref=f6e391]:
+        - heading "Les barquettes" [level=2] [ref=f6e392]
+        - generic [ref=f6e393]:
+          - button "Frites petite, 3,50 €" [ref=f6e394] [cursor=pointer]:
+            - generic [ref=f6e395]:
+              - img "Frites petite" [ref=f6e396]
+              - generic [ref=f6e397]: 3,50 €
+              - generic [aria-hidden] [ref=f6e398]: +
+            - generic [ref=f6e399]: Frites petite
+          - button "Frites grande, 5,00 €" [ref=f6e401] [cursor=pointer]:
+            - generic [ref=f6e402]:
+              - img "Frites grande" [ref=f6e403]
+              - generic [ref=f6e404]: 5,00 €
+              - generic [aria-hidden] [ref=f6e405]: +
+            - generic [ref=f6e406]: Frites grande
+          - button "Blé petite, 3,50 €" [ref=f6e408] [cursor=pointer]:
+            - generic [ref=f6e409]:
+              - img "Blé petite" [ref=f6e410]
+              - generic [ref=f6e411]: 3,50 €
+              - generic [aria-hidden] [ref=f6e412]: +
+            - generic [ref=f6e413]: Blé petite
+          - button "Blé grande, 5,00 €" [ref=f6e415] [cursor=pointer]:
+            - generic [ref=f6e416]:
+              - img "Blé grande" [ref=f6e417]
+              - generic [ref=f6e418]: 5,00 €
+              - generic [aria-hidden] [ref=f6e419]: +
+            - generic [ref=f6e420]: Blé grande
+          - button "Viande petite, 8,00 €" [ref=f6e422] [cursor=pointer]:
+            - generic [ref=f6e423]:
+              - img "Viande petite" [ref=f6e424]
+              - generic [ref=f6e425]: 8,00 €
+              - generic [aria-hidden] [ref=f6e426]: +
+            - generic [ref=f6e427]: Viande petite
+          - button "Viande grande, 12,00 €" [ref=f6e429] [cursor=pointer]:
+            - generic [ref=f6e430]:
+              - img "Viande grande" [ref=f6e431]
+              - generic [ref=f6e432]: 12,00 €
+              - generic [aria-hidden] [ref=f6e433]: +
+            - generic [ref=f6e434]: Viande grande
+      - generic [ref=f6e436]:
+        - heading "Desserts" [level=2] [ref=f6e437]
+        - generic [ref=f6e438]:
+          - button "Künefe, 6,00 €" [ref=f6e439] [cursor=pointer]:
+            - generic [ref=f6e440]:
+              - img "Künefe" [ref=f6e441]
+              - generic [ref=f6e442]: 6,00 €
+              - generic [aria-hidden] [ref=f6e443]: +
+            - generic [ref=f6e444]: Künefe
+          - button "Künefe avec glace, 7,00 €" [ref=f6e446] [cursor=pointer]:
+            - generic [ref=f6e447]:
+              - img "Künefe avec glace" [ref=f6e448]
+              - generic [ref=f6e449]: 7,00 €
+              - generic [aria-hidden] [ref=f6e450]: +
+            - generic [ref=f6e451]: Künefe avec glace
+          - button "Trileçe / Tiralice, 4,00 €" [ref=f6e453] [cursor=pointer]:
+            - generic [ref=f6e454]:
+              - img "Trileçe / Tiralice" [ref=f6e455]
+              - generic [ref=f6e456]: 4,00 €
+              - generic [aria-hidden] [ref=f6e457]: +
+            - generic [ref=f6e458]: Trileçe / Tiralice
+          - button "Tarte au daim, 3,50 €" [ref=f6e460] [cursor=pointer]:
+            - generic [ref=f6e461]:
+              - img "Tarte au daim" [ref=f6e462]
+              - generic [ref=f6e463]: 3,50 €
+              - generic [aria-hidden] [ref=f6e464]: +
+            - generic [ref=f6e465]: Tarte au daim
+          - button "Tiramisu, 3,50 €" [ref=f6e467] [cursor=pointer]:
+            - generic [ref=f6e468]:
+              - img "Tiramisu" [ref=f6e469]
+              - generic [ref=f6e470]: 3,50 €
+              - generic [aria-hidden] [ref=f6e471]: +
+            - generic [ref=f6e472]: Tiramisu
+          - button "Baklava (3 pièces), 4,00 €" [ref=f6e474] [cursor=pointer]:
+            - generic [ref=f6e475]:
+              - img "Baklava (3 pièces)" [ref=f6e476]
+              - generic [ref=f6e477]: 4,00 €
+              - generic [aria-hidden] [ref=f6e478]: +
+            - generic [ref=f6e479]: Baklava (3 pièces)
+          - button "Sütlaç / Riz au lait, 4,00 €" [ref=f6e481] [cursor=pointer]:
+            - generic [ref=f6e482]:
+              - img "Sütlaç / Riz au lait" [ref=f6e483]
+              - generic [ref=f6e484]: 4,00 €
+              - generic [aria-hidden] [ref=f6e485]: +
+            - generic [ref=f6e486]: Sütlaç / Riz au lait
+      - generic [ref=f6e488]:
+        - heading "Boissons" [level=2] [ref=f6e489]
+        - generic [ref=f6e490]:
+          - button "Canettes 33cl, 1,50 €" [ref=f6e491] [cursor=pointer]:
+            - generic [ref=f6e492]:
+              - img "Canettes 33cl" [ref=f6e493]
+              - generic [ref=f6e494]: 1,50 €
+              - generic [aria-hidden] [ref=f6e495]: +
+            - generic [ref=f6e496]: Canettes 33cl
+          - button "Eau cristalline, 1,00 €" [ref=f6e498] [cursor=pointer]:
+            - generic [ref=f6e499]:
+              - img "Eau cristalline" [ref=f6e500]
+              - generic [ref=f6e501]: 1,00 €
+              - generic [aria-hidden] [ref=f6e502]: +
+            - generic [ref=f6e503]: Eau cristalline
+          - button "Ayran, 1,50 €" [ref=f6e505] [cursor=pointer]:
+            - generic [ref=f6e506]:
+              - img "Ayran" [ref=f6e507]
+              - generic [ref=f6e508]: 1,50 €
+              - generic [aria-hidden] [ref=f6e509]: +
+            - generic [ref=f6e510]: Ayran
+          - button "Şalgam, 1,50 €" [ref=f6e512] [cursor=pointer]:
+            - generic [ref=f6e513]:
+              - img "Şalgam" [ref=f6e514]
+              - generic [ref=f6e515]: 1,50 €
+              - generic [aria-hidden] [ref=f6e516]: +
+            - generic [ref=f6e517]: Şalgam
+          - button "Café, 1,50 €" [ref=f6e519] [cursor=pointer]:
+            - generic [ref=f6e520]:
+              - img "Café" [ref=f6e521]
+              - generic [ref=f6e522]: 1,50 €
+              - generic [aria-hidden] [ref=f6e523]: +
+            - generic [ref=f6e524]: Café
+          - button "Café turc, 1,50 €" [ref=f6e526] [cursor=pointer]:
+            - generic [ref=f6e527]:
+              - img "Café turc" [ref=f6e528]
+              - generic [ref=f6e529]: 1,50 €
+              - generic [aria-hidden] [ref=f6e530]: +
+            - generic [ref=f6e531]: Café turc
+    - link "Voir mon panier 6,00 €" [ref=f6e534] [cursor=pointer]:
+      - /url: /commande
+      - generic [ref=f6e538]: "1"
+      - generic [ref=f6e539]: Voir mon panier
+      - generic [ref=f6e540]: 6,00 €
+  - alert [ref=f6e541]

@@ -55,6 +55,10 @@ services:
       SMTP_USER: ${SMTP_USER:-}
       SMTP_PASS: ${SMTP_PASS:-}
       SMTP_FROM: ${SMTP_FROM:-}
+      # import de la carte par IA (vide = fonction désactivée)
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-}
+      IMPORT_MAX_PER_HOUR: ${IMPORT_MAX_PER_HOUR:-10}
     volumes:
       - photos:/data/photos
     cpus: ${API_CPUS:-0.5}

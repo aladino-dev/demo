@@ -26,4 +26,27 @@ export function ruleSentence(g) {
   return `Le client peut choisir jusqu'à ${n(max)} (facultatif).`;
 }
 
+/** Clé de comparaison d'un nom : sans accents, minuscules, sans extension de fichier, sans « s » final (ketchup.jpg = Ketchup, sauces = sauce). */
+export function nameKey(s, { file = false } = {}) {
+  let t = String(s ?? '');
+  if (file) t = t.replace(/\.[a-z0-9]{2,5}$/i, '');
+  return t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ').trim().split(' ').map((w) => (w.length > 3 ? w.replace(/s$/, '') : w)).join(' ');
+}
+
+/** Associe chaque fichier photo aux options de même nom (toutes listes confondues). */
+export function matchPhotos(files, groups) {
+  const all = groups.flatMap((g) => g.options.map((o) => ({ id: o.id, label: o.label, group: g.internal_name || g.title, hasPhoto: !!o.photo, key: nameKey(o.label) })));
+  return files.map((file) => {
+    const key = nameKey(file.name, { file: true });
+    return { file, key, options: all.filter((o) => key && o.key === key) };
+  });
+}
+
 export const byOrder = (a, b) => (a.sort ?? 0) - (b.sort ?? 0) || String(a.name).localeCompare(String(b.name));
+
+/** Comme toCents, mais accepte un montant négatif (réduction d'une option, ex. « sans boisson » : -1). */
+export function toSignedCents(v) {
+  const n = parseFloat(String(v).trim().replace(',', '.').replace(/\s|€/g, ''));
+  return Number.isFinite(n) ? Math.round(n * 100) : NaN;
+}

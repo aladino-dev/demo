@@ -1,0 +1,9 @@
+{
+  "groups": [
+    { "key": "plat-enfant", "title": "Votre choix", "description": "Un seul choix.", "min": 1, "max": 1, "required": true,
+      "options": [{"label":"6 nuggets"},{"label":"Cheeseburger"}] }
+  ],
+  "links": [
+    { "group": "plat-enfant", "category": "Les sandwichs", "only": ["Menu enfant"] }
+  ]
+}

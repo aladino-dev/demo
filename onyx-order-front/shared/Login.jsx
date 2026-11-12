@@ -21,7 +21,7 @@ export default function Login({ title, onLogged }) {
   return (
     <form className="login" onSubmit={submit}>
       <h1>{title}</h1>
-      <label>E-mail<input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoFocus /></label>
+      <label>Identifiant<input type="text" autoComplete="username" autoCapitalize="none" autoCorrect="off" spellCheck={false} value={email} onChange={(e) => setEmail(e.target.value)} required autoFocus /></label>
       <label>Mot de passe<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required /></label>
       {err && <p className="err">{err}</p>}
       <button className="primary">Se connecter</button>

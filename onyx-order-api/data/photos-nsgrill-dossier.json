@@ -1,0 +1,13 @@
+{
+  "products": {
+    "sandwitch kebab.jpg": ["Kebab", "Döner Kebab (Assiette)"],
+    "sandwich_kebab.jpg": ["Pain au four kebab", "Pain au four 2 viandes"],
+    "sandwitch kofta.jpg": ["Köfte"],
+    "kofta.jpg": ["Köfte (Assiette)"],
+    "sandwitch merguez.jpg": ["Merguez", "Merguez (Assiette)"],
+    "sandwitch poulet.jpg": ["Brochette de poulet", "Brochette de Poulet (Assiette)", "Chicken curry ou tandoori", "Chicken curry ou tandoori (Assiette)"],
+    "assiette brochette.png": ["Brochette d'agneau", "Brochette d'agneau / Côtelettes (Assiette)"],
+    "lahmachoum.jpg": ["Lahmacun", "Lahmacun avec Kebab"],
+    "pides.jpg": ["Pide Kebab", "Pide Kuş başı / à la viande", "Pide Sucuklu / au sucuk", "Pide Épinard", "Pide Poulet", "Pide Viande hachée", "Pide Mixte"]
+  }
+}

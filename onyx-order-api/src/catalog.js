@@ -15,6 +15,11 @@ const cents = (v) => {
   if (!(n >= 0)) throw new OrderError('Prix invalide.');
   return n;
 };
+const signedCents = (v) => {
+  const n = parseInt(v, 10);
+  if (!Number.isFinite(n) || n < -100000) throw new OrderError('Prix invalide.');
+  return n; // réduction possible sur une option (ex. « sans boisson »)
+};
 const intOr = (v, d) => (Number.isInteger(parseInt(v, 10)) ? parseInt(v, 10) : d);
 
 /** Construit un UPDATE partiel à partir des champs présents dans `body`. */
@@ -369,7 +374,7 @@ export function catalogRouter({ owner, wrap, photosDir }) {
     const items = list.map((o) => {
       const label = text(o.label, 80);
       if (!label) throw new OrderError('Chaque option doit avoir un nom.');
-      return { id: o.id ? Number(o.id) : null, label, price: cents(o.price_cents ?? 0), visible: o.visible !== false, photo: o.photo, hasPhoto: 'photo' in o };
+      return { id: o.id ? Number(o.id) : null, label, price: signedCents(o.price_cents ?? 0), visible: o.visible !== false, photo: o.photo, hasPhoto: 'photo' in o };
     });
     await tx(async (c) => {
       const { rows } = await c.query('SELECT id FROM options WHERE restaurant_id = $1 AND group_id = $2 AND archived_at IS NULL', [rid(req), pid(req)]);
@@ -405,7 +410,7 @@ export function catalogRouter({ owner, wrap, photosDir }) {
       `INSERT INTO options (restaurant_id, group_id, label, price_cents, sort)
        SELECT $1, g.id, $3, $4, (SELECT coalesce(max(sort), 0) + 1 FROM options WHERE group_id = g.id)
          FROM option_groups g WHERE g.id = $2 AND g.restaurant_id = $1 RETURNING id`,
-      [rid(req), pid(req), label, cents(req.body?.price_cents ?? 0)]);
+      [rid(req), pid(req), label, signedCents(req.body?.price_cents ?? 0)]);
     if (!o) throw new OrderError('Liste introuvable.', 404);
     res.status(201).json(o);
   }));
@@ -432,7 +437,7 @@ export function catalogRouter({ owner, wrap, photosDir }) {
     const before = await getRow('options', req);
     await run('options', rid(req), pid(req), {
       label: (v) => { const t = text(v, 80); if (!t) throw new OrderError('Nom vide.'); return t; },
-      price_cents: cents, visible: Boolean, photo: (v) => v || null,
+      price_cents: signedCents, visible: Boolean, photo: (v) => v || null,
     }, req.body || {});
     await audit(req, 'option', pid(req), 'update', { label: before.label, price_cents: before.price_cents, visible: before.visible }, req.body);
     res.json({ ok: true });

@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NS Grill – Maquettes commande</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#DD2424; --red-d:#B81D1D;
+  --bg:#FFFFFF; --pink:#FFF5F5;
+  --black:#000000; --card-dark:#1A1A1A;
+  --text:#000000; --muted:#606060;
+  --on-dark:#FFFFFF; --on-dark-m:#EAEAEA;
+  --line:#EAEAEA; --line-dark:#333131;
+  --ok:#1E7B45; --warn:#8A5A00; --off:#BDBDBD;
+  --surface:#FFFFFF; --body:#606060; --title:#000000;
+}
+.dark{
+  --bg:#000000; --pink:#1A1A1A; --surface:#1A1A1A; --line:#333131;
+  --text:#FFFFFF; --muted:#EAEAEA; --body:#EAEAEA; --title:#FFFFFF;
+}
+*{box-sizing:border-box;margin:0}
+html{background:#EFEFEF}
+body{font-family:'Poppins',system-ui,sans-serif;color:var(--body);font-size:16px;line-height:1.5;padding:0 16px 80px}
+h1,h2,h3,.bebas{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;letter-spacing:.01em;text-transform:uppercase;color:var(--title);line-height:1.05}
+.doc{max-width:1500px;margin:0 auto}
+.doc>header{padding:48px 0 8px}
+.doc>header h1{font-size:64px}
+.eyebrow{font:600 12px 'Poppins';letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.sec{margin-top:56px}
+.sec>h2{font-size:40px;margin-bottom:4px}
+.sec>p{max-width:760px;margin-bottom:24px;color:#444}
+.note{font-size:13px;color:#555;max-width:760px;margin-top:12px}
+
+/* ---------- design system ---------- */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.sw{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+.sw i{display:block;height:64px}
+.sw b{display:block;font-size:13px;padding:8px 10px 0;color:#000}
+.sw span{display:block;font-size:12px;padding:0 10px 8px;color:#606060}
+.ds-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.ds-card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:20px;display:grid;gap:12px;align-content:start}
+.ds-card.dk{background:#000;border-color:#000}
+
+/* ---------- composants ---------- */
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:52px;border:0;border-radius:4px;background:var(--red);color:#fff;font:700 15px 'Poppins';letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
+.btn:hover{background:var(--red-d)}
+.btn.sec2{background:transparent;border:1px solid var(--line);color:var(--text)}
+.btn.sec2:hover{background:var(--pink)}
+.btn.black{background:#000;color:#fff}
+.btn.dis{background:var(--off);cursor:not-allowed}
+.btn.sm{height:48px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:48px;padding:0 18px;border:1px solid var(--line);border-radius:999px;font:500 14px 'Poppins';color:var(--text);background:var(--surface);white-space:nowrap}
+.chip.on{background:var(--red);border-color:var(--red);color:#fff;font-weight:600}
+.badge{display:inline-block;font:600 11px 'Poppins';letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:var(--red);color:#fff}
+.badge.ok{background:#E3F3EA;color:var(--ok)} .badge.warn{background:#FFF1D6;color:var(--warn)}
+.plus{width:48px;height:48px;border-radius:4px;background:var(--red);color:#fff;display:grid;place-items:center;border:0;flex:none}
+.plus svg{width:22px;height:22px}
+.plus:hover{background:var(--red-d)}
+
+/* ---------- téléphones ---------- */
+.phones{display:flex;flex-wrap:wrap;gap:28px;padding:8px 4px 24px;align-items:flex-start}
+.pcol{flex:none;scroll-snap-align:start}
+.pcol>.cap{font:600 12px 'Poppins';letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:2px}
+.pcol>.cap2{font-size:13px;color:#555;margin-bottom:10px;max-width:390px}
+.phone{position:relative;width:390px;height:844px;background:var(--bg);color:var(--body);border-radius:36px;border:8px solid #111;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.18);font-size:16px}
+.phone .scroll{position:absolute;inset:0;overflow:hidden}
+.status{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font:600 14px 'Poppins';color:#fff;background:#000}
+.status.light{background:var(--bg);color:var(--text)}
+.hdr{background:#000;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:8px 16px 12px;height:60px}
+.logo{font-family:'Bebas Neue';font-size:30px;letter-spacing:.04em;color:#fff;line-height:1}
+.logo b{color:var(--red);font-weight:400}
+.cartbtn{position:relative;width:48px;height:48px;display:grid;place-items:center;color:#fff}
+.cartbtn svg{width:26px;height:26px}
+.cartbtn em{position:absolute;top:4px;right:2px;min-width:20px;height:20px;border-radius:10px;background:var(--red);color:#fff;font:700 11px/20px 'Poppins';text-align:center;font-style:normal;padding:0 5px}
+.pad{padding:0 16px}
+.bar{position:absolute;left:0;right:0;bottom:0;padding:12px 16px 24px;background:var(--bg);border-top:1px solid var(--line)}
+.floatcart{position:absolute;left:12px;right:12px;bottom:18px;background:#000;color:#fff;border-radius:8px;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 8px 0 16px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.dark .floatcart{border:1px solid var(--line-dark)}
+.floatcart small{display:block;font-size:12px;color:var(--on-dark-m)}
+.floatcart strong{font:600 15px 'Poppins'}
+.floatcart .go{background:var(--red);color:#fff;height:48px;padding:0 16px;border-radius:4px;display:flex;align-items:center;font:700 13px 'Poppins';letter-spacing:.04em;text-transform:uppercase}
+.mini{font-size:13px;color:var(--muted)}
+
+/* accueil */
+.hero{background:#000;color:#fff;padding:4px 16px 28px}
+.hero h2{color:#fff;font-size:44px;margin:14px 0 6px}
+.hero p{color:var(--on-dark-m);font-size:14px}
+.status-pill{display:inline-flex;align-items:center;gap:8px;background:var(--card-dark);border:1px solid var(--line-dark);border-radius:999px;padding:6px 12px;font-size:13px;color:#fff;margin-top:14px}
+.dot{width:8px;height:8px;border-radius:50%;background:#3ECF7B}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:-18px 16px 0;position:relative}
+.mode{background:var(--surface);border:2px solid var(--line);border-radius:8px;padding:16px 12px;min-height:128px;display:grid;align-content:space-between;color:var(--text)}
+.mode.on{border-color:var(--red);background:var(--pink)}
+.mode svg{width:32px;height:32px;color:var(--red)}
+.mode b{font:400 26px 'Bebas Neue';letter-spacing:.01em;text-transform:uppercase;line-height:1;color:var(--title)}
+.mode span{font-size:12px;color:var(--muted)}
+.field{display:flex;align-items:center;gap:10px;height:56px;border:1px solid var(--line);border-radius:8px;padding:0 14px;background:var(--surface);color:var(--text);font-size:15px}
+.field svg{width:22px;height:22px;color:var(--red);flex:none}
+.field.grow{flex:1}
+.geo{height:56px;width:56px;flex:none;border:1px solid var(--line);border-radius:8px;display:grid;place-items:center;color:var(--red);background:var(--surface)}
+.reorder{display:flex;align-items:center;gap:12px;background:var(--pink);border:1px solid var(--line);border-radius:8px;padding:10px 10px 10px 10px}
+.reorder img{width:64px;height:64px;border-radius:8px;object-fit:cover}
+.reorder .t{flex:1;min-width:0}
+.reorder .t b{display:block;color:var(--text);font-size:14px}
+.reorder .t span{font-size:12px;color:var(--muted)}
+.reorder .btn{width:auto;padding:0 16px;height:48px}
+.favs{display:flex;gap:10px;overflow:hidden}
+.fav{flex:none;width:118px}
+.fav img{width:118px;height:84px;border-radius:8px;object-fit:cover;display:block}
+.fav b{display:block;font-size:13px;color:var(--text);margin-top:6px;line-height:1.2}
+.fav span{font:700 13px 'Poppins';color:var(--red)}
+
+/* menu */
+.search{margin:12px 16px 0}
+.chips{display:flex;gap:8px;overflow:hidden;padding:10px 16px 0}
+.cats{display:flex;gap:6px;overflow:hidden;padding:12px 16px;background:var(--bg);border-bottom:1px solid var(--line);margin-top:10px}
+.cat{flex:none;height:48px;padding:0 4px;display:grid;place-items:center;font:400 22px 'Bebas Neue';letter-spacing:.02em;text-transform:uppercase;color:var(--muted);position:relative;margin-right:10px}
+.cat.on{color:var(--title)} .cat.on::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:3px;background:var(--red)}
+.sect{padding:18px 16px 4px}
+.sect .eyebrow{margin-bottom:0}
+.sect h3{font-size:30px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px 16px}
+.card{background:var(--surface);border-radius:8px;box-shadow:0 1px 6px rgba(0,0,0,.12);overflow:hidden;display:flex;flex-direction:column}
+.dark .card{box-shadow:none;border:1px solid var(--line)}
+.card .ph{position:relative;aspect-ratio:4/3;background:#ddd}
+.card .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.card .ph .badge{position:absolute;left:8px;top:8px}
+.card .bd{padding:10px 10px 10px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card h4{font:600 14px/1.25 'Poppins';color:var(--text)}
+.card .row{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.price{font:700 16px 'Poppins';color:var(--red)}
+
+/* sheet */
+.dim{position:absolute;inset:0;background:rgba(0,0,0,.55)}
+.sheet{position:absolute;left:0;right:0;bottom:0;top:96px;background:var(--bg);border-radius:16px 16px 0 0;display:flex;flex-direction:column;overflow:hidden}
+.handle{width:40px;height:5px;border-radius:3px;background:var(--off);margin:8px auto 0;flex:none}
+.sh-top{display:flex;gap:12px;align-items:center;padding:12px 16px;flex:none}
+.sh-top img{width:64px;height:64px;border-radius:8px;object-fit:cover}
+.sh-top h3{font-size:30px}
+.x{margin-left:auto;width:48px;height:48px;border-radius:50%;background:var(--pink);display:grid;place-items:center;color:var(--text);font-size:20px}
+.steps{display:flex;gap:6px;padding:0 16px 8px;flex:none}
+.steps i{flex:1;height:4px;border-radius:2px;background:var(--line)} .steps i.on{background:var(--red)}
+.sh-body{flex:1;overflow:hidden;padding:0 16px}
+.grp{border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:12px;background:var(--surface)}
+.grp.cur{border-color:var(--red)}
+.grp-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.grp-h b{font:400 24px 'Bebas Neue';letter-spacing:.01em;text-transform:uppercase;color:var(--title)}
+.opt{display:flex;align-items:center;gap:12px;min-height:48px;padding:6px 0;color:var(--text);font-size:15px;border-top:1px solid var(--line)}
+.opt:first-of-type{border-top:0}
+.opt .r{margin-left:auto;font:600 14px 'Poppins';color:var(--muted)}
+.ck{width:24px;height:24px;border-radius:4px;border:2px solid var(--off);flex:none;display:grid;place-items:center;color:#fff}
+.ck.on{background:var(--red);border-color:var(--red)}
+.rd{width:24px;height:24px;border-radius:50%;border:2px solid var(--off);flex:none;display:grid;place-items:center}
+.rd.on{border-color:var(--red)} .rd.on::after{content:"";width:12px;height:12px;border-radius:50%;background:var(--red)}
+.qtyrow{display:flex;align-items:center;gap:12px}
+.qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:4px;height:52px;flex:none;color:var(--text)}
+.qty button{width:48px;height:48px;border:0;background:none;font-size:22px;color:var(--text)}
+.qty b{min-width:24px;text-align:center}
+
+/* panier */
+.title-bar{display:flex;align-items:center;gap:8px;padding:8px 8px 8px 8px;background:var(--bg)}
+.back{width:48px;height:48px;display:grid;place-items:center;color:var(--text);font-size:22px}
+.title-bar h3{font-size:34px}
+.line{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.line img{width:64px;height:64px;border-radius:8px;object-fit:cover}
+.line .t{flex:1;min-width:0}
+.line .t b{display:block;color:var(--text);font-size:15px;line-height:1.25}
+.line .t span{display:block;font-size:12px;color:var(--muted);line-height:1.3;margin-top:2px}
+.stepper{display:flex;align-items:center;border:1px solid var(--line);border-radius:4px;height:48px;color:var(--text)}
+.stepper button{width:44px;height:46px;border:0;background:none;font-size:20px;color:var(--text)}
+.stepper b{min-width:18px;text-align:center;font-size:15px}
+.swipe{position:relative;overflow:hidden}
+.swipe .del{position:absolute;right:0;top:0;bottom:0;width:84px;background:var(--red);color:#fff;display:grid;place-items:center;font:700 12px 'Poppins';text-transform:uppercase}
+.upsell{display:flex;gap:10px;overflow:hidden}
+.up{flex:none;width:152px;display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--surface)}
+.up img{width:44px;height:44px;border-radius:6px;object-fit:cover}
+.up b{display:block;font-size:12px;color:var(--text);line-height:1.2}
+.up span{font:700 12px 'Poppins';color:var(--red)}
+.up .p{margin-left:auto;width:36px;height:36px;border-radius:4px;background:var(--red);color:#fff;display:grid;place-items:center;font-size:18px;flex:none}
+.loyal{display:flex;align-items:center;gap:12px;background:var(--pink);border:1px solid var(--line);border-radius:8px;padding:12px 14px;color:var(--text);font-size:14px}
+.loyal .pts{font:400 28px 'Bebas Neue';color:var(--red)}
+.bar-meter{height:6px;border-radius:3px;background:var(--line);margin-top:6px;overflow:hidden}
+.bar-meter i{display:block;height:100%;background:var(--red)}
+.sum{display:grid;gap:4px;font-size:14px}
+.sum div{display:flex;justify-content:space-between}
+.sum .tot{font:700 18px 'Poppins';color:var(--text);padding-top:6px;border-top:1px solid var(--line);margin-top:4px}
+.fold{display:flex;align-items:center;justify-content:space-between;height:48px;color:var(--text);font-size:14px;font-weight:500}
+
+/* paiement */
+.inp{display:grid;gap:4px}
+.inp label{font:600 12px 'Poppins';letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.inp .field{height:52px}
+.pay-sep{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.pay-sep::before,.pay-sep::after{content:"";flex:1;height:1px;background:var(--line)}
+.paybtn{display:flex;align-items:center;justify-content:center;gap:8px;height:52px;border-radius:4px;background:#000;color:#fff;font:600 17px 'Poppins';width:100%;border:1px solid var(--line-dark)}
+.dark .paybtn{background:#fff;color:#000}
+.recap{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:8px;padding:12px 14px;color:var(--text);font-size:14px;background:var(--surface)}
+
+/* suivi */
+.track-hero{background:#000;color:#fff;padding:8px 16px 28px;text-align:left}
+.track-hero h2{color:#fff;font-size:48px;margin-top:8px}
+.eta{display:flex;align-items:baseline;gap:8px;margin-top:6px}
+.eta b{font:400 64px 'Bebas Neue';color:#fff;line-height:1}
+.eta span{color:var(--on-dark-m);font-size:14px}
+.prog{height:6px;border-radius:3px;background:var(--line-dark);margin-top:14px;overflow:hidden}
+.prog i{display:block;height:100%;width:62%;background:var(--red)}
+.tl{padding:20px 16px 0;position:relative}
+.tl .s{display:flex;gap:14px;position:relative;padding-bottom:22px}
+.tl .s::before{content:"";position:absolute;left:15px;top:32px;bottom:0;width:2px;background:var(--line)}
+.tl .s:last-child::before{display:none}
+.tl .s.done::before{background:var(--red)}
+.tl .ic{width:32px;height:32px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;flex:none;background:var(--bg);color:var(--off);font-size:14px}
+.tl .s.done .ic{background:var(--red);border-color:var(--red);color:#fff}
+.tl .s.cur .ic{border-color:var(--red);color:var(--red);box-shadow:0 0 0 6px rgba(221,36,36,.15)}
+.tl .s b{display:block;color:var(--text);font-size:16px;line-height:1.3}
+.tl .s span{font-size:13px;color:var(--muted)}
+.tl .s.todo b{color:var(--muted);font-weight:500}
+
+/* desktop */
+.desk{width:1280px;height:800px;background:var(--bg);border-radius:10px;border:1px solid #cfcfcf;box-shadow:0 20px 50px rgba(0,0,0,.14);overflow:hidden;position:relative;color:var(--body)}
+.desk .topbar{height:72px;background:#000;display:flex;align-items:center;justify-content:space-between;padding:0 40px}
+.desk .topbar .logo{font-size:38px}
+.desk .topbar .mid{display:flex;gap:10px;align-items:center}
+.desk .topbar .pill{display:flex;gap:8px;align-items:center;color:#fff;font-size:14px;border:1px solid var(--line-dark);border-radius:999px;padding:0 16px;height:44px;background:var(--card-dark)}
+.desk .topbar .tbtn{height:48px;padding:0 20px;border-radius:4px;background:var(--red);color:#fff;font:700 14px 'Poppins';letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.desk .layout{display:grid;grid-template-columns:220px 1fr 360px;height:calc(800px - 72px)}
+.desk .side{padding:24px 20px;border-right:1px solid var(--line)}
+.desk .side .cat2{display:flex;align-items:center;height:48px;font:400 24px 'Bebas Neue';letter-spacing:.02em;text-transform:uppercase;color:var(--muted);padding-left:12px;border-left:3px solid transparent}
+.desk .side .cat2.on{color:var(--title);border-left-color:var(--red);background:var(--pink)}
+.desk .main{padding:24px 28px;overflow:hidden}
+.desk .hero2{display:flex;gap:12px;align-items:center;margin-bottom:18px}
+.desk .hero2 .field{flex:1;height:52px}
+.desk .dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:14px}
+.desk .cartp{border-left:1px solid var(--line);padding:24px 24px 0;background:var(--surface);display:flex;flex-direction:column}
+.desk .cartp h3{font-size:34px;margin-bottom:6px}
+.desk .cartp .up{width:148px!important}
+
+/* mobile du document lui-même */
+@media (max-width:600px){.doc>header h1{font-size:44px}.sec>h2{font-size:34px}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<header>
+  <div class="eyebrow">NS Grill · Commande en ligne</div>
+  <h1>Maquettes : commande en 60 secondes</h1>
+  <p style="max-width:760px;margin-top:10px;color:#444">Mobile d'abord (390 px), puis desktop. Les photos, noms et prix viennent de la vraie carte NS Grill. Les valeurs marquées « exemple » (temps d'attente, points, prénom) sont à titre d'illustration.</p>
+</header>
+
+<!-- ===================== DESIGN SYSTEM ===================== -->
+<section class="sec" id="ds">
+  <div class="eyebrow">Design system</div>
+  <h2>Couleurs, typos, composants</h2>
+  <p>Rouge, noir et blanc uniquement. Le rouge est réservé aux actions, prix et accents.</p>
+
+  <div class="swatches">
+    <div class="sw"><i style="background:#DD2424"></i><b>Accent</b><span>#DD2424 · appui #B81D1D</span></div>
+    <div class="sw"><i style="background:#B81D1D"></i><b>Accent appui</b><span>#B81D1D</span></div>
+    <div class="sw"><i style="background:#FFFFFF;border-bottom:1px solid #eaeaea"></i><b>Fond clair</b><span>#FFFFFF</span></div>
+    <div class="sw"><i style="background:#FFF5F5"></i><b>Section rosée</b><span>#FFF5F5</span></div>
+    <div class="sw"><i style="background:#000000"></i><b>Fond sombre</b><span>#000000</span></div>
+    <div class="sw"><i style="background:#1A1A1A"></i><b>Carte sombre</b><span>#1A1A1A</span></div>
+    <div class="sw"><i style="background:#606060"></i><b>Texte discret</b><span>#606060</span></div>
+    <div class="sw"><i style="background:#EAEAEA"></i><b>Lignes</b><span>#EAEAEA · sombre #333131</span></div>
+    <div class="sw"><i style="background:#1E7B45"></i><b>Succès</b><span>#1E7B45</span></div>
+    <div class="sw"><i style="background:#8A5A00"></i><b>Attention</b><span>#8A5A00</span></div>
+    <div class="sw"><i style="background:#BDBDBD"></i><b>Désactivé</b><span>#BDBDBD</span></div>
+  </div>
+
+  <div class="ds-grid" style="margin-top:20px">
+    <div class="ds-card">
+      <div class="eyebrow" style="margin:0">Typographies</div>
+      <h2 style="font-size:40px">Choisis ta station</h2>
+      <h3 style="font-size:30px">Titre h3 · 30 px</h3>
+      <p style="font:700 32px/1.15 'Poppins';color:#000">H1 Poppins 32</p>
+      <p>Corps Poppins 16 px, gris #606060. Phrases courtes, tutoiement.</p>
+      <p><b style="color:#DD2424;font-size:18px">9,50 €</b> <span class="mini">· prix en gras 700, rouge</span></p>
+    </div>
+    <div class="ds-card">
+      <div class="eyebrow" style="margin:0">Boutons</div>
+      <button class="btn">C'est parti</button>
+      <button class="btn" style="background:#B81D1D">Appui</button>
+      <button class="btn sec2">Voir la carte</button>
+      <button class="btn dis">Choisis ta sauce</button>
+    </div>
+    <div class="ds-card">
+      <div class="eyebrow" style="margin:0">Étiquettes &amp; puces</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="chip on">Épicé</span><span class="chip">Végé</span><span class="chip">Sans gluten</span></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="badge">Best-seller</span><span class="badge ok">Ouvert</span><span class="badge warn">Occupé</span></div>
+      <div style="display:flex;gap:12px;align-items:center"><button class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button><span class="mini">Bouton « + » 48 px</span></div>
+    </div>
+    <div class="ds-card dk">
+      <div class="eyebrow" style="margin:0">Header &amp; barre panier</div>
+      <div class="hdr" style="padding:0"><span class="logo">NS <b>GRILL</b></span><span class="cartbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 7h12l-1 13H7L6 7zM9 7a3 3 0 0 1 6 0"/></svg><em>3</em></span></div>
+      <div class="floatcart" style="position:static;box-shadow:none;border:1px solid #333131"><div><strong>3 articles · 24,50 €</strong><small>Retrait · ~15 min</small></div><span class="go">Voir mon panier</span></div>
+    </div>
+  </div>
+  <p class="note">Zones tactiles ≥ 48 px, boutons principaux 52 px collés en bas (zone du pouce), rayon 4 px (boutons) / 8 px (cartes) / 16 px (feuilles). Animations : ouverture de feuille 250 ms, retour tactile par vibration légère, toast de confirmation 2 s.</p>
+</section>
+
+<!-- ===================== MOBILE ===================== -->
+<section class="sec" id="mobile">
+  <div class="eyebrow">Mobile · 390 px</div>
+  <h2>Le parcours en 6 écrans</h2>
+  <p>De l'accueil au suivi. Défile horizontalement.</p>
+  <div class="phones" id="phones"></div>
+</section>
+
+<!-- ===================== DESKTOP ===================== -->
+<section class="sec" id="desktop">
+  <div class="eyebrow">Desktop · 1280 px</div>
+  <h2>Version desktop responsive</h2>
+  <p>Même parcours : catégories à gauche, carte au centre, panier toujours visible à droite. La personnalisation s'ouvre en fenêtre centrée au lieu de la feuille du bas.</p>
+  <div style="overflow-x:auto;padding-bottom:16px"><div class="desk" id="desk"></div></div>
+</section>
+
+</div>
+
+<script>
+const P = n => 'photos/' + n + '.webp';
+const IMG = {
+  kebab:P('mwbc6fcw-52d60f'), kofte:P('mwbc6fft-2a7c92'), pide:P('mwbda14t-5350b6'),
+  tacos:P('mwbcxk8p-45fd82'), frites:P('mwbdijby-1700e8'), kunefe:P('mwbcza7e-e2a77c'),
+  ayran:P('mwbd2z4m-79f441'), canette:P('mwbdmd1g-d9fe6d'), escalope:P('mwbc6fkd-abebff'), soupe:P('mwbddn4d-557c3f')
+};
+const I = {
+  cart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 13H7L6 7zM9 7a3 3 0 0 1 6 0"/></svg>',
+  plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+  search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
+  pin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+  bag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>',
+  moto:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M9 17h6l-3-8h-3M15 9h3l2 5"/></svg>',
+  check:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>',
+  gps:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>',
+  chev:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>'
+};
+const status = (light) => `<div class="status ${light?'light':''}"><span>9:41</span><span>●●● 100%</span></div>`;
+const header = (n) => `<div class="hdr"><span class="logo">NS <b>GRILL</b></span><span class="cartbtn">${I.cart}${n?`<em>${n}</em>`:''}</span></div>`;
+const floatCart = `<div class="floatcart"><div><strong>3 articles · 19,50 €</strong><small>Retrait · exemple ~15 min</small></div><span class="go">Voir mon panier</span></div>`;
+const card = (img,name,price,badge) => `<div class="card"><div class="ph"><img src="${img}" alt="">${badge?`<span class="badge">${badge}</span>`:''}</div><div class="bd"><h4>${name}</h4><div class="row"><span class="price">${price}</span><button class="plus" aria-label="Ajouter">${I.plus}</button></div></div></div>`;
+
+/* --- 1 Accueil --- */
+const s1 = `<div class="scroll">${status()}
+<div class="hero">
+  <div class="hdr" style="padding:8px 0 12px;background:none"><span class="logo">NS <b>GRILL</b></span><span class="cartbtn">${I.cart}</span></div>
+  <h2>Tu as faim ?<br>Choisis ta station</h2>
+  <p>9 Rue d'Andrésy · Chanteloup-les-Vignes</p>
+  <span class="status-pill"><span class="dot"></span>Ouvert · 11h–22h · exemple ~15 min</span>
+</div>
+<div class="modes">
+  <div class="mode on">${I.bag}<div><b>Click &amp; Collect</b><br><span>Retire sur place</span></div></div>
+  <div class="mode">${I.moto}<div><b>Livraison</b><br><span>Chez toi</span></div></div>
+</div>
+<div class="pad" style="margin-top:16px;display:flex;gap:10px">
+  <div class="field grow">${I.pin}<span>NS Grill · Chanteloup</span></div>
+  <div class="geo" title="Me localiser">${I.gps}</div>
+</div>
+<div class="pad" style="margin-top:22px">
+  <div class="eyebrow">Recommander</div>
+  <div class="reorder"><img src="${IMG.kebab}" alt=""><div class="t"><b>Kebab + Ayran</b><span>Ta dernière commande · 11,00 €</span></div><button class="btn">1 tap</button></div>
+</div>
+<div class="pad" style="margin-top:20px">
+  <div class="eyebrow">Tes favoris</div>
+  <div class="favs">
+    <div class="fav"><img src="${IMG.kofte}" alt=""><b>Köfte</b><span>9,50 €</span></div>
+    <div class="fav"><img src="${IMG.pide}" alt=""><b>Pide Kebab</b><span>8,00 €</span></div>
+    <div class="fav"><img src="${IMG.kunefe}" alt=""><b>Künefe</b><span>6,00 €</span></div>
+  </div>
+</div>
+<div class="bar"><button class="btn">C'est parti</button></div></div>`;
+
+/* --- 2 Menu --- */
+const chips = `<span class="chip on">Tout</span><span class="chip">Épicé</span><span class="chip">Végé</span><span class="chip">Sans gluten</span>`;
+const cats = `<span class="cat on">Sandwichs</span><span class="cat">Assiettes</span><span class="cat">Pideler</span><span class="cat">Tacos</span><span class="cat">Barquettes</span><span class="cat">Desserts</span>`;
+const menuInner = `
+<div class="field search">${I.search}<span style="color:var(--muted)">Cherche un plat…</span></div>
+<div class="chips">${chips}</div>
+<div class="cats">${cats}</div>
+<div class="sect"><div class="eyebrow">Les classiques</div><h3>Les sandwichs</h3></div>
+<div class="grid">
+  ${card(IMG.kebab,'Kebab','9,50 €','Best-seller')}
+  ${card(IMG.kofte,'Köfte','9,50 €')}
+  ${card(IMG.escalope,'Escalope poulet','9,50 €')}
+  ${card(IMG.tacos,'Tacos 1 viande','9,00 €')}
+</div>`;
+const s2 = `<div class="scroll">${status()}${header(3)}${menuInner}${floatCart}</div>`;
+
+/* --- 3 Personnalisation --- */
+const s3 = `<div class="scroll">${status()}${header(3)}${menuInner}<div class="dim"></div>
+<div class="sheet">
+  <div class="handle"></div>
+  <div class="sh-top"><img src="${IMG.kebab}" alt=""><div><h3>Kebab</h3><span class="price">9,50 €</span></div><span class="x">✕</span></div>
+  <div class="steps"><i class="on"></i><i class="on"></i><i></i></div>
+  <div class="sh-body">
+    <div class="grp"><div class="grp-h"><b>Sauces</b><span class="badge ok">Complété</span></div><div class="mini" style="margin-bottom:4px">Choisis 1 à 2</div>
+      <div class="opt"><span class="ck on">${I.check}</span>Mayonnaise</div>
+      <div class="opt"><span class="ck on">${I.check}</span>Barbecue</div>
+    </div>
+    <div class="grp cur"><div class="grp-h"><b>Crudités</b><span class="badge">Obligatoire</span></div><div class="mini" style="margin-bottom:4px">Choisis 1 à 3</div>
+      <div class="opt"><span class="ck on">${I.check}</span>Salade</div>
+      <div class="opt"><span class="ck"></span>Tomates</div>
+      <div class="opt"><span class="ck"></span>Oignons</div>
+      <div class="opt"><span class="ck"></span>Sans crudité</div>
+    </div>
+    <div class="grp"><div class="grp-h"><b>Boisson</b><span class="badge">Obligatoire</span></div>
+      <div class="opt"><span class="rd"></span>Sans boisson<span class="r">−1,00 €</span></div>
+      <div class="opt"><span class="rd on"></span>Ayran<span class="r">+0,00 €</span></div>
+    </div>
+  </div>
+  <div class="bar" style="position:relative;flex:none"><div class="qtyrow"><div class="qty"><button>−</button><b>1</b><button>+</button></div><button class="btn" style="flex:1">Ajouter · 9,50 €</button></div></div>
+</div></div>`;
+
+/* --- 4 Panier --- */
+const s4 = `<div class="scroll">${status(true)}
+<div class="title-bar"><span class="back">←</span><h3>Ton panier</h3></div>
+<div class="pad">
+  <div class="line"><img src="${IMG.kebab}" alt=""><div class="t"><b>Kebab</b><span>Mayo, Barbecue · Salade · Ayran</span><span class="price" style="font-size:15px">9,50 €</span></div><div class="stepper"><button>−</button><b>1</b><button>+</button></div></div>
+  <div class="swipe"><div class="line" style="width:calc(100% - 84px);background:var(--bg)"><img src="${IMG.frites}" alt=""><div class="t"><b>Frites grande</b><span class="mini">× 2 · glissée vers la gauche</span><span class="price" style="font-size:15px">10,00 €</span></div></div><div class="del">Retirer</div></div>
+  <div class="eyebrow" style="margin-top:16px">Ça va bien avec</div>
+  <div class="upsell">
+    <div class="up"><img src="${IMG.ayran}" alt=""><div><b>Ayran</b><span>1,50 €</span></div><span class="p">+</span></div>
+    <div class="up"><img src="${IMG.kunefe}" alt=""><div><b>Künefe</b><span>6,00 €</span></div><span class="p">+</span></div>
+    <div class="up"><img src="${IMG.canette}" alt=""><div><b>Canette</b><span>1,50 €</span></div><span class="p">+</span></div>
+  </div>
+  <div class="loyal" style="margin-top:16px"><span class="pts">+19 pts</span><div style="flex:1">Encore 31 pts pour un dessert offert<div class="bar-meter"><i style="width:62%"></i></div></div></div>
+  <div class="fold" style="margin-top:6px"><span>Code promo</span>${I.chev}</div>
+</div>
+<div class="bar"><div class="sum" style="margin-bottom:10px"><div><span>Sous-total</span><span>19,50 €</span></div><div class="tot"><span>Total</span><span>19,50 €</span></div></div><button class="btn">Payer</button></div></div>`;
+
+/* --- 5 Paiement --- */
+const s5 = `<div class="scroll">${status(true)}
+<div class="title-bar"><span class="back">←</span><h3>Paiement</h3></div>
+<div class="pad" style="display:grid;gap:14px">
+  <div class="recap"><span><b>3 articles</b> · Retrait NS Grill</span><b>19,50 €</b></div>
+  <button class="paybtn">Apple Pay</button>
+  <button class="paybtn" style="background:#fff;color:#000;border:1px solid var(--line)"><b style="color:#4285F4">G</b> Pay</button>
+  <div class="pay-sep">ou par carte</div>
+  <div class="inp"><label>Prénom</label><div class="field">Karim <span class="mini" style="margin-left:auto">exemple</span></div></div>
+  <div class="inp"><label>Téléphone</label><div class="field">06 12 34 56 78</div></div>
+  <div class="inp"><label>Carte bancaire</label><div class="field" style="color:var(--muted)">•••• •••• •••• ••••</div></div>
+  <div class="fold"><span>Code promo</span>${I.chev}</div>
+  <div class="mini">Pas de compte à créer. Ton numéro sert uniquement à te prévenir quand c'est prêt.</div>
+</div>
+<div class="bar"><button class="btn">Payer 19,50 €</button></div></div>`;
+
+/* --- 6 Suivi --- */
+const s6 = `<div class="scroll">${status()}
+<div class="track-hero"><div class="eyebrow" style="color:#fff;opacity:.8">Commande n° 128 · exemple</div><h2>On s'en occupe</h2>
+<div class="eta"><b>12</b><span>min · prête vers 12h42 (exemple)</span></div><div class="prog"><i></i></div></div>
+<div class="tl">
+  <div class="s done"><div class="ic">${I.check}</div><div><b>Commande reçue</b><span>12h24</span></div></div>
+  <div class="s cur"><div class="ic">●</div><div><b>En préparation</b><span>Le grill chauffe</span></div></div>
+  <div class="s todo"><div class="ic">3</div><div><b>Prête</b><span>On te prévient</span></div></div>
+  <div class="s todo"><div class="ic">4</div><div><b>Retirée</b><span>9 Rue d'Andrésy</span></div></div>
+</div>
+<div class="pad"><div class="loyal"><span class="pts">+19 pts</span><div style="flex:1">ajoutés à ta carte fidélité</div></div></div>
+<div class="bar" style="display:grid;gap:8px"><button class="btn">Active les notifications</button><button class="btn sec2 sm">Appeler le restaurant</button></div></div>`;
+
+/* --- 7 sombre --- */
+const s7 = `<div class="scroll">${status()}${header(3)}${menuInner}${floatCart}</div>`;
+
+const screens = [
+  ['1 · Accueil','Un choix, deux gros boutons. Recommander en 1 tap.',s1,''],
+  ['2 · Menu','Recherche, filtres, catégories collantes, « + » rouge.',s2,''],
+  ['3 · Personnalisation','Feuille du bas. Prix en direct, étapes visibles.',s3,''],
+  ['4 · Panier','Glisse pour retirer. Ajouts en 1 tap. Points visibles.',s4,''],
+  ['5 · Paiement','Un seul écran. Apple Pay, Google Pay, carte. Invité.',s5,''],
+  ['6 · Suivi','Statut en direct et temps estimé.',s6,''],
+  ['Bonus · Mode sombre','Automatique selon le téléphone.',s7,'dark'],
+];
+document.getElementById('phones').innerHTML = screens.map(([t,d,h,c]) =>
+  `<div class="pcol"><div class="cap">${t}</div><div class="cap2">${d}</div><div class="phone ${c}">${h}</div></div>`).join('');
+
+/* --- desktop --- */
+const dcard = (img,name,price,badge) => card(img,name,price,badge);
+document.getElementById('desk').innerHTML = `
+<div class="topbar"><span class="logo">NS <b>GRILL</b></span>
+  <div class="mid"><span class="pill"><span class="dot"></span>Ouvert · 11h–22h</span><span class="pill">${I.bag.replace('<svg','<svg width="18" height="18"')} Click &amp; Collect</span></div>
+  <span class="tbtn">${I.cart.replace('<svg','<svg width="20" height="20"')} Panier · 3</span></div>
+<div class="layout">
+  <aside class="side"><div class="eyebrow">La carte</div>
+    <div class="cat2 on">Sandwichs</div><div class="cat2">Assiettes</div><div class="cat2">Pideler</div><div class="cat2">Tacos</div><div class="cat2">Barquettes</div><div class="cat2">Desserts</div><div class="cat2">Boissons</div></aside>
+  <main class="main">
+    <div class="hero2"><div class="field">${I.search}<span style="color:var(--muted)">Cherche un plat…</span></div><span class="chip on">Tout</span><span class="chip">Épicé</span><span class="chip">Végé</span></div>
+    <div class="eyebrow">Les classiques</div><h2 style="font-size:44px">Les sandwichs</h2>
+    <div class="dgrid">
+      ${dcard(IMG.kebab,'Kebab','9,50 €','Best-seller')}${dcard(IMG.kofte,'Köfte','9,50 €')}${dcard(IMG.escalope,'Escalope poulet','9,50 €')}
+      ${dcard(IMG.tacos,'Tacos 1 viande','9,00 €')}${dcard(IMG.pide,'Pide Kebab','8,00 €')}${dcard(IMG.frites,'Frites grande','5,00 €')}
+    </div>
+  </main>
+  <aside class="cartp"><div class="eyebrow">Ta commande</div><h3>Ton panier</h3>
+    <div class="line"><img src="${IMG.kebab}" alt=""><div class="t"><b>Kebab</b><span>Mayo, Barbecue · Salade · Ayran</span><span class="price" style="font-size:15px">9,50 €</span></div><div class="stepper"><button>−</button><b>1</b><button>+</button></div></div>
+    <div class="line"><img src="${IMG.frites}" alt=""><div class="t"><b>Frites grande</b><span class="price" style="font-size:15px">5,00 €</span></div><div class="stepper"><button>−</button><b>2</b><button>+</button></div></div>
+    <div class="eyebrow" style="margin-top:16px">Ça va bien avec</div>
+    <div class="upsell"><div class="up"><img src="${IMG.ayran}" alt=""><div><b>Ayran</b><span>1,50 €</span></div><span class="p">+</span></div><div class="up" style="width:140px"><img src="${IMG.kunefe}" alt=""><div><b>Künefe</b><span>6,00 €</span></div><span class="p">+</span></div></div>
+    <div class="loyal" style="margin-top:14px"><span class="pts">+19 pts</span><div style="flex:1;font-size:13px">Encore 31 pts pour un dessert offert</div></div>
+    <div style="margin-top:auto;padding:16px 0 24px"><div class="sum" style="margin-bottom:10px"><div class="tot"><span>Total</span><span>19,50 €</span></div></div><button class="btn">Payer</button></div>
+  </aside>
+</div>`;
+</script>
+</body>
+</html>

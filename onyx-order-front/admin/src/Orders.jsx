@@ -75,7 +75,7 @@ function Detail({ o, onClose }) {
           <h3>Commande #{d.number} <span className={`pill ${d.status}`}>{STATUS[d.status]}</span></h3>
           <button className="x" onClick={onClose} aria-label="Fermer">✕</button>
         </header>
-        <p className="muted">{new Date(d.created_at).toLocaleString('fr-FR', { dateStyle: 'full', timeStyle: 'short' })} · {MODE[d.mode]}{d.slot ? ` · ${d.slot}` : ''}</p>
+        <p className="muted">{new Date(d.created_at).toLocaleString('fr-FR', { dateStyle: 'full', timeStyle: 'short' })} · {MODE[d.mode]}{d.table_label ? ` · Table ${d.table_label}` : ''}{d.slot ? ` · ${d.slot}` : ''}</p>
         <div className="blk">
           <b>{d.customer_name}</b>
           <a href={`tel:${d.customer_phone}`}>📞 {d.customer_phone}</a>

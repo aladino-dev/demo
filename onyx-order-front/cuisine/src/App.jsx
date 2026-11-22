@@ -136,7 +136,7 @@ function Board({ session, onLogout }) {
                 const a = age(o.created_at, now);
                 return (
                   <div key={o.id} className={`ord ${c}`}>
-                    <div className="h"><span className="num">#{o.number}</span><span className={`age ${a.tone}`}>⏱ {a.label}</span><span className="mode">{MODE[o.mode]}</span></div>
+                    <div className="h"><span className="num">#{o.number}</span><span className={`age ${a.tone}`}>⏱ {a.label}</span><span className="mode">{MODE[o.mode]}{o.table_label ? ` · Table ${o.table_label}` : ''}</span></div>
                     <div className="who"><strong>{o.customer_name}</strong><span>{time(o.created_at)} · <a href={`tel:${o.customer_phone}`}>{o.customer_phone}</a></span></div>
                     {o.mode === 'delivery' && <div>{o.address}, {o.postcode} {o.city}</div>}
                     <ul>
@@ -170,7 +170,7 @@ function Ticket({ o, name }) {
     <div id="ticket">
       <div className="c">{name}</div>
       <h1>#{o.number}</h1>
-      <div className="c">{MODE[o.mode].toUpperCase()} · {new Date(o.created_at).toLocaleString('fr-FR', { timeZone: 'Europe/Paris' })}</div>
+      <div className="c">{MODE[o.mode].toUpperCase()}{o.table_label ? ` · TABLE ${o.table_label}` : ''} · {new Date(o.created_at).toLocaleString('fr-FR', { timeZone: 'Europe/Paris' })}</div>
       <hr />
       <div>{o.customer_name} · {o.customer_phone}</div>
       {o.mode === 'delivery' && <div>{o.address}, {o.postcode} {o.city}</div>}

@@ -63,6 +63,10 @@ export async function createOrder(r, body, ip) {
   if (phone.length < 10) throw new OrderError('Indiquez un numéro de téléphone valide.');
   if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) throw new OrderError('Adresse e-mail invalide.');
 
+  // sur place : numéro de table (lettres, chiffres, tiret ; 12 caractères max)
+  const tableLabel = mode === 'dine_in' ? String(body.table || '').trim().slice(0, 12) : null;
+  if (mode === 'dine_in' && !/^[\p{L}\p{N}][\p{L}\p{N} -]*$/u.test(tableLabel || '')) throw new OrderError('Indiquez votre numéro de table.');
+
   const items = Array.isArray(body.items) ? body.items : [];
   if (!items.length || items.length > 50) throw new OrderError('Votre panier est vide.');
 
@@ -128,11 +132,11 @@ export async function createOrder(r, body, ip) {
     const token = crypto.randomBytes(12).toString('base64url');
     const { rows: [o] } = await c.query(
       `INSERT INTO orders (restaurant_id, number, token, mode, customer_name, customer_phone, customer_email,
-          address, postcode, city, zone_id, subtotal_cents, discount_cents, fee_cents, total_cents, promo_code, slot, note, ip, uber_quote_id)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20) RETURNING *`,
+          address, postcode, city, zone_id, subtotal_cents, discount_cents, fee_cents, total_cents, promo_code, slot, note, ip, uber_quote_id, table_label)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21) RETURNING *`,
       [r.id, next, token, mode, name, phone, email, address, mode === 'delivery' ? body.address.postcode : null,
         mode === 'delivery' ? body.address.city : null, zone?.id ?? null, subtotal, discount, fee, total, promo,
-        String(body.slot || 'Dès que possible').slice(0, 60), String(body.note || '').slice(0, 500) || null, ip, uberQuoteId]);
+        String(body.slot || 'Dès que possible').slice(0, 60), String(body.note || '').slice(0, 500) || null, ip, uberQuoteId, tableLabel]);
     for (const l of lines) {
       const { rows: [it] } = await c.query(
         `INSERT INTO order_items (restaurant_id, order_id, product_id, name, quantity, unit_price_cents, note)

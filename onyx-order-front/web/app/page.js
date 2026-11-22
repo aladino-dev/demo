@@ -1,5 +1,6 @@
 import { serverGet, DAYS, eur } from '../lib/api';
 import Menu from './Menu';
+import BetaBanner from './BetaBanner';
 
 export const dynamic = 'force-dynamic';
 
@@ -32,6 +33,8 @@ export default async function Home() {
     );
   }
   const st = info.status;
+  // livraison seulement affichée (« bientôt disponible ») : réglage du restaurant, pas écrit en dur
+  const deliveryPreview = !!info.settings?.delivery_preview && !info.settings?.modes?.includes('delivery');
   const deliveryFrom = info.settings?.delivery_provider !== 'uber' && info.zones.length ? Math.min(...info.zones.map((z) => z.fee_cents)) : null;
   // données du restaurant telles qu'elles sont en base : rien n'est écrit en dur (type de cuisine, ville…)
   const jsonLd = {
@@ -42,23 +45,34 @@ export default async function Home() {
   const place = [info.address, [info.postcode, info.city].filter(Boolean).join(' ')].filter(Boolean).join(', ');
   const hasHours = st.hours.some((h) => h.enabled);
   const statusText = st.closed_today ? st.closed_today : st.really_open ? 'Ouvert : commandez maintenant' : 'Fermé pour le moment';
-  const brand = info.settings?.brand_color; // couleur principale du restaurant (réglage à venir dans le back-office)
   return (
-    <div style={/^#[0-9a-f]{3,8}$/i.test(brand || '') ? { '--accent': brand } : undefined}>
-      <header className="hero">
+    <div>
+      <header className="station-header">
         <div className="wrap">
-          <span className="status"><span className={`dot ${st.really_open ? 'open' : 'closed'}`} />{statusText}</span>
-          <h1>{info.name}</h1>
-          {place && <p>{place}</p>}
-          {hasHours && <p>{hoursText(st.hours)}</p>}
-          <div className="chips">
-            {st.demo_ignore_hours && !st.really_open && <span className="badge">Démo : commandes acceptées</span>}
-            {(info.settings?.tags || []).map((t) => <span key={t} className="badge">{t}</span>)}
-            <span className="badge">Retrait{deliveryFrom != null ? ` · Livraison dès ${eur(deliveryFrom)}` : ''}</span>
-          </div>
-          {info.phone && <a className="call" href={`tel:${String(info.phone).replace(/[^\d+]/g, '')}`}>Appeler le restaurant</a>}
+          <a className="station-name" href="/">{info.name}</a>
+          <a className="btn" href="#menu">Commander</a>
         </div>
       </header>
+      <section className="hero">
+        <div className="wrap">
+          <div className="hero-identity">
+            <span className="status"><span className={`dot ${st.really_open ? 'open' : 'closed'}`} />{statusText}</span>
+            <h1>{info.name}</h1>
+            <div className="chips">
+              <span className="badge service">Retrait{deliveryFrom != null ? ` · Livraison dès ${eur(deliveryFrom)}` : ''}</span>
+              {deliveryPreview && <span className="badge">Livraison <b className="beta">BÊTA</b> · bientôt</span>}
+              {(info.settings?.tags || []).map((t) => <span key={t} className="badge">{t}</span>)}
+              {st.demo_ignore_hours && !st.really_open && <span className="badge">Démo : commandes acceptées</span>}
+            </div>
+          </div>
+          {(place || hasHours || info.phone) && <div className="hero-details">
+            {place && <p>{place}</p>}
+            {hasHours && <p>{hoursText(st.hours)}</p>}
+            {info.phone && <a className="call" href={`tel:${String(info.phone).replace(/[^\d+]/g, '')}`}>Appeler le restaurant</a>}
+          </div>}
+        </div>
+      </section>
+      {deliveryPreview && <BetaBanner />}
       <Menu categories={menu} canOrder={st.open} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </div>

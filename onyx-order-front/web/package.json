@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev -p 3000",
     "dev:restaurant": "node dev-restaurant.mjs",
+    "qr:tables": "node scripts/table-qr.mjs",
     "build": "next build",
     "start": "next start -p 3000"
   },

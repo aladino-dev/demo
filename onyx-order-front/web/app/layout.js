@@ -17,7 +17,7 @@ export async function generateMetadata() {
     ...(r?.settings?.noindex ? { robots: { index: false, follow: false } } : {}),
   };
 }
-export const viewport = { width: 'device-width', initialScale: 1, themeColor: '#111111' };
+export const viewport = { width: 'device-width', initialScale: 1, themeColor: '#000000' };
 
 export default async function RootLayout({ children }) {
   const r = await restaurant();

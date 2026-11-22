@@ -7,10 +7,13 @@ import { useCart } from '../lib/cart';
 // Photo en image de fond ; sans photo : pastille colorée avec l'initiale du nom
 function Photo({ src, className, name }) {
   const url = photoUrl(src);
+  if (url && className === 'ph') {
+    return <img className="ph" src={url} alt="" loading="lazy" decoding="async" />;
+  }
   return (
-    <div className={`${className} ${url ? '' : 'noph'}`} style={url ? { backgroundImage: `url("${url}")` } : undefined} role="img" aria-label={name || ''}>
+    <span className={`${className} ${url ? '' : 'noph'}`} style={url ? { backgroundImage: `url("${url}")` } : undefined} role="img" aria-label={name || ''}>
       {!url && name ? name.trim().charAt(0).toUpperCase() : null}
-    </div>
+    </span>
   );
 }
 
@@ -21,6 +24,14 @@ export default function Menu({ categories, canOrder }) {
   const tabsRef = useRef(null);
   // nombre d'exemplaires de chaque produit déjà dans le panier : affiché sur la carte du produit
   const inCart = useMemo(() => { const m = {}; for (const i of cart.items) m[i.product_id] = (m[i.product_id] || 0) + i.quantity; return m; }, [cart.items]);
+
+  const selectProduct = (p) => {
+    if (!canOrder || p.option_groups.length) {
+      setProduct(p);
+      return;
+    }
+    cart.add({ product_id: p.id, name: p.name, photo: p.photo, quantity: 1, options: [], labels: [], unit_cents: p.price_cents });
+  };
 
   // onglet actif selon la section visible
   useEffect(() => {
@@ -49,24 +60,27 @@ export default function Menu({ categories, canOrder }) {
           ))}
         </div>
       </nav>
-      <main className="wrap">
+      <main id="menu" className="wrap menu">
         {categories.map((c) => (
           <section key={c.id} id={c.slug} className="cat">
             <h2>{c.name}</h2>
             <div className="grid">
               {c.products.map((p) => (
-                <button key={p.id} className={`card ${p.sold_out ? 'out' : ''}`} onClick={() => !p.sold_out && setProduct(p)}
-                  disabled={p.sold_out} aria-label={`${p.name}, ${eur(p.price_cents)}${inCart[p.id] ? `, ${inCart[p.id]} dans le panier` : ''}${p.sold_out ? ', épuisé aujourd\'hui' : ''}`}>
+                <button key={p.id} className={`card ${p.sold_out ? 'out' : ''}`} onClick={() => selectProduct(p)}
+                  disabled={p.sold_out} aria-label={`${p.name}, ${eur(p.price_cents)}${inCart[p.id] ? `, ${inCart[p.id]} dans le panier` : ''}${p.sold_out ? ', épuisé aujourd\'hui' : p.option_groups.length ? ', personnaliser' : ', ajouter au panier'}`}>
                   <div className="pw">
                     <Photo src={p.photo} className="ph" name={p.name} />
-                    <span className="pp">{eur(p.price_cents)}</span>
-                    {p.sold_out ? <span className="ribbon">Épuisé aujourd&apos;hui</span>
-                      : inCart[p.id] ? <span key={inCart[p.id]} className="add in" aria-hidden="true">{inCart[p.id]}</span>
-                      : <span className="add" aria-hidden="true">+</span>}
                   </div>
                   <div className="b">
                     <span className="n">{p.name}</span>
                     {p.description && <span className="d">{p.description}</span>}
+                    <span className="card-footer">
+                      <span className="pp">{eur(p.price_cents)}</span>
+                      {p.sold_out ? <span className="ribbon">Épuisé</span>
+                        : p.option_groups.length ? <span className="card-customize">Personnaliser{inCart[p.id] ? ` · ${inCart[p.id]}` : ''}</span>
+                        : inCart[p.id] ? <span key={inCart[p.id]} className="add in" aria-hidden="true">{inCart[p.id]}</span>
+                        : <span className="add" aria-hidden="true"><span className="plus-icon" /></span>}
+                    </span>
                   </div>
                 </button>
               ))}
@@ -91,10 +105,13 @@ export default function Menu({ categories, canOrder }) {
   );
 }
 
+const minimumChoices = (group) => Math.max(group.min || 0, group.required ? 1 : 0);
+
 function ProductModal({ p, canOrder, onClose, onAdd }) {
   const [sel, setSel] = useState({}); // groupId -> [optionId]
   const [qty, setQty] = useState(1);
-  const [tried, setTried] = useState(false);
+  const requiredGroups = p.option_groups.filter((g) => minimumChoices(g) > 0);
+  const groups = [...requiredGroups, ...p.option_groups.filter((g) => minimumChoices(g) === 0)];
 
   useEffect(() => {
     const k = (e) => e.key === 'Escape' && onClose();
@@ -103,36 +120,42 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
     return () => { document.removeEventListener('keydown', k); document.body.style.overflow = ''; };
   }, [onClose]);
 
-  const toggle = (g, o) => setSel((s) => {
-    const cur = s[g.id] || [];
-    if (cur.includes(o.id)) return { ...s, [g.id]: cur.filter((x) => x !== o.id) };
-    if (g.max === 1) return { ...s, [g.id]: [o.id] };            // choix unique : on remplace
-    if (g.max != null && cur.length >= g.max) return s;
-    return { ...s, [g.id]: [...cur, o.id] };
-  });
+  const next = requiredGroups.find((g) => (sel[g.id] || []).length < minimumChoices(g));
+  const showGroup = (group) => {
+    requestAnimationFrame(() => {
+      const heading = document.getElementById(`option-title-${group.id}`);
+      heading?.focus({ preventScroll: true });
+      heading?.scrollIntoView({ block: 'start' });
+    });
+  };
 
-  const missing = p.option_groups.filter((g) => (sel[g.id] || []).length < Math.max(g.min || 0, g.required ? 1 : 0));
+  const toggle = (group, option) => {
+    const current = sel[group.id] || [];
+    const selected = current.includes(option.id);
+    if (!selected && group.max != null && group.max !== 1 && current.length >= group.max) return;
+    const updated = selected ? current.filter((id) => id !== option.id)
+      : group.max === 1 ? [option.id] : [...current, option.id];
+    const updatedSelection = { ...sel, [group.id]: updated };
+    setSel(updatedSelection);
+
+    const minimum = minimumChoices(group);
+    if (current.length < minimum && updated.length >= minimum) {
+      const remaining = requiredGroups.filter((item) => (updatedSelection[item.id] || []).length < minimumChoices(item));
+      const groupIndex = requiredGroups.indexOf(group);
+      const following = remaining.find((item) => requiredGroups.indexOf(item) > groupIndex) || remaining[0];
+      if (following) showGroup(following);
+    }
+  };
+
   const unit = useMemo(() => p.price_cents + p.option_groups.reduce((a, g) =>
     a + (sel[g.id] || []).reduce((b, id) => b + (g.options.find((o) => o.id === id)?.price_cents || 0), 0), 0), [sel, p]);
 
-  // un choix obligatoire vient d'être terminé : on amène doucement l'écran sur le suivant (utile au téléphone)
-  const doneRef = useRef(new Set());
-  useEffect(() => {
-    const minOf = (g) => Math.max(g.min || 0, g.required ? 1 : 0);
-    const done = new Set(p.option_groups.filter((g) => minOf(g) > 0 && (sel[g.id] || []).length >= minOf(g)).map((g) => g.id));
-    const fresh = p.option_groups.some((g) => done.has(g.id) && !doneRef.current.has(g.id) && (g.max === 1 || (g.max != null && (sel[g.id] || []).length >= g.max)));
-    doneRef.current = done;
-    if (!fresh) return undefined;
-    const next = p.option_groups.find((g) => minOf(g) > 0 && !done.has(g.id));
-    if (!next) return undefined;
-    const t = setTimeout(() => document.getElementById(`g${next.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 220);
-    return () => clearTimeout(t);
-  }, [sel, p]);
+  // rappel de tout ce qui a été choisi, pour ne rien oublier
+  const chosenLabels = p.option_groups.flatMap((g) => (sel[g.id] || []).map((id) => g.options.find((o) => o.id === id)?.label).filter(Boolean));
 
   const add = () => {
-    setTried(true);
-    if (missing.length) {
-      document.getElementById(`g${missing[0].id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (next) {
+      showGroup(next);
       return;
     }
     const options = [];
@@ -146,17 +169,22 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
   };
 
   const rule = (g) => {
-    const min = Math.max(g.min || 0, g.required ? 1 : 0);
-    if (g.max === 1) return min ? 'Choisissez 1' : '1 choix maximum';
-    if (g.max == null) return min ? `${min} minimum` : 'Plusieurs choix possibles';
-    return min ? `Choisissez de ${min} à ${g.max}` : `Jusqu'à ${g.max} choix`;
+    const min = minimumChoices(g);
+    if (g.max === 1) return min ? 'Sélectionnez une option' : 'Une option au maximum';
+    if (g.max == null) return min ? `Sélectionnez au moins ${min === 1 ? 'une option' : `${min} options`}` : 'Plusieurs options possibles';
+    if (min === g.max) return `Sélectionnez ${min} options`;
+    return min ? `Sélectionnez de ${min} à ${g.max} options` : `Jusqu’à ${g.max} options`;
   };
 
   return (
     <div className="overlay" onClick={onClose} role="dialog" aria-modal="true" aria-label={p.name}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <span className="handle" aria-hidden="true" />
-        <button className="close" onClick={onClose} aria-label="Fermer">×</button>
+        <div className="modal-toolbar">
+          <button type="button" className="close" onClick={onClose}>
+            <span className="plus-icon close-icon" aria-hidden="true" />
+            Fermer
+          </button>
+        </div>
         <div className="scroll">
           <div className="mtop">
             <Photo src={p.photo} className="mph" name={p.name} />
@@ -167,60 +195,62 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
             </div>
           </div>
           <div className="groups">
-            {p.option_groups.map((g) => {
+            {groups.map((g) => {
               const cur = sel[g.id] || [];
-              const min = Math.max(g.min || 0, g.required ? 1 : 0);
-              const full = g.max != null && g.max > 1 && cur.length >= g.max;
+              const min = minimumChoices(g);
               const single = g.max === 1;
-              const photos = g.options.some((o) => o.photo);
-              const short = tried && cur.length < min;
+              const full = !single && g.max != null && cur.length >= g.max;
+              const photos = g.options.every((o) => o.photo);
+              const done = min > 0 && cur.length >= min;
               return (
-                <div key={g.id} id={`g${g.id}`} className={`group ${short ? 'missing' : ''} ${min > 0 && cur.length >= min ? 'done' : ''}`}>
-                  <h4>
-                    <span>{g.title}<span className="sub">{rule(g)}{g.max > 1 ? ` · ${cur.length}/${g.max}` : ''}</span></span>
-                    {min > 0
-                      ? <span className={`req ${cur.length >= min ? 'done' : ''}`}>{cur.length >= min ? '✓ OK' : 'Obligatoire'}</span>
-                      : <span className="req opt">Facultatif</span>}
-                  </h4>
-                  <div className={`opts ${photos ? 'photos' : ''}`} role={single ? 'radiogroup' : 'group'} aria-label={g.title}>
+                <section key={g.id} className={`group ${next?.id === g.id ? 'current' : ''} ${done ? 'done' : ''}`}>
+                  <div className="group-heading">
+                    <h4 id={`option-title-${g.id}`} tabIndex={-1}>{g.title}</h4>
+                    <span className={`req ${done ? 'done' : min ? '' : 'optional'}`}>
+                      {done ? '✓ Choisi' : min ? 'Obligatoire' : 'Facultatif'}
+                    </span>
+                  </div>
+                  <p className="sub" id={`option-rule-${g.id}`}>{rule(g)}</p>
+                  <div className={`opts ${photos ? 'photos' : ''}`} role={single ? 'radiogroup' : 'group'}
+                    aria-labelledby={`option-title-${g.id}`} aria-describedby={`option-rule-${g.id}`}>
                     {g.options.map((o) => {
                       const on = cur.includes(o.id);
                       return (
-                        <button key={o.id} className={`opt ${on ? 'on' : ''} ${o.photo ? 'withph' : ''} ${single ? 'radio' : 'check'}`} disabled={!on && full}
-                          onClick={() => toggle(g, o)} role={single ? 'radio' : 'checkbox'} aria-checked={on}>
-                          {o.photo && <Photo src={o.photo} className="oph" name={o.label} />}
+                        <label key={o.id} className={`opt ${on ? 'on' : ''} ${photos ? 'withph' : ''} ${single ? 'radio' : 'check'}`}>
+                          <input className="option-input" type={single ? 'radio' : 'checkbox'} name={`option-${g.id}`}
+                            checked={on} disabled={!on && full} onChange={() => toggle(g, o)} />
                           <span className="ind" aria-hidden="true" />
+                          {o.photo && <span className="option-photo" aria-hidden="true"><Photo src={o.photo} className="oph" name={o.label} /></span>}
                           <span className="lbl">{o.label}</span>
                           {o.price_cents !== 0 && <span className="x">{o.price_cents > 0 ? "+" : "−"}{eur(Math.abs(o.price_cents))}</span>}
-                        </button>
+                        </label>
                       );
                     })}
                   </div>
-                  {short && <p className="err">Ce choix est obligatoire.</p>}
-                  {min > 0 && cur.length >= min && !full && g.max !== 1 && (() => {
-                    // choix à plusieurs réponses : le minimum est atteint, on propose de passer au suivant sans deviner
-                    const after = p.option_groups.slice(p.option_groups.indexOf(g) + 1);
-                    const next = after.find((x) => (sel[x.id] || []).length < Math.max(x.min || 0, x.required ? 1 : 0));
-                    return next ? (
-                      <button type="button" className="nextg" onClick={() => document.getElementById(`g${next.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })}>
-                        Choix suivant : {next.title.replace(/\s*\(facultatif\)/i, '')} ↓
-                      </button>
-                    ) : null;
-                  })()}
-                </div>
+                  {!single && cur.length > 0 && <p className="option-count" aria-live="polite">
+                    {cur.length} {cur.length === 1 ? 'option sélectionnée' : 'options sélectionnées'}
+                    {full && ' · Désélectionnez une option pour en choisir une autre.'}
+                  </p>}
+                  {single && !min && cur.length > 0 && <button type="button" className="clear-option"
+                    onClick={() => setSel((s) => ({ ...s, [g.id]: [] }))}>Retirer mon choix</button>}
+                </section>
               );
             })}
           </div>
         </div>
-        <div className="bar">
-          <div className="qty">
-            <button onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="Moins">−</button>
-            <span aria-live="polite">{qty}</span>
-            <button onClick={() => setQty((q) => Math.min(20, q + 1))} aria-label="Plus">+</button>
+        <div className="product-footer">
+          {chosenLabels.length > 0 && <p className="choice-recap" aria-live="polite"><b>Ton choix :</b> {chosenLabels.join(' · ')}</p>}
+          <div className="bar">
+            {!next && canOrder && <div className="qty" role="group" aria-label="Quantité">
+              <button onClick={() => setQty((q) => Math.max(1, q - 1))} disabled={qty === 1} aria-label="Réduire la quantité">−</button>
+              <span aria-live="polite">{qty}</span>
+              <button onClick={() => setQty((q) => Math.min(20, q + 1))} disabled={qty === 20} aria-label="Augmenter la quantité"><span className="plus-icon" aria-hidden="true" /></button>
+            </div>}
+            <button className={`btn ${canOrder && next ? 'need' : ''}`} onClick={add} disabled={!canOrder}>
+              <span>{!canOrder ? 'Fermé' : next ? <>Choisir <strong>{next.title}</strong></> : 'Ajouter au panier'}</span>
+              <span key={unit * qty} className="tick">{eur(unit * qty)}</span>
+            </button>
           </div>
-          <button className={`btn ${canOrder && missing.length ? 'need' : ''}`} onClick={add} disabled={!canOrder}>
-            <span>{!canOrder ? 'Fermé' : missing.length ? `${missing.length} choix à faire` : 'Ajouter au panier'}</span><span key={unit * qty} className="tick">{eur(unit * qty)}</span>
-          </button>
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ const STEPS = {
 function message(status, mode) {
   if (status === 'new') return 'Commande reçue : le restaurant va la préparer.';
   if (status === 'preparing') return 'Votre commande est en préparation.';
-  if (status === 'ready') return mode === 'delivery' ? 'Votre commande est prête : le livreur va partir.' : 'Votre commande est prête : vous pouvez venir la retirer !';
+  if (status === 'ready') return mode === 'delivery' ? 'Votre commande est prête : le livreur va partir.' : mode === 'dine_in' ? 'Votre commande est prête : on vous l\'apporte à table !' : 'Votre commande est prête : vous pouvez venir la retirer !';
   if (status === 'delivering') return 'Votre commande est en route !';
   if (status === 'done') return mode === 'delivery' ? 'Votre commande a été livrée. Bon appétit !' : 'Commande terminée. Merci et bon appétit !';
   if (status === 'cancelled') return 'Votre commande a été annulée. Contactez le restaurant.';
@@ -85,7 +85,7 @@ export default function Suivi({ params }) {
         <p style={{ margin: 0 }}>Merci {o.customer_name.split(' ')[0]} !</p>
         <p className="big-num">N° {o.number}</p>
         <p className="now">{now}</p>
-        <p className="note">{o.mode === 'delivery' ? `Livraison : ${o.address}, ${o.postcode} ${o.city}` : 'Retrait au restaurant'}</p>
+        <p className="note">{o.mode === 'delivery' ? `Livraison : ${o.address}, ${o.postcode} ${o.city}` : o.mode === 'dine_in' ? `Sur place · Table ${o.table_label}` : 'Retrait au restaurant'}</p>
       </div>
       <div className="panel">
         <h2>Suivi</h2>

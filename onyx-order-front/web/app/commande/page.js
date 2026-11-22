@@ -92,7 +92,7 @@ export default function Commande() {
       const res = await apiPost('/orders', {
         mode, table: mode === 'dine_in' ? table : undefined, customer, quote_id: mode === 'delivery' ? zone?.quote_id : undefined, promo_code: promo.trim() || undefined, note: note || undefined, website: hp,
         address: mode === 'delivery' ? { line: addr.line, extra: addr.extra, postcode: addr.postcode, city: addr.city } : undefined,
-        items: cart.items.map((i) => ({ product_id: i.product_id, quantity: i.quantity, options: i.options })),
+        items: cart.items.map((i) => ({ product_id: i.product_id, quantity: i.quantity, options: i.options, note: i.note || undefined })),
       });
       cart.clear();
       router.push(`/suivi/${res.token}`);
@@ -131,6 +131,7 @@ export default function Commande() {
               <div className="info">
                 <strong>{i.name}</strong>
                 {i.labels?.length > 0 && <div className="o">{i.labels.join(', ')}</div>}
+                {i.note && <div className="o">📝 {i.note}</div>}
                 <div className="lp">{eur(i.unit_cents * i.quantity)}</div>
               </div>
               <div className="qty">

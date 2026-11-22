@@ -144,6 +144,7 @@ function Board({ session, onLogout }) {
                         <li key={i.id}>
                           <strong>{i.quantity} × {i.name}</strong>
                           {i.options.length > 0 && <div className="o">{i.options.map((x) => x.label).join(', ')}</div>}
+                          {i.note && <div className="o">📝 {i.note}</div>}
                         </li>
                       ))}
                     </ul>

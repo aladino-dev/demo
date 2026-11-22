@@ -23,6 +23,7 @@ export function CartProvider({ children }) {
     setItems((xs) => {
       const options = line.options || [];
       const match = xs.find((item) => item.product_id === line.product_id
+        && !item.note && !line.note
         && item.unit_cents === line.unit_cents
         && item.quantity + line.quantity <= 20
         && (item.options || []).length === options.length

@@ -1,6 +1,7 @@
 import { serverGet, DAYS, eur } from '../lib/api';
 import Menu from './Menu';
 import BetaBanner from './BetaBanner';
+import FeaturedProduct from './FeaturedProduct';
 
 export const dynamic = 'force-dynamic';
 
@@ -33,6 +34,10 @@ export default async function Home() {
     );
   }
   const st = info.status;
+  // produit du mois : réglage du restaurant (settings.featured_product_id), rien n'est écrit en dur
+  const featured = info.settings?.featured_product_id
+    ? menu.flatMap((c) => c.products).find((p) => p.id === Number(info.settings.featured_product_id) && !p.sold_out)
+    : null;
   // livraison seulement affichée (« bientôt disponible ») : réglage du restaurant, pas écrit en dur
   const deliveryPreview = !!info.settings?.delivery_preview && !info.settings?.modes?.includes('delivery');
   const deliveryFrom = info.settings?.delivery_provider !== 'uber' && info.zones.length ? Math.min(...info.zones.map((z) => z.fee_cents)) : null;
@@ -64,6 +69,7 @@ export default async function Home() {
               {(info.settings?.tags || []).map((t) => <span key={t} className="badge">{t}</span>)}
               {st.demo_ignore_hours && !st.really_open && <span className="badge">Démo : commandes acceptées</span>}
             </div>
+            {featured && <FeaturedProduct product={featured} />}
           </div>
           {(place || hasHours || info.phone) && <div className="hero-details">
             {place && <p>{place}</p>}

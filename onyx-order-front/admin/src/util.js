@@ -17,6 +17,11 @@ export function ruleText(g) {
 
 /** Phrase générée à partir de la règle : « Le client doit choisir de 1 à 2 options. » */
 export function ruleSentence(g) {
+  const base = ruleSentenceBase(g);
+  const per = g.max_per_option || 1;
+  return per > 1 ? `${base} Une même option peut être prise jusqu'à ${per} fois.` : base;
+}
+function ruleSentenceBase(g) {
   const min = Math.max(g.min_select || 0, g.required ? 1 : 0);
   const max = g.max_select;
   const n = (k) => `${k} option${k > 1 ? 's' : ''}`;

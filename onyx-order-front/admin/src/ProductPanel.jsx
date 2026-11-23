@@ -34,7 +34,7 @@ export default function ProductPanel({ initialTab = 'infos', product: p, data, g
   };
   // l'aperçu montre les options visibles seulement, comme le site
   const previewGroups = groups.map((g) => ({
-    id: g.id, title: g.title, min: g.min_select, max: g.max_select, required: g.required,
+    id: g.id, title: g.title, min: g.min_select, max: g.max_select, required: g.required, per: g.max_per_option || 1,
     options: g.options.filter((o) => o.visible),
   }));
   const move = (i, d) => { const ids = groups.map((x) => x.id); [ids[i], ids[i + d]] = [ids[i + d], ids[i]]; saveGroups({ group_ids: ids }); };

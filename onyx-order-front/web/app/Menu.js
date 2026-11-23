@@ -364,7 +364,7 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
               const single = g.max === 1;
               const full = !single && g.max != null && cur.length >= g.max;
               const qtyMode = perMax(g) > 1; // plusieurs doses possibles : liste avec − / +
-              const photos = !qtyMode && g.options.every((o) => o.photo);
+              const photos = false; // même affichage pour toutes les listes : une ligne par option (photo à gauche s'il y en a une)
               const done = min > 0 && cur.length >= min;
               const complete = cur.length > 0 && (single || (g.max != null && cur.length >= g.max));
               const collapsed = complete && !reopen[g.id];
@@ -419,10 +419,12 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
                             <label key={o.id} className={`opt ${on ? 'on' : ''} ${photos ? 'withph' : ''} ${single ? 'radio' : 'check'}`}>
                               <input className="option-input" type={single ? 'radio' : 'checkbox'} name={`option-${g.id}`}
                                 checked={on} disabled={!on && full} onChange={() => toggle(g, o)} />
-                              <span className="ind" aria-hidden="true" />
                               {o.photo && <span className="option-photo" aria-hidden="true"><Photo src={o.photo} className="oph" name={o.label} /></span>}
-                              <span className="lbl">{o.label}</span>
-                              {o.price_cents !== 0 && <span className="x">{o.price_cents > 0 ? "+" : "−"}{eur(Math.abs(o.price_cents))}</span>}
+                              <span className="dose-txt">
+                                <span className="lbl">{o.label}</span>
+                                {o.price_cents !== 0 && <span className="x">{o.price_cents > 0 ? "+" : "−"}{eur(Math.abs(o.price_cents))}</span>}
+                              </span>
+                              <span className="ind" aria-hidden="true" />
                             </label>
                           );
                         })}

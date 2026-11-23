@@ -9,6 +9,11 @@ const STEPS = {
   dine_in: [['new', 'Commande reçue'], ['preparing', 'En préparation'], ['ready', 'Prête'], ['done', 'Terminée']],
 };
 
+// Icône et libellé court de chaque étape (barre de progression)
+const ICON = { new: '🧾', preparing: '👨‍🍳', ready: '🛍️', delivering: '🛵', done: '🎉' };
+const SHORT = { new: 'Reçue', preparing: 'En cuisine', ready: 'Prête', delivering: 'En route', done: 'Terminée' };
+const HEAD = { new: 'Commande reçue !', preparing: 'On s’en occupe…', ready: 'C’est prêt !', delivering: 'En route vers vous', done: 'Bon appétit !', cancelled: 'Commande annulée' };
+
 // Message affiché (et notifié) à chaque changement de statut
 function message(status, mode) {
   if (status === 'new') return 'Commande reçue : le restaurant va la préparer.';
@@ -25,6 +30,7 @@ export default function Suivi({ params }) {
   const [o, setO] = useState(null);
   const [err, setErr] = useState('');
   const [flash, setFlash] = useState('');
+  const [resto, setResto] = useState(null); // nom et téléphone du restaurant, toujours affichés
   const [perm, setPerm] = useState('unsupported');
   const prev = useRef(null);
   const baseTitle = useRef('');
@@ -34,6 +40,7 @@ export default function Suivi({ params }) {
     if (typeof Notification !== 'undefined') setPerm(Notification.permission);
     let stop = false;
     const load = () => apiGet(`/orders/${token}`).then((x) => !stop && setO(x)).catch((e) => !stop && setErr(e.message));
+    apiGet('').then((r) => !stop && setResto(r)).catch(() => {});
     load();
     const t = setInterval(load, 8000);
     const onVisible = () => { if (document.visibilityState === 'visible') load(); }; // retour sur la page : mise à jour tout de suite
@@ -47,10 +54,10 @@ export default function Suivi({ params }) {
     if (prev.current && prev.current !== o.status) {
       const msg = message(o.status, o.mode);
       setFlash(msg);
-      document.title = `🔔 N°${o.number} : ${msg}`;
+      document.title = `🔔 ${resto?.name ? resto.name + ' · ' : ''}N°${o.number} : ${msg}`;
       try { navigator.vibrate?.([250, 120, 250]); } catch { /* non supporté */ }
       if (typeof Notification !== 'undefined' && Notification.permission === 'granted' && document.visibilityState !== 'visible') {
-        try { new Notification(`Commande n°${o.number}`, { body: msg, tag: `order-${o.id}` }); } catch { /* ignoré */ }
+        try { new Notification(`${resto?.name ? resto.name + ' · ' : ''}Commande n°${o.number}`, { body: msg, tag: `order-${o.id}` }); } catch { /* ignoré */ }
       }
     }
     prev.current = o.status;
@@ -78,24 +85,29 @@ export default function Suivi({ params }) {
           <span>🔔 {flash}</span><button type="button" aria-label="Fermer" onClick={() => setFlash('')}>×</button>
         </div>
       )}
-      <div className="panel" style={{ marginTop: 20, textAlign: 'center' }}>
-        {o.status === 'new' && (
-          <svg className="okmark" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="24" /><path d="M17 29l8 8 14-16" /></svg>
-        )}
-        <p style={{ margin: 0 }}>Merci {o.customer_name.split(' ')[0]} !</p>
-        <p className="big-num">N° {o.number}</p>
-        <p className="now">{now}</p>
-        <p className="note">{o.mode === 'delivery' ? `Livraison : ${o.address}, ${o.postcode} ${o.city}` : o.mode === 'dine_in' ? `Sur place · Table ${o.table_label}` : 'Retrait au restaurant'}</p>
-      </div>
-      <div className="panel">
-        <h2>Suivi</h2>
-        {o.status === 'cancelled' ? <p className="err">Commande annulée. Contactez le restaurant.</p> : (
-          <ul className="steps">
+      <section className={`trk-hero st-${o.status}`} aria-live="polite">
+        {resto && <p className="trk-resto">{resto.name}</p>}
+        <span className="trk-chip">N° {o.number}</span>
+        <div className="trk-emoji" key={o.status} aria-hidden="true"><span>{o.status === 'cancelled' ? '⚠️' : ICON[o.status] || '🧾'}</span></div>
+        <h1 className="trk-title">{HEAD[o.status] || now}</h1>
+        <p className="trk-sub">{o.customer_name.split(' ')[0]}, {now.charAt(0).toLowerCase() + now.slice(1)}</p>
+        {resto?.phone && <a className="trk-tel" href={`tel:${resto.phone.replace(/[^\d+]/g, '')}`}>📞 {resto.phone}</a>}
+        <p className="trk-where">{o.mode === 'delivery' ? `📍 ${o.address}, ${o.postcode} ${o.city}` : o.mode === 'dine_in' ? `🍽️ Sur place · Table ${o.table_label}` : '🏪 Retrait au restaurant'}</p>
+        {o.status !== 'cancelled' && (
+          <div className="trk-bar" role="progressbar" aria-valuemin={1} aria-valuemax={steps.length} aria-valuenow={Math.max(idx, 0) + 1}
+            aria-label={`Étape ${Math.max(idx, 0) + 1} sur ${steps.length}`} style={{ '--n': steps.length, '--p': Math.max(idx, 0) }}>
+            <div className="trk-line"><i /></div>
             {steps.map(([s, label], i) => (
-              <li key={s} className={i < idx ? 'done' : i === idx ? 'cur' : ''}><span className="dot" />{label}</li>
+              <div key={s} className={`trk-step ${i < idx ? 'done' : i === idx ? 'cur' : ''}`}>
+                <span className="trk-ic" aria-hidden="true">{i < idx ? '✓' : ICON[s]}</span>
+                <small>{SHORT[s] || label}</small>
+              </div>
             ))}
-          </ul>
+          </div>
         )}
+      </section>
+      <div className="panel">
+        {o.status === 'cancelled' && <p className="err">Commande annulée. Contactez le restaurant.</p>}
         {o.tracking_url && !['done', 'cancelled'].includes(o.status) && (
           <a className="btn center" href={o.tracking_url} target="_blank" rel="noopener noreferrer" style={{ marginTop: 10 }}>Suivre le coursier</a>
         )}

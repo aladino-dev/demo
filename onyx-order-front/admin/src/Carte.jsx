@@ -21,12 +21,13 @@ export default function Carte({ onOpenOptions }) {
   const [newCat, setNewCat] = useState('');
   const [newProd, setNewProd] = useState({ name: '', price: '' });
   const [menuCat, setMenuCat] = useState(null);
-  const [manageCategories, setManageCategories] = useState(false);
   const [productTab, setProductTab] = useState('infos');
   const [addingProduct, setAddingProduct] = useState(false);
+  const [savingCategoryOrder, setSavingCategoryOrder] = useState(false);
   const timer = useRef();
   const searchInput = useRef(null);
-  const categoryPicker = useRef(null);
+  const productList = useRef(null);
+  const productScroll = useRef(0);
   const productTrigger = useRef(null);
 
   const say = useCallback((text, bad) => {
@@ -77,10 +78,12 @@ export default function Carte({ onOpenOptions }) {
     setSearch('');
     setProdId(null);
     setAddingProduct(false);
-    setManageCategories(false);
+    setView('carte');
     setMenuCat(null);
+    if (productList.current) productList.current.scrollTop = 0;
   };
   const openProduct = (id, tab = 'infos', trigger = null) => {
+    if (productList.current?.getClientRects().length) productScroll.current = productList.current.scrollTop;
     productTrigger.current = trigger;
     setProductTab(tab);
     setProdId(id);
@@ -88,6 +91,7 @@ export default function Carte({ onOpenOptions }) {
   const closeProduct = () => {
     setProdId(null);
     requestAnimationFrame(() => {
+      if (productList.current) productList.current.scrollTop = productScroll.current;
       const trigger = productTrigger.current;
       if (trigger?.getClientRects().length) trigger.focus();
     });
@@ -105,14 +109,31 @@ export default function Carte({ onOpenOptions }) {
     (d) => ({ ...d, categories: d.categories.map((x) => (x.id === c.id ? { ...x, ...patch } : x)) }),
     () => api(`/api/admin/categories/${c.id}`, { method: 'PATCH', body: patch }));
 
+  const moveCategory = async (from, to) => {
+    if (savingCategoryOrder || from < 0 || to < 0 || to >= cats.length || from === to) return;
+    const ids = arrayMove(cats.map((c) => c.id), from, to);
+    const previousOrder = new Map(cats.map((c) => [c.id, c.sort]));
+    setSavingCategoryOrder(true);
+    setData((d) => ({ ...d, categories: d.categories.map((c) => ({
+      ...c, sort: previousOrder.has(c.id) ? ids.indexOf(c.id) + 1 : c.sort,
+    })) }));
+    try {
+      await api('/api/admin/categories/reorder', { method: 'POST', body: { ids } });
+      say('Ordre de la carte enregistré');
+    } catch (e) {
+      setData((d) => ({ ...d, categories: d.categories.map((c) => ({
+        ...c, sort: previousOrder.has(c.id) ? previousOrder.get(c.id) : c.sort,
+      })) }));
+      say(e.message, true);
+    } finally {
+      setSavingCategoryOrder(false);
+    }
+  };
   const dragCats = ({ active, over }) => {
-    if (!over || active.id === over.id) return;
-    const ids = arrayMove(cats.map((c) => c.id), cats.findIndex((c) => c.id === active.id), cats.findIndex((c) => c.id === over.id));
-    mutate((d) => ({ ...d, categories: d.categories.map((c) => ({ ...c, sort: ids.indexOf(c.id) + 1 })) }),
-      () => api('/api/admin/categories/reorder', { method: 'POST', body: { ids } }), 'Ordre enregistré');
+    if (over) moveCategory(cats.findIndex((c) => c.id === active.id), cats.findIndex((c) => c.id === over.id));
   };
   const dragProds = ({ active, over }) => {
-    if (!over || active.id === over.id) return;
+    if (searching || !over || active.id === over.id) return;
     const ids = arrayMove(shown.map((p) => p.id), shown.findIndex((p) => p.id === active.id), shown.findIndex((p) => p.id === over.id));
     mutate((d) => ({ ...d, products: d.products.map((p) => (ids.includes(p.id) ? { ...p, sort: ids.indexOf(p.id) + 1 } : p)) }),
       () => api('/api/admin/products/reorder', { method: 'POST', body: { ids } }), 'Ordre enregistré');
@@ -156,20 +177,24 @@ export default function Carte({ onOpenOptions }) {
   const setGroups = (p, body) => act(() => api(`/api/admin/products/${p.id}/option-groups`, { method: 'PUT', body }), 'Options enregistrées');
 
   return (
-    <div className={`carte${view === 'carte' && product ? ' editing' : ''}`}>
-      <header className="cr-workspace-head">
+    <div className="carte cr-workspace">
+      <header className="cr-workspace-head" hidden={view === 'carte' && Boolean(product)}>
         <h2>Ma carte</h2>
         <nav className="tabs sub" aria-label="Gestion de la carte">
           <button aria-current={view === 'carte' ? 'page' : undefined} className={view === 'carte' ? 'active' : ''} onClick={() => setView('carte')}>Produits</button>
+          <button aria-current={view === 'categories' ? 'page' : undefined} className={view === 'categories' ? 'active' : ''} onClick={() => setView('categories')}>Catégories</button>
           <button aria-current={view === 'import' ? 'page' : undefined} className={view === 'import' ? 'active' : ''} onClick={() => setView('import')}>Importer</button>
           <button aria-current={view === 'archives' ? 'page' : undefined} className={view === 'archives' ? 'active' : ''} onClick={() => setView('archives')}>
             Archivés ({data.archived.categories.length + data.archived.products.length})</button>
         </nav>
       </header>
 
-      {view === 'carte' && <div className="cr-bar">
+      {view === 'carte' && <div className="cr-bar" hidden={Boolean(product)}>
         <input ref={searchInput} type="search" className="cr-search" aria-label="Rechercher dans toute la carte"
-          placeholder="Rechercher un produit" value={search} onChange={(e) => { setSearch(e.target.value); setProdId(null); setManageCategories(false); }} />
+          placeholder="Rechercher un produit" value={search} onChange={(e) => {
+            setSearch(e.target.value);
+            if (productList.current) productList.current.scrollTop = 0;
+          }} />
         {searching && <button type="button" className="cr-btn" onClick={() => { setSearch(''); searchInput.current?.focus(); }}>Effacer</button>}
       </div>}
 
@@ -178,21 +203,28 @@ export default function Carte({ onOpenOptions }) {
       ) : view === 'archives' ? (
         <Archives data={data} onRestore={(kind, id) => act(() => api(`/api/admin/${kind}/${id}/restore`, { method: 'POST' }), 'Restauré')} />
       ) : (
-        <div className={`cr-grid ${product ? 'with-panel' : ''} ${manageCategories ? 'manage-cats' : ''}`}>
-          <section className="cr-col cr-cats" aria-label="Catégories">
+        <div className="cr-grid cr-catalog-grid">
+          {view === 'categories' && <section className="cr-col cr-cats" aria-label="Catégories">
             <h2>Catégories</h2>
-            <button type="button" className="cr-btn cr-mobile" onClick={() => {
-              setManageCategories(false);
-              requestAnimationFrame(() => categoryPicker.current?.focus());
-            }}>Retour aux produits</button>
+            <form className="cr-add" onSubmit={(e) => { e.preventDefault(); addCategory(); }}>
+              <input required aria-label="Nom de la nouvelle catégorie" placeholder="Nouvelle catégorie" value={newCat} onChange={(e) => setNewCat(e.target.value)} />
+              <button>+ Catégorie</button>
+            </form>
+            {cats.length > 1 && <p className="cr-order-hint">Montez ou descendez les catégories pour changer leur ordre sur la carte.</p>}
             <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={dragCats}>
-              <SortableContext items={cats.map((c) => c.id)} strategy={verticalListSortingStrategy}>
-                {cats.map((c) => (
-                  <Sortable key={c.id} id={c.id} className={c.id === catId && !searching ? 'sel' : ''}>
+              <SortableContext items={cats.map((c) => c.id)} strategy={verticalListSortingStrategy} disabled={savingCategoryOrder}>
+                {cats.map((c, index) => (
+                  <Sortable key={c.id} id={c.id} className={`cr-category-row ${c.id === catId && !searching ? 'sel' : ''}`}>
                     <button className="cr-name" aria-current={c.id === catId && !searching ? 'true' : undefined} onClick={() => selectCategory(c.id)}>
                       <b>{c.name}</b>{!c.visible && <small>Masquée sur le site</small>}
                     </button>
                     <span className="cr-count" title={`${countIn(c.id)} produit(s)`}>{countIn(c.id)}</span>
+                    {cats.length > 1 && <div className="cr-category-order" role="group" aria-label={`Ordre de ${c.name}`}>
+                      <button type="button" aria-label={`Monter ${c.name}`} aria-disabled={savingCategoryOrder || index === 0}
+                        onClick={() => moveCategory(index, index - 1)}>↑ <span>Monter</span></button>
+                      <button type="button" aria-label={`Descendre ${c.name}`} aria-disabled={savingCategoryOrder || index === cats.length - 1}
+                        onClick={() => moveCategory(index, index + 1)}>↓ <span>Descendre</span></button>
+                    </div>}
                     <button className={`cr-eye ${c.visible ? 'on' : ''}`} title={c.visible ? 'Visible sur le site (cliquer pour masquer)' : 'Masquée (cliquer pour afficher)'} aria-label={c.visible ? 'Masquer la catégorie' : 'Afficher la catégorie'}
                       onClick={() => patchCat(c, { visible: !c.visible })}><Icon name={c.visible ? 'eye' : 'eyeOff'} /></button>
                     <span className="cr-more">
@@ -208,22 +240,17 @@ export default function Carte({ onOpenOptions }) {
                 ))}
               </SortableContext>
             </DndContext>
-            <div className="cr-add">
-              <input aria-label="Nom de la nouvelle catégorie" placeholder="Nouvelle catégorie" value={newCat} onChange={(e) => setNewCat(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && addCategory()} />
-              <button onClick={addCategory}>+ Catégorie</button>
-            </div>
-          </section>
+          </section>}
 
-          <section className="cr-col cr-prods" aria-label="Produits">
+          {view === 'carte' && !searching && cats.length > 0 && <nav className="cr-category-strip" aria-label="Filtrer par catégorie" hidden={Boolean(product)}>
+            {cats.map((c) => (
+              <button type="button" key={c.id} aria-pressed={c.id === catId} onClick={() => selectCategory(c.id)}>
+                {c.name}<span>{countIn(c.id)}</span>
+              </button>
+            ))}
+          </nav>}
+          {view === 'carte' && <section className="cr-col cr-prods" aria-label="Produits" ref={productList} hidden={Boolean(product)}>
             <div className="cr-product-heading">
-              {!searching && <div className="cr-category-picker cr-mobile">
-                {cats.length > 0 && <label>Catégorie
-                  <select ref={categoryPicker} value={catId ?? ''} onChange={(e) => selectCategory(Number(e.target.value))}>
-                    {cats.map((c) => <option key={c.id} value={c.id}>{c.name} ({countIn(c.id)})</option>)}
-                  </select>
-                </label>}
-                <button type="button" className="cr-btn" onClick={() => setManageCategories(true)}>Gérer les catégories</button>
-              </div>}
               <div className="cr-product-heading-row">
                 <div>
                   <h2>{searching ? 'Résultats de recherche' : cat?.name || 'Produits'}</h2>
@@ -255,11 +282,15 @@ export default function Carte({ onOpenOptions }) {
                         </span>
                         <span className="cr-edit-label" aria-hidden="true">Modifier</span>
                       </button>
-                      <button type="button" className={`cr-product-status ${!p.visible ? 'hidden-product' : p.sold_out ? 'sold-out' : ''}`}
-                        aria-label={`Disponibilité de ${p.name} · ${!p.visible ? 'Masqué' : p.sold_out ? 'Épuisé' : 'Disponible'}`}
-                        onClick={(e) => openProduct(p.id, 'dispo', e.currentTarget)}>
-                        {!p.visible ? 'Masqué' : p.sold_out ? 'Épuisé' : 'Disponible'}
-                      </button>
+                      <div className="cr-product-actions">
+                        <button type="button" className="cr-product-options" aria-label={`Options de ${p.name}`}
+                          onClick={(e) => openProduct(p.id, 'options', e.currentTarget)}>Options</button>
+                        <button type="button" className={`cr-product-status ${!p.visible ? 'hidden-product' : p.sold_out ? 'sold-out' : ''}`}
+                          aria-label={`Disponibilité de ${p.name} · ${!p.visible ? 'Masqué' : p.sold_out ? 'Épuisé' : 'Disponible'}`}
+                          onClick={(e) => openProduct(p.id, 'dispo', e.currentTarget)}>
+                          {!p.visible ? 'Masqué' : p.sold_out ? 'Épuisé' : 'Disponible'}
+                        </button>
+                      </div>
                     </Sortable>
                   );
                 })}
@@ -267,12 +298,13 @@ export default function Carte({ onOpenOptions }) {
             </DndContext>
             {!shown.length && (
               <div className="cr-empty"><Icon name="image" size={32} />
-                <p>{searching ? 'Aucun produit trouvé.' : 'Aucun produit dans cette catégorie.'}</p>
+                <p>{searching ? 'Aucun produit trouvé.' : cat ? 'Aucun produit dans cette catégorie.' : 'Créez une catégorie pour commencer.'}</p>
+                {!searching && !cat && <button type="button" className="cr-btn primary-ish" onClick={() => setView('categories')}>Créer une catégorie</button>}
                 </div>
             )}
-          </section>
+          </section>}
 
-          {product && (
+          {view === 'carte' && product && (
             <ProductPanel key={`${product.id}-${productTab}`} initialTab={productTab} product={product} data={data} groups={effectiveGroups(product)} say={say}
               onPatch={(patch) => patchProduct(product, patch)} onClose={closeProduct}
               onDuplicate={() => duplicate(product)} onArchive={() => archiveProduct(product)}

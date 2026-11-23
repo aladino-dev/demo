@@ -18,3 +18,20 @@
 .pv-opt.withph { flex-direction: column; align-items: center; gap: 4px; border-radius: 12px; padding: 6px 8px 8px; width: 96px; text-align: center; }
 .pv-oph { display: block; width: 80px; height: 60px; border-radius: 8px; background: #eee center / cover no-repeat; }
 .pv-bar { display: flex; justify-content: space-between; background: #111; color: #fff; padding: 12px 16px; font-weight: 600; }
+
+/* Même présentation que le site : une ligne par option [photo] nom + supplément ... case ou − / + */
+.pv-opts { display: flex; flex-direction: column; flex-wrap: nowrap; gap: 6px; }
+.pv-opt, .pv-opt.withph { display: flex; flex-direction: row; align-items: center; gap: 10px; width: 100%; border-radius: 12px; padding: 7px 10px; text-align: left; min-height: 52px; font-size: .9rem; }
+.pv-opt.on { background: #fff3ee; color: #111; border-color: #e2531f; }
+.pv-oph { flex: 0 0 38px; width: 38px; height: 38px; }
+.pv-txt { flex: 1; min-width: 0; display: grid; font-weight: 600; line-height: 1.2; }
+.pv-txt .pv-x { font-weight: 400; font-size: .8rem; }
+.pv-ind { flex: 0 0 22px; height: 22px; border: 2px solid #999; border-radius: 7px; background: #fff; display: grid; place-items: center; }
+.pv-ind.radio { border-radius: 50%; }
+.pv-opt.on .pv-ind { background: #e2531f; border-color: #e2531f; }
+.pv-opt.on .pv-ind::after { content: ''; width: 5px; height: 10px; border: solid #fff; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg) translate(-1px, -1px); }
+.pv-opt.on .pv-ind.radio::after { width: 8px; height: 8px; border: 0; border-radius: 50%; background: #fff; transform: none; }
+.pv-ctl { display: flex; align-items: center; gap: 2px; }
+.pv-ctl button { width: 34px; height: 34px; border: 1px solid #ccc; border-radius: 8px; background: #fff; font-size: 1.2rem; cursor: pointer; }
+.pv-ctl button:disabled { opacity: .35; cursor: default; }
+.pv-ctl b { min-width: 22px; text-align: center; }

@@ -244,7 +244,12 @@ function Editor({ g, cat, act, mutate, say, archived, onClose, onGone, onSelect 
               <input type="number" min="1" placeholder="illimité" defaultValue={g.max_select ?? ''} key={`max${g.max_select}`}
                 onBlur={(e) => { const v = e.target.value === '' ? null : parseInt(e.target.value, 10); if (v !== g.max_select && !setRule({ max_select: v })) e.target.value = g.max_select ?? ''; }} />
             </label>
+            <label className="op-num">Même option, au maximum
+              <input type="number" min="1" max="20" defaultValue={g.max_per_option || 1} key={`per${g.max_per_option}`}
+                onBlur={(e) => { const v = Math.min(Math.max(parseInt(e.target.value, 10) || 1, 1), 20); if (v !== (g.max_per_option || 1) && !setRule({ max_per_option: v })) e.target.value = g.max_per_option || 1; }} />
+            </label>
           </div>
+          <p className="op-hint muted">« Même option, au maximum » : 1 = on la coche ou pas ; 2 ou 3 = le client peut en prendre plusieurs avec les boutons − et +.</p>
           <p className="op-sentence">{ruleSentence(g)}</p>
         </details>
         <details className="option-settings">

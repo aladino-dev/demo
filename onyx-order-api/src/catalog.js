@@ -93,7 +93,7 @@ export function catalogRouter({ owner, wrap, photosDir }) {
       q(`SELECT id, category_id, name, description, price_cents, photo, visible, sort, archived_at,
                 (sold_out_until IS NOT NULL AND sold_out_until > now()) AS sold_out
            FROM products WHERE restaurant_id = $1 ORDER BY sort, name`, [id]),
-      q('SELECT id, title, internal_name, description, min_select, max_select, required FROM option_groups WHERE restaurant_id = $1 AND archived_at IS NULL ORDER BY title', [id]),
+      q('SELECT id, title, internal_name, description, min_select, max_select, required, max_per_option FROM option_groups WHERE restaurant_id = $1 AND archived_at IS NULL ORDER BY title', [id]),
       q('SELECT id, group_id, label, price_cents, photo, visible FROM options WHERE restaurant_id = $1 AND archived_at IS NULL ORDER BY sort, id', [id]),
       q('SELECT group_id, product_id, category_id FROM option_group_links WHERE restaurant_id = $1 ORDER BY sort', [id]),
     ]);
@@ -253,13 +253,18 @@ export function catalogRouter({ owner, wrap, photosDir }) {
     if (b.required === false && !(min > 0 && b.min_select !== undefined)) min = 0;
     if (b.required === true && min < 1) min = 1;
     if (max !== null && max < min) throw new OrderError('Le maximum doit être supérieur ou égal au minimum.');
-    return { min_select: min, max_select: max, required: min >= 1 };
+    let per = before.max_per_option ?? 1;
+    if (b.max_per_option !== undefined) {
+      per = intOr(b.max_per_option, NaN);
+      if (!(per >= 1 && per <= 20)) throw new OrderError('Le nombre de fois où l’on peut prendre la même option doit être entre 1 et 20.');
+    }
+    return { min_select: min, max_select: max, required: min >= 1, max_per_option: per };
   };
 
   /** Bibliothèque complète : règles, options, « utilisée par » et avertissements. */
   async function library(restaurantId) {
     const [groups, opts, links, prods, cats] = await Promise.all([
-      q(`SELECT id, title, internal_name, description, min_select, max_select, required, sort, archived_at
+      q(`SELECT id, title, internal_name, description, min_select, max_select, required, max_per_option, sort, archived_at
            FROM option_groups WHERE restaurant_id = $1 ORDER BY sort, title`, [restaurantId]),
       q(`SELECT id, group_id, label, price_cents, photo, visible FROM options
           WHERE restaurant_id = $1 AND archived_at IS NULL ORDER BY sort, id`, [restaurantId]),
@@ -308,10 +313,10 @@ export function catalogRouter({ owner, wrap, photosDir }) {
     if (!title) throw new OrderError('Indiquez le titre affiché au client (ex. Choisissez vos sauces).');
     const rule = ruleOf(b);
     const { rows: [g] } = await q(
-      `INSERT INTO option_groups (restaurant_id, key, title, internal_name, description, min_select, max_select, required, sort)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8, (SELECT coalesce(max(sort), 0) + 1 FROM option_groups WHERE restaurant_id = $1)) RETURNING id`,
+      `INSERT INTO option_groups (restaurant_id, key, title, internal_name, description, min_select, max_select, required, max_per_option, sort)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9, (SELECT coalesce(max(sort), 0) + 1 FROM option_groups WHERE restaurant_id = $1)) RETURNING id`,
       [rid(req), `g-${crypto.randomBytes(5).toString('hex')}`, title, text(b.internal_name, 80) || null, text(b.description),
-        rule.min_select, rule.max_select, rule.required]);
+        rule.min_select, rule.max_select, rule.required, rule.max_per_option]);
     await audit(req, 'option_group', g.id, 'create', null, { title, ...rule });
     res.status(201).json(g);
   }));
@@ -329,13 +334,13 @@ export function catalogRouter({ owner, wrap, photosDir }) {
     if (b.title !== undefined) { sets.title = text(b.title, 80); if (!sets.title) throw new OrderError('Le titre ne peut pas être vide.'); }
     if (b.internal_name !== undefined) sets.internal_name = text(b.internal_name, 80) || null;
     if (b.description !== undefined) sets.description = text(b.description);
-    if (['min_select', 'max_select', 'required'].some((k) => b[k] !== undefined)) Object.assign(sets, ruleOf(b, before));
+    if (['min_select', 'max_select', 'required', 'max_per_option'].some((k) => b[k] !== undefined)) Object.assign(sets, ruleOf(b, before));
     const keys = Object.keys(sets);
     if (!keys.length) throw new OrderError('Rien à modifier.');
     await q(`UPDATE option_groups SET ${keys.map((k, i) => `${k} = $${i + 3}`).join(', ')} WHERE restaurant_id = $1 AND id = $2`,
       [rid(req), pid(req), ...keys.map((k) => sets[k])]);
     await audit(req, 'option_group', pid(req), 'update',
-      { title: before.title, internal_name: before.internal_name, min_select: before.min_select, max_select: before.max_select, required: before.required }, sets);
+      { title: before.title, internal_name: before.internal_name, min_select: before.min_select, max_select: before.max_select, required: before.required, max_per_option: before.max_per_option }, sets);
     res.json({ ok: true });
   }));
 
@@ -343,10 +348,10 @@ export function catalogRouter({ owner, wrap, photosDir }) {
     const g = await getRow('option_groups', req);
     const copy = await tx(async (c) => {
       const { rows: [n] } = await c.query(
-        `INSERT INTO option_groups (restaurant_id, key, title, internal_name, description, min_select, max_select, required, sort)
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING id`,
+        `INSERT INTO option_groups (restaurant_id, key, title, internal_name, description, min_select, max_select, required, max_per_option, sort)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING id`,
         [g.restaurant_id, `g-${crypto.randomBytes(5).toString('hex')}`, g.title, `${g.internal_name || g.title} (copie)`.slice(0, 80),
-          g.description, g.min_select, g.max_select, g.required, g.sort + 1]);
+          g.description, g.min_select, g.max_select, g.required, g.max_per_option || 1, g.sort + 1]);
       await c.query(
         `INSERT INTO options (restaurant_id, group_id, label, price_cents, photo, sort, visible)
          SELECT restaurant_id, $3, label, price_cents, photo, sort, visible FROM options

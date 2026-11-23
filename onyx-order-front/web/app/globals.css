@@ -617,3 +617,55 @@ main.wrap > p > a { display: inline-flex; align-items: center; min-height: 44px;
 .trk-tel { position: relative; display: inline-block; margin-top: 10px; padding: 6px 14px; border-radius: 99px; background: rgba(255,255,255,.18); color: #fff; text-decoration: none; font-weight: 700; font-size: .88rem; }
 /* page de suivi : pas de bandeau « Démonstration » (le client suit sa commande, pas besoin du rappel) */
 body:has(.trk-hero) .demo-banner { display: none; }
+.trk-review { text-align: center; margin: 4px 0 12px; padding: 14px; border-radius: 16px; background: #FFF8E1; border: 1px solid #F3E2A6; }
+.trk-review p { margin: 0 0 10px; }
+
+/* Boutons − / + : même gabarit que la case à cocher des autres lignes (rond, 36 px) ; à 0, un seul « + » */
+.opt .dose-ctl { gap: 6px; }
+.opt .dose-ctl button { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--muted); font-size: 1.25rem; font-weight: 700; display: grid; place-items: center; padding: 0; }
+.opt .dose-ctl button:last-child:not(:disabled) { border-color: var(--action); color: var(--action); }
+.opt .dose-ctl b { min-width: 20px; }
+.opt .dose-ctl.zero button:first-child, .opt .dose-ctl.zero b { display: none; }
+.opt.dose.on .dose-ctl button:last-child:not(:disabled) { background: var(--action); color: #fff; }
+
+/* ===== Prise de commande sur téléphone : on exploite tout l'écran ===== */
+.opt { min-height: 48px; padding: 5px 10px; gap: 10px; }
+.opt .option-photo { flex: 0 0 38px; width: 38px; }
+.opt .dose-txt .lbl { font-size: .98rem; }
+.opt .dose-txt .x { font-size: .8rem; }
+.opts, .opts.photos, .opts.doses { gap: 6px; margin-top: 8px; }
+.opt .dose-ctl button { width: 34px; height: 34px; font-size: 1.15rem; }
+.opt .ind { flex-basis: 24px; width: 24px; height: 24px; }
+.group { padding: 10px; margin-top: 8px; }
+.group .sub, .option-count { margin: 2px 0 0; font-size: .82rem; }
+.opt-search { min-height: 38px; margin-top: 8px; }
+.groups { padding: 4px 10px 8px; }
+.modal h3 { font-size: 1.5rem; margin-bottom: 2px; }
+.modal .desc { -webkit-line-clamp: 2; margin-bottom: 4px; font-size: .86rem; }
+.mtop, .mhead { padding-top: 8px; padding-bottom: 6px; }
+.kitchen-note { margin: 0 10px 6px; }
+/* pied : quantité + bouton « Ajouter » sur UNE seule ligne, résumé réduit à une ligne */
+.product-footer .bar { flex-wrap: nowrap; gap: 8px; padding: 8px 10px calc(8px + env(safe-area-inset-bottom)); }
+.product-footer .bar .btn { flex: 1 1 auto; flex-basis: auto; min-height: 46px; padding-block: 0; }
+.product-footer .qty { flex: none; border-radius: 12px; }
+.product-footer .qty button { width: 36px; height: 44px; font-size: 1.15rem; }
+.product-footer .qty > span { min-width: 20px; }
+.choice-recap { margin: 6px 10px 0; padding: 5px 10px; font-size: .8rem; line-height: 1.25; -webkit-line-clamp: 1; }
+@media (max-width: 480px) {
+  .bar { flex-wrap: nowrap; justify-content: stretch; gap: 8px; }
+  .bar .btn { flex-basis: auto; }
+  .mph, .mhead .mph { flex-basis: 64px; width: 64px; height: 64px; border-radius: 12px; }
+  .modal { max-height: 97dvh; border-radius: 20px 20px 0 0; }
+  .groups { padding-inline: 6px; }
+  .group { padding: 8px; border-radius: 14px; }
+}
+
+/* Téléphone : la fenêtre produit prend tout l'écran (plus de bande vide en haut, plus de poignée) */
+@media (max-width: 759px) {
+  .modal.drawer { height: 100dvh; max-height: 100dvh; border-radius: 0; }
+  .handle-zone { display: none; }
+  .drawer-close { top: calc(8px + env(safe-area-inset-top)); right: 8px; width: 40px; height: 40px; }
+  .modal.drawer .scroll { padding-top: env(safe-area-inset-top); }
+  .mtop, .mhead { padding-right: 56px; }
+}
+.line-edit { margin-top: 4px; padding: 6px 0; border: 0; background: none; color: var(--action); font-weight: 700; font-size: .88rem; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 36px; }

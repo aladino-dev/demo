@@ -44,13 +44,13 @@ export async function loadMenu(restaurantId, { includeHidden = false } = {}) {
               (sold_out_until IS NOT NULL AND sold_out_until > now()) AS sold_out
          FROM products WHERE restaurant_id = $1 AND archived_at IS NULL ORDER BY sort, name`, [restaurantId]),
     q('SELECT id, key, title, description, min_select, max_select, required, max_per_option FROM option_groups WHERE restaurant_id = $1 AND archived_at IS NULL', [restaurantId]),
-    q('SELECT id, group_id, label, price_cents, photo, sort FROM options WHERE restaurant_id = $1 AND visible AND archived_at IS NULL ORDER BY sort, id', [restaurantId]),
+    q('SELECT id, group_id, label, price_cents, photo, is_default, sort FROM options WHERE restaurant_id = $1 AND visible AND archived_at IS NULL ORDER BY sort, id', [restaurantId]),
     q('SELECT group_id, product_id, category_id, sort FROM option_group_links WHERE restaurant_id = $1 ORDER BY sort', [restaurantId]),
   ]);
   const optsBy = new Map();
   for (const o of opts.rows) {
     if (!optsBy.has(o.group_id)) optsBy.set(o.group_id, []);
-    optsBy.get(o.group_id).push({ id: o.id, label: o.label, price_cents: o.price_cents, photo: o.photo });
+    optsBy.get(o.group_id).push({ id: o.id, label: o.label, price_cents: o.price_cents, photo: o.photo, ...(o.is_default ? { is_default: true } : {}) });
   }
   const groupById = new Map(groups.rows.map((g) => [g.id, {
     id: g.id, title: g.title, description: g.description, min: g.min_select, max: g.max_select,

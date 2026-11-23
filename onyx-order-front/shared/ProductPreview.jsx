@@ -17,7 +17,10 @@ export default function ProductPreview({ name, description, price_cents, photoUr
   const dose = (g, o, d) => setSel((s) => {
     const cur = s[g.id] || [];
     const n = cur.filter((x) => x === o.id).length;
-    if (d > 0) return n >= (g.per || 1) || (g.max != null && cur.length >= g.max) ? s : { ...s, [g.id]: [...cur, o.id] };
+    if (d > 0) {
+      if (g.max === 1) return n >= 1 ? s : { ...s, [g.id]: [o.id] }; // un seul choix : remplace
+      return n >= (g.per || 1) || (g.max != null && cur.length >= g.max) ? s : { ...s, [g.id]: [...cur, o.id] };
+    }
     const i = cur.lastIndexOf(o.id);
     return i < 0 ? s : { ...s, [g.id]: cur.filter((_, k) => k !== i) };
   });
@@ -41,8 +44,8 @@ export default function ProductPreview({ name, description, price_cents, photoUr
       {groups.map((g) => {
         const cur = sel[g.id] || [];
         const min = Math.max(g.min || 0, g.required ? 1 : 0);
-        const qty = (g.per || 1) > 1;
-        const full = g.max != null && (g.max > 1 || qty) && cur.length >= g.max;
+        const qty = (g.per || 1) > 1; // − / + seulement si plusieurs doses permises ; sinon case à cocher
+        const full = g.max != null && g.max > 1 && cur.length >= g.max;
         return (
           <div key={g.id} className="pv-group">
             <h4>{g.title} <span className="pv-rule">{rule(g)}</span>
@@ -56,7 +59,7 @@ export default function ProductPreview({ name, description, price_cents, photoUr
                 if (qty) return (
                   <div key={o.id} className={`pv-opt ${on ? 'on' : ''}`}>
                     {photo}{txt}
-                    <span className="pv-ctl">
+                    <span className={`pv-ctl${on ? '' : ' zero'}`}>
                       <button type="button" onClick={() => dose(g, o, -1)} disabled={!on} aria-label={`Une dose de moins : ${o.label}`}>−</button>
                       <b>{n}</b>
                       <button type="button" onClick={() => dose(g, o, 1)} disabled={n >= g.per || full} aria-label={`Une dose de plus : ${o.label}`}>+</button>

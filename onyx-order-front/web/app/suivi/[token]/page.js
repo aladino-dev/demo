@@ -108,6 +108,12 @@ export default function Suivi({ params }) {
       </section>
       <div className="panel">
         {o.status === 'cancelled' && <p className="err">Commande annulée. Contactez le restaurant.</p>}
+        {o.status === 'done' && resto?.settings?.google_review_url && (
+          <div className="trk-review">
+            <p><b>Un petit mot nous aide beaucoup ⭐</b><br />Votre avis aide {resto.name} à se faire connaître.</p>
+            <a className="btn center" href={resto.settings.google_review_url} target="_blank" rel="noopener noreferrer">⭐ Laisser un avis Google</a>
+          </div>
+        )}
         {o.tracking_url && !['done', 'cancelled'].includes(o.status) && (
           <a className="btn center" href={o.tracking_url} target="_blank" rel="noopener noreferrer" style={{ marginTop: 10 }}>Suivre le coursier</a>
         )}

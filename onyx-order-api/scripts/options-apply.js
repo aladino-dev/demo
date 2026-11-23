@@ -2,6 +2,7 @@
 // Usage : npm run menu:options -- --slug nsgrill --file data/options-nsgrill.json
 // Fichier : { "groups": [{ "key","title","description","min","max","required","options":[{"label","price_cents"}] }],
 //             "links":  [{ "group": "key", "category": "Nom de catégorie", "except": ["Nom de produit"], "only": ["Nom de produit"] }] }
+// Une option peut avoir "default": true : elle est présélectionnée (le client peut en changer).
 // Les liens s'appliquent aux produits visibles de la catégorie (price_cents peut être négatif : réduction).
 // Refuse de s'exécuter si une clé de liste existe déjà pour ce restaurant.
 import fs from 'node:fs';
@@ -35,7 +36,7 @@ const res = await tx(async (c) => {
     id[g.key] = x.id;
     let o = 0;
     for (const op of g.options) {
-      await c.query('INSERT INTO options (restaurant_id, group_id, label, price_cents, sort) VALUES ($1,$2,$3,$4,$5)', [r.id, x.id, op.label, op.price_cents || 0, ++o]);
+      await c.query('INSERT INTO options (restaurant_id, group_id, label, price_cents, is_default, sort) VALUES ($1,$2,$3,$4,$5,$6)', [r.id, x.id, op.label, op.price_cents || 0, !!op.default, ++o]);
     }
   }
   // "expand" : remplace un choix par plusieurs (même prix, même liste), l'original est archivé. Ex. « Canette 33 cl » -> Coca-Cola, Fanta…

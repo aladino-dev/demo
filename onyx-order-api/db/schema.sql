@@ -252,3 +252,4 @@ ALTER TABLE orders ADD COLUMN IF NOT EXISTS uber_delivery_id text;
 ALTER TABLE orders ADD COLUMN IF NOT EXISTS tracking_url     text;
 ALTER TABLE orders ADD COLUMN IF NOT EXISTS courier_status   text;
 ALTER TABLE orders ADD COLUMN IF NOT EXISTS courier_error    text;
+ALTER TABLE options ADD COLUMN IF NOT EXISTS is_default boolean NOT NULL DEFAULT false;  -- option présélectionnée dans la fenêtre produit (le client peut en changer)

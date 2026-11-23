@@ -33,10 +33,11 @@ export function CartProvider({ children }) {
     });
   };
   const setQty = (key, q) => setItems((xs) => xs.flatMap((x) => (x.key !== key ? [x] : q > 0 ? [{ ...x, quantity: q }] : [])));
+  const replaceLine = (key, line) => setItems((xs) => xs.map((x) => (x.key === key ? { ...line, key } : x)));
   const clear = () => setItems([]);
   const count = items.reduce((a, x) => a + x.quantity, 0);
   const total = items.reduce((a, x) => a + x.unit_cents * x.quantity, 0);
-  return <Ctx.Provider value={{ items, add, setQty, clear, count, total, ready }}>{children}</Ctx.Provider>;
+  return <Ctx.Provider value={{ items, add, setQty, replaceLine, clear, count, total, ready }}>{children}</Ctx.Provider>;
 }
 
 export const useCart = () => useContext(Ctx);

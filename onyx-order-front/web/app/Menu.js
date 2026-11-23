@@ -194,10 +194,20 @@ const doses = (g, ids) => {
 const doseLabel = ({ o, n }) => (n > 1 ? `${o.label} ×${n}` : o.label);
 const normalize = (s) => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 
-function ProductModal({ p, canOrder, onClose, onAdd }) {
-  const [sel, setSel] = useState({}); // groupId -> [optionId]
-  const [qty, setQty] = useState(1);
-  const [note, setNote] = useState('');
+export function ProductModal({ p, canOrder, onClose, onAdd, initial, submitLabel }) {
+  // « initial » : ligne du panier à modifier (choix, quantité, remarque déjà faits)
+  const [sel, setSel] = useState(() => {
+    if (!initial) { // options marquées « par défaut » : présélectionnées, le client peut en changer
+      const d = {};
+      for (const g of p.option_groups) { const o = g.options.find((x) => x.is_default); if (o) d[g.id] = [o.id]; }
+      return d;
+    }
+    const s = {};
+    for (const g of p.option_groups) { const ids = (initial.options || []).filter((id) => g.options.some((o) => o.id === id)); if (ids.length) s[g.id] = ids; }
+    return s;
+  }); // groupId -> [optionId]
+  const [qty, setQty] = useState(initial?.quantity || 1);
+  const [note, setNote] = useState(initial?.note || '');
   const [reopen, setReopen] = useState({}); // groupId -> true : groupe complet rouvert à la main
   const [shake, setShake] = useState(null); // groupe manquant qui vibre en rouge
   const [search, setSearch] = useState({}); // groupId -> texte de recherche
@@ -216,6 +226,7 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
 
   // dernière commande de ce produit sur cet appareil (seulement les options encore valides)
   useEffect(() => {
+    if (initial) return; // modification d'une ligne : pas de « comme la dernière fois »
     try {
       const saved = JSON.parse(localStorage.getItem(lastKey(p.id)) || 'null');
       if (!saved || !Array.isArray(saved.options) || !saved.options.length) return;
@@ -244,7 +255,9 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
     setSel(updatedSelection);
 
     const minimum = minimumChoices(group);
-    if (current.length < minimum && updated.length >= minimum) {
+    // on ne saute à la liste suivante que si celle-ci est terminée (un seul choix possible, ou maximum atteint) : sinon le client peut continuer à choisir
+    const isFinished = (n) => group.max === 1 ? n >= 1 : group.max != null && n >= group.max;
+    if (minimum > 0 && updated.length >= minimum && isFinished(updated.length) && !isFinished(current.length)) {
       const remaining = requiredGroups.filter((item) => (updatedSelection[item.id] || []).length < minimumChoices(item));
       const groupIndex = requiredGroups.indexOf(group);
       const following = remaining.find((item) => requiredGroups.indexOf(item) > groupIndex) || remaining[0];
@@ -256,15 +269,17 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
   const dose = (group, option, delta) => {
     const current = sel[group.id] || [];
     const n = current.filter((id) => id === option.id).length;
-    if (delta > 0 && ((group.max != null && current.length >= group.max) || n >= perMax(group))) return;
+    if (delta > 0 && ((group.max !== 1 && group.max != null && current.length >= group.max) || n >= perMax(group))) return;
     if (delta < 0 && n === 0) return;
     let updated;
-    if (delta > 0) updated = [...current, option.id];
+    if (delta > 0) updated = group.max === 1 ? [option.id] : [...current, option.id]; // liste à un seul choix : le nouveau remplace l'ancien
     else { const at = current.lastIndexOf(option.id); updated = current.filter((_, i) => i !== at); }
     const updatedSelection = { ...sel, [group.id]: updated };
     setSel(updatedSelection);
     const minimum = minimumChoices(group);
-    if (current.length < minimum && updated.length >= minimum) {
+    // on ne saute à la liste suivante que si celle-ci est terminée (un seul choix possible, ou maximum atteint) : sinon le client peut continuer à choisir
+    const isFinished = (n) => group.max === 1 ? n >= 1 : group.max != null && n >= group.max;
+    if (minimum > 0 && updated.length >= minimum && isFinished(updated.length) && !isFinished(current.length)) {
       const remaining = requiredGroups.filter((item) => (updatedSelection[item.id] || []).length < minimumChoices(item));
       const groupIndex = requiredGroups.indexOf(group);
       const following = remaining.find((item) => requiredGroups.indexOf(item) > groupIndex) || remaining[0];
@@ -311,7 +326,7 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
       }
     }
     const cleanNote = note.trim().slice(0, 200);
-    try { localStorage.setItem(lastKey(p.id), JSON.stringify({ options, note: cleanNote })); } catch {}
+    if (!initial) { try { localStorage.setItem(lastKey(p.id), JSON.stringify({ options, note: cleanNote })); } catch {} }
     onAdd({ product_id: p.id, name: p.name, photo: p.photo || null, quantity: qty, options, labels, unit_cents: unit, note: cleanNote || undefined });
   };
 
@@ -363,7 +378,8 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
               const min = minimumChoices(g);
               const single = g.max === 1;
               const full = !single && g.max != null && cur.length >= g.max;
-              const qtyMode = perMax(g) > 1; // plusieurs doses possibles : liste avec − / +
+              const multiDose = perMax(g) > 1;
+              const qtyMode = multiDose; // − / + seulement si plusieurs doses d'une même option sont permises ; sinon case à cocher
               const photos = false; // même affichage pour toutes les listes : une ligne par option (photo à gauche s'il y en a une)
               const done = min > 0 && cur.length >= min;
               const complete = cur.length > 0 && (single || (g.max != null && cur.length >= g.max));
@@ -389,7 +405,7 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
                     </button>
                   ) : (
                     <>
-                      <p className="sub" id={`option-rule-${g.id}`}>{rule(g)}{qtyMode ? ` · jusqu’à ${perMax(g)} doses de la même` : ''}</p>
+                      <p className="sub" id={`option-rule-${g.id}`}>{rule(g)}{multiDose ? ` · jusqu’à ${perMax(g)} doses de la même` : ''}</p>
                       {g.options.length > 8 && (
                         <input className="opt-search" type="search" inputMode="search" placeholder="Rechercher…" aria-label={`Rechercher dans ${g.title}`}
                           value={search[g.id] || ''} onChange={(e) => setSearch((s) => ({ ...s, [g.id]: e.target.value }))} />
@@ -406,7 +422,7 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
                                   <span className="lbl">{o.label}</span>
                                   {o.price_cents !== 0 && <span className="x">{o.price_cents > 0 ? "+" : "−"}{eur(Math.abs(o.price_cents))}</span>}
                                 </span>
-                                <span className="dose-ctl">
+                                <span className={`dose-ctl${n ? '' : ' zero'}`}>
                                   <button type="button" onClick={() => dose(g, o, -1)} disabled={n === 0} aria-label={`Une dose de moins : ${o.label}`}>−</button>
                                   <b aria-live="polite">{n}</b>
                                   <button type="button" onClick={() => dose(g, o, 1)} disabled={full || n >= perMax(g)} aria-label={`Une dose de plus : ${o.label}`}>+</button>
@@ -459,7 +475,7 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
               <button onClick={() => setQty((q2) => Math.min(20, q2 + 1))} disabled={qty === 20} aria-label="Augmenter la quantité"><span className="plus-icon" aria-hidden="true" /></button>
             </div>}
             <button className={`btn add-btn ${canOrder && next ? 'blocked' : ''}`} onClick={add} disabled={!canOrder} aria-disabled={canOrder && next ? 'true' : undefined}>
-              <span>{!canOrder ? 'Fermé' : 'Ajouter'}</span>
+              <span>{!canOrder ? 'Fermé' : submitLabel || 'Ajouter'}</span>
               <span key={unit * qty} className="tick">{eur(unit * qty)}</span>
             </button>
           </div>

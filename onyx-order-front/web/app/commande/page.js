@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { apiGet, apiPost, eur, photoUrl, SLUG } from '../../lib/api';
 import { useCart } from '../../lib/cart';
+import { ProductModal } from '../Menu';
 import { useTable } from '../../lib/table';
 import emptyCartPhoto from './ns-grill-tacos.webp';
 
@@ -20,6 +21,8 @@ export default function Commande() {
   const cart = useCart();
   const router = useRouter();
   const [info, setInfo] = useState(null);
+  const [products, setProducts] = useState({}); // id -> produit (pour modifier une ligne du panier)
+  const [editing, setEditing] = useState(null); // ligne du panier en cours de modification
   const [mode, setMode] = useState('pickup');
   const [table, setTable] = useTable();
   const modeChosen = useRef(false);
@@ -38,6 +41,9 @@ export default function Commande() {
   const submitting = useRef(false);
 
   useEffect(() => { apiGet('').then(setInfo).catch((e) => setErr(e.message)); }, []);
+  useEffect(() => {
+    apiGet('/menu').then((cats) => { const m = {}; for (const c of cats) for (const p of c.products) m[p.id] = p; setProducts(m); }).catch(() => {});
+  }, []);
   // « Sur place » n'existe que si le client a scanné le QR code d'une table (le numéro n'est pas modifiable)
   const canDineIn = !!table && !!info?.settings?.modes?.includes('dine_in');
   useEffect(() => {
@@ -156,6 +162,7 @@ export default function Commande() {
                 {i.labels?.length > 0 && <div className="o">{i.labels.join(', ')}</div>}
                 {i.note && <div className="o">📝 {i.note}</div>}
                 <div className="lp">{eur(i.unit_cents * i.quantity)}</div>
+                {products[i.product_id] && !products[i.product_id].sold_out && <button type="button" className="line-edit" onClick={() => setEditing(i)}>✏️ Modifier</button>}
               </div>
               <div className="qty">
                 <button type="button" onClick={() => cart.setQty(i.key, i.quantity - 1)} aria-label={i.quantity === 1 ? 'Retirer du panier' : 'Moins'}>{i.quantity === 1
@@ -242,6 +249,10 @@ export default function Commande() {
           </div>
         </div>
       </form>
+      {editing && products[editing.product_id] && (
+        <ProductModal p={products[editing.product_id]} canOrder initial={{ options: editing.options, note: editing.note, quantity: editing.quantity }} submitLabel="Enregistrer"
+          onClose={() => setEditing(null)} onAdd={(line) => { cart.replaceLine(editing.key, line); setEditing(null); }} />
+      )}
     </main>
   );
 }

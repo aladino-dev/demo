@@ -46,6 +46,14 @@ export default function App() {
 }
 
 function Board({ session, onLogout }) {
+  const [light, setLight] = useState(() => {
+    try { return localStorage.getItem('onyx-kitchen-theme') === 'light'; } catch { return false; }
+  });
+  const toggleTheme = () => {
+    const next = !light;
+    setLight(next);
+    try { localStorage.setItem('onyx-kitchen-theme', next ? 'light' : 'dark'); } catch {}
+  };
   const [orders, setOrders] = useState([]);
   const [live, setLive] = useState(false);
   const [ticket, setTicket] = useState(null);
@@ -106,10 +114,14 @@ function Board({ session, onLogout }) {
   const print = (o) => { setTicket(o); setTimeout(() => window.print(), 50); };
 
   return (
-    <div className="kitchen">
+    <div className="kitchen" data-theme={light ? 'light' : 'dark'}>
+      <header className="kitchen-header">
       <div className="top">
         <h1>{session.restaurant.name} <small>Cuisine</small></h1>
         <span className={`live ${live ? 'on' : 'off'}`}><i />{live ? 'En direct' : 'Reconnexion…'}</span>
+        <button type="button" className="theme-toggle" onClick={toggleTheme}>
+          {light ? 'Mode sombre' : 'Mode clair'}
+        </button>
         <button className={enabled ? 'on' : hasNew ? 'warn' : ''} onClick={enable}><span aria-hidden="true">{enabled ? '🔔' : '🔕'}</span><span className="lbl"> {enabled ? 'Son activé · couper' : 'Activer le son'}</span></button>
         <button onClick={toggleRhythm} title="Rythme du rappel tant qu'une commande n'est pas prise en charge"><span aria-hidden="true">⏱</span><span className="lbl"> Rappel {rhythm === 'calm' ? '30 s' : '4 s'}</span></button>
         <button onClick={onLogout} aria-label="Déconnexion"><span aria-hidden="true">⎋</span><span className="lbl"> Déconnexion</span></button>
@@ -124,6 +136,7 @@ function Board({ session, onLogout }) {
           );
         })}
       </nav>
+      </header>
       <div className="board">
         {COLS.map((c) => {
           const list = orders.filter((o) => o.status === c).sort((a, b) => new Date(a.created_at) - new Date(b.created_at));

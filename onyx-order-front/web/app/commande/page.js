@@ -2,9 +2,10 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { apiGet, apiPost, eur, photoUrl } from '../../lib/api';
+import { apiGet, apiPost, eur, photoUrl, SLUG } from '../../lib/api';
 import { useCart } from '../../lib/cart';
 import { useTable } from '../../lib/table';
+import emptyCartPhoto from './ns-grill-tacos.webp';
 
 // Auto-complétion d'adresse : Géoplateforme IGN (base adresse nationale), sans clé
 async function searchAddress(text, signal) {
@@ -110,6 +111,25 @@ export default function Commande() {
   }
 
   if (!cart.items.length) {
+    if (SLUG === 'nsgrill') {
+      return (
+        <main className="empty-cart" aria-labelledby="empty-cart-title">
+          <div className="empty-cart-feature">
+            <div className="empty-cart-photo">
+              <img src={emptyCartPhoto.src} width={emptyCartPhoto.width} height={emptyCartPhoto.height} alt="" fetchPriority="high" />
+            </div>
+            <div className="empty-cart-copy">
+              <p className="empty-cart-brand">NS Grill</p>
+              <h1 id="empty-cart-title">Ton panier<br />est vide</h1>
+              <p>Un tacos grillé, une assiette ou un sandwich&nbsp;? Fais-toi plaisir.</p>
+              <div className="empty-cart-action">
+                <Link href="/" className="btn center">Voir la carte</Link>
+              </div>
+            </div>
+          </div>
+        </main>
+      );
+    }
     return (
       <main className="wrap" style={{ paddingTop: 30 }}>
         <h1>Votre panier est vide</h1>
@@ -120,11 +140,14 @@ export default function Commande() {
 
   return (
     <main className="wrap checkout">
-      <Link className="back-link" href="/">← Retour à la carte</Link>
-      <h1>Votre commande</h1>
+      <header className="checkout-heading">
+        <Link className="back-link" href="/">← Retour à la carte</Link>
+        <h1>Votre commande</h1>
+        <p>{cart.count} {cart.count === 1 ? 'article' : 'articles'} <span aria-hidden="true">·</span> {eur(cart.total)}</p>
+      </header>
       <form onSubmit={submit} className="steps-form">
         <div className="panel">
-          <h2>Votre commande</h2>
+          <h2>Votre panier</h2>
           {cart.items.map((i) => (
             <div key={i.key} className="line">
               {photoUrl(i.photo) && <div className="lph" style={{ backgroundImage: `url("${photoUrl(i.photo)}")` }} aria-hidden="true" />}
@@ -154,7 +177,7 @@ export default function Commande() {
             <button type="button" className={mode === 'pickup' ? 'on' : ''} onClick={() => pickMode('pickup')}>{canDineIn ? 'Click & Collect' : 'Retrait'}<small>Gratuit</small></button>
             {info?.settings?.delivery_preview && !info?.settings?.modes?.includes('delivery') && (
               <button type="button" className="soon" aria-disabled="true" onClick={() => pickMode(canDineIn ? 'dine_in' : 'pickup')}>
-                Livraison <b className="beta">BÊTA</b><small>Bientôt disponible</small>
+                Livraison<small>Bientôt disponible</small>
               </button>
             )}
             {info?.settings?.modes?.includes('delivery') && (

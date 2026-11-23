@@ -1,16 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { API } from '../../shared/session.js';
 import ProductPreview from '../../shared/ProductPreview.jsx';
 import { fromCents, toCents } from './util.js';
 
 /** Fiche produit : onglets (Infos, Options, Disponibilité), tout se modifie sur place, aperçu client toujours visible à droite. */
-export default function ProductPanel({ product: p, data, groups, say, onPatch, onClose, onDuplicate, onArchive, onPhoto, onGroups, ruleText }) {
-  const [tab, setTab] = useState('infos');
+export default function ProductPanel({ initialTab = 'infos', product: p, data, groups, say, onPatch, onClose, onDuplicate, onArchive, onPhoto, onGroups, onOpenOptions, ruleText }) {
+  const [tab, setTab] = useState(initialTab);
+  const heading = useRef(null);
+  useEffect(() => { heading.current?.focus({ preventScroll: true }); }, []);
   const [over, setOver] = useState(false);
-  const [add, setAdd] = useState('');
+  const [savingGroups, setSavingGroups] = useState(false);
   const cat = data.categories.find((c) => c.id === p.category_id);
   const inherits = !p.group_ids.length;
   const library = data.groups.filter((g) => !groups.some((x) => x.id === g.id));
+  const hasCategoryOptions = Boolean(cat?.group_ids.length);
+  const saveGroups = async (body) => {
+    if (savingGroups) return;
+    setSavingGroups(true);
+    try { await onGroups(body); } finally { setSavingGroups(false); }
+  };
 
   const text = (key, max) => ({
     defaultValue: p[key], key: `${key}-${p[key]}`, maxLength: max,
@@ -29,26 +37,25 @@ export default function ProductPanel({ product: p, data, groups, say, onPatch, o
     id: g.id, title: g.title, min: g.min_select, max: g.max_select, required: g.required,
     options: g.options.filter((o) => o.visible),
   }));
-  const move = (i, d) => { const ids = groups.map((x) => x.id); [ids[i], ids[i + d]] = [ids[i + d], ids[i]]; onGroups({ group_ids: ids }); };
+  const move = (i, d) => { const ids = groups.map((x) => x.id); [ids[i], ids[i + d]] = [ids[i + d], ids[i]]; saveGroups({ group_ids: ids }); };
 
   return (
     <section className="cr-col cr-panel" aria-label="Fiche produit">
       <header className="cr-panel-head">
-        <button className="cr-btn back" onClick={onClose}>← Retour</button>
         <span className="hd-thumb">{p.photo ? <img src={API + p.photo} alt="" /> : null}</span>
         <div className="hd-title">
-          <h2>{p.name}</h2>
+          <h2 ref={heading} tabIndex={-1}>{p.name}</h2>
           <span className="hd-meta">
             <span className="chip">{cat?.name || 'Sans catégorie'}</span>
             <span className={`chip ${p.visible ? 'ok' : ''}`}>{p.visible ? 'Visible' : 'Masqué'}</span>
             {p.sold_out && <span className="chip bad">Épuisé aujourd'hui</span>}
           </span>
         </div>
-        <button className="cr-btn" onClick={onClose} aria-label="Fermer la fiche">✕ Fermer</button>
+        <button className="cr-btn" onClick={onClose}>Retour aux produits</button>
       </header>
-      <nav className="cr-tabs" role="tablist">
-        {[['infos', 'Infos'], ['options', `Options (${groups.length})`], ['dispo', 'Disponibilité']].map(([k, label]) => (
-          <button key={k} role="tab" aria-selected={tab === k} className={tab === k ? 'active' : ''} onClick={() => setTab(k)}>{label}</button>
+      <nav className="cr-tabs" aria-label="Fiche produit">
+        {[['infos', 'Informations'], ['options', `Options (${groups.length})`], ['dispo', 'Disponibilité']].map(([k, label]) => (
+          <button key={k} aria-current={tab === k ? 'page' : undefined} className={tab === k ? 'active' : ''} onClick={() => setTab(k)}>{label}</button>
         ))}
       </nav>
       <div className="cr-panel-body">
@@ -89,41 +96,48 @@ export default function ProductPanel({ product: p, data, groups, say, onPatch, o
           )}
 
           {tab === 'options' && (
-            <>
-              <div className="cr-opt-box">
-                {inherits ? (
-                  <>
-                    <p>Ce produit <b>hérite de la catégorie {cat?.name || '—'}</b>{groups.length ? ' :' : ' (aucune option).'}</p>
-                    {groups.map((g) => <p key={g.id} className="row-g"><b>{g.title}</b> <span className="muted">{ruleText(g)}</span></p>)}
-                    <button className="cr-btn" onClick={() => onGroups({ group_ids: groups.map((g) => g.id) })}>Personnaliser pour ce produit</button>
-                  </>
-                ) : (
-                  <>
-                    <p><b>Options personnalisées</b> pour ce produit.</p>
-                    {groups.map((g, i) => (
-                      <p key={g.id} className="row-g">
-                        <span><b>{g.title}</b> <span className="muted">{ruleText(g)}</span></span>
-                        <span>
-                          <button className="cr-mini" disabled={i === 0} aria-label="Monter" onClick={() => move(i, -1)}>↑</button>
-                          <button className="cr-mini" disabled={i === groups.length - 1} aria-label="Descendre" onClick={() => move(i, 1)}>↓</button>
-                          <button className="cr-mini" onClick={() => onGroups({ group_ids: groups.filter((x) => x.id !== g.id).map((x) => x.id) })}>Retirer</button>
-                        </span>
-                      </p>
-                    ))}
-                    {!groups.length && <p className="muted">Ce produit n'a aucune option.</p>}
-                    <button className="cr-btn" onClick={() => window.confirm('Revenir aux options de la catégorie ? La liste personnalisée de ce produit sera remplacée.') && onGroups({ inherit: true })}>Hériter de la catégorie</button>
-                  </>
-                )}
-              </div>
-              <div className="cr-add">
-                <select value={add} onChange={(e) => setAdd(e.target.value)} aria-label="Ajouter une liste d'options">
-                  <option value="">+ Ajouter une liste d'options…</option>
-                  {library.map((g) => <option key={g.id} value={g.id}>{g.internal_name || g.title}</option>)}
-                </select>
-                <button className="cr-btn" disabled={!add} onClick={() => { onGroups({ group_ids: [...groups.map((g) => g.id), Number(add)] }); setAdd(''); }}>Ajouter</button>
-              </div>
-              <p className="muted">Les listes se créent et se modifient dans l'écran « Options ». L'aperçu à droite se met à jour tout de suite.</p>
-            </>
+            <div className="dish-options" aria-busy={savingGroups}>
+              <section>
+                <h3>Proposées avec ce plat</h3>
+                {!groups.length && <p className="muted">Aucune option pour ce plat.</p>}
+                {inherits && groups.length > 0 && <p className="muted">Options communes à la catégorie « {cat?.name} ».</p>}
+                <ul className="dish-option-list">
+                  {groups.map((g, i) => (
+                    <li key={g.id} className="dish-option">
+                      <div><strong>{g.internal_name || g.title}</strong><small>{ruleText(g)}</small>
+                        <small>{g.options.filter((o) => o.visible).map((o) => o.label).join(', ') || 'Aucun choix visible'}</small>
+                      </div>
+                      <div className="dish-option-actions">
+                        {groups.length > 1 && <>
+                          <button className="cr-mini" disabled={savingGroups || i === 0} aria-label={`Monter ${g.title}`} onClick={() => move(i, -1)}>↑</button>
+                          <button className="cr-mini" disabled={savingGroups || i === groups.length - 1} aria-label={`Descendre ${g.title}`} onClick={() => move(i, 1)}>↓</button>
+                        </>}
+                        {groups.length > 1 || !hasCategoryOptions
+                          ? <button className="cr-btn" disabled={savingGroups} onClick={() => saveGroups({ group_ids: groups.filter((x) => x.id !== g.id).map((x) => x.id) })}>Retirer</button>
+                          : !inherits && <button className="cr-btn" disabled={savingGroups} onClick={() => saveGroups({ inherit: true })}>Reprendre les options de la catégorie</button>}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                {!inherits && (groups.length > 1 || !hasCategoryOptions) &&
+                  <button className="cr-btn" disabled={savingGroups}
+                    onClick={() => window.confirm('Remplacer les options de ce plat par celles de sa catégorie ?') && saveGroups({ inherit: true })}>Reprendre les options de la catégorie</button>}
+              </section>
+              <section>
+                <h3>Ajouter au plat</h3>
+                {!library.length && <p className="muted">Aucune autre liste disponible.</p>}
+                <ul className="dish-option-list">
+                  {library.map((g) => (
+                    <li key={g.id} className="dish-option">
+                      <div><strong>{g.internal_name || g.title}</strong><small>{ruleText(g)}</small></div>
+                      <button className="cr-btn primary-ish" disabled={savingGroups} aria-label={`Ajouter ${g.internal_name || g.title}`}
+                        onClick={() => saveGroups({ group_ids: [...groups.map((x) => x.id), g.id] })}>+ Ajouter</button>
+                    </li>
+                  ))}
+                </ul>
+                {onOpenOptions && <button className="cr-btn" onClick={onOpenOptions}>Créer ou modifier une liste</button>}
+              </section>
+            </div>
           )}
 
           {tab === 'dispo' && (

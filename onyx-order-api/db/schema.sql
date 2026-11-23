@@ -245,6 +245,7 @@ INSERT INTO allergens (code, name) VALUES
 ON CONFLICT (code) DO NOTHING;
 
 -- Livraison par coursier Uber (Uber Direct)
+ALTER TABLE option_groups ADD COLUMN IF NOT EXISTS max_per_option int NOT NULL DEFAULT 1;  -- doses max d'une même option (1 = pas de quantité)
 ALTER TABLE orders ADD COLUMN IF NOT EXISTS table_label      text;   -- numéro de table (commande « sur place » via QR code)
 ALTER TABLE orders ADD COLUMN IF NOT EXISTS uber_quote_id    text;
 ALTER TABLE orders ADD COLUMN IF NOT EXISTS uber_delivery_id text;

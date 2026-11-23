@@ -58,22 +58,22 @@ export default function Options() {
     <div className="carte opts">
       <div className="cr-bar">
         <div className="tabs sub">
-          <button className={view === 'liste' ? 'active' : ''} onClick={() => setView('liste')}>Listes d'options ({groups.length})</button>
-          <button className={view === 'photos' ? 'active' : ''} onClick={() => setView('photos')}>Photos en lot</button>
-          <button className={view === 'archives' ? 'active' : ''} onClick={() => setView('archives')}>Archivées ({lib.archived.length})</button>
+          <button className={view === 'liste' ? 'active' : ''} onClick={() => { setView('liste'); setSelId(null); }}>Listes d'options ({groups.length})</button>
+          <button className={view === 'photos' ? 'active' : ''} onClick={() => { setView('photos'); setSelId(null); }}>Photos en lot</button>
+          <button className={view === 'archives' ? 'active' : ''} onClick={() => { setView('archives'); setSelId(null); }}>Archivées ({lib.archived.length})</button>
         </div>
-        {view === 'liste' && <input className="cr-search" placeholder="Rechercher une liste" value={search} onChange={(e) => setSearch(e.target.value)} />}
+        {view === 'liste' && <input className="cr-search" aria-label="Rechercher une liste" placeholder="Rechercher une liste" value={search} onChange={(e) => setSearch(e.target.value)} />}
       </div>
 
       {view === 'photos' ? <BulkPhotos groups={groups} say={say} onDone={load} /> : (
-      <div className="cr-grid opts-grid with-editor">
-        <section className="cr-col" aria-label="Bibliothèque">
-          <h2>{view === 'liste' ? 'Bibliothèque' : 'Listes archivées'}</h2>
+      <div className={`cr-grid opts-grid ${sel ? 'has-selection' : ''}`}>
+        <section className="cr-col option-library" aria-label="Listes d’options">
+          <h2>{view === 'liste' ? 'Listes d’options' : 'Listes archivées'}</h2>
           {view === 'liste' ? (
             <>
               <div className="cr-add">
-                <input placeholder="Nouvelle liste (ex. Sauces)" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && addGroup()} />
-                <button onClick={addGroup}>+ Liste</button>
+                <input aria-label="Nom de la nouvelle liste" placeholder="Ex. Sauces" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && addGroup()} />
+                <button onClick={addGroup}>Créer une liste</button>
               </div>
               <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={dragGroups}>
                 <SortableContext items={shown.map((g) => g.id)} strategy={verticalListSortingStrategy} disabled={!!q}>
@@ -192,36 +192,23 @@ function Editor({ g, cat, act, mutate, say, archived, onClose, onGone, onSelect 
           <span className="hd-meta"><span className="chip">{ruleText(g)}</span><span className="chip">{plural(g.options.length, 'option', 'options')}</span>
             <span className={`chip ${n ? 'ok' : ''}`}>{n ? `Utilisée par ${plural(n, 'produit', 'produits')}` : 'Non utilisée'}</span></span>
         </div>
-        <button className="cr-btn" onClick={onClose}>✕ Fermer</button>
+        <button className="cr-btn" onClick={onClose}>Retour aux listes</button>
       </header>
       <div className="cr-scroll cr-form">
         {archived && <div className="op-note">Cette liste est archivée : elle n'apparaît plus sur le site. <button className="cr-btn" onClick={() => act(() => api(`${base}/restore`, { method: 'POST' }), 'Liste restaurée')}>Restaurer</button></div>}
         {n > 0 && !archived && <div className="op-note info">Utilisée par <b>{plural(n, 'produit', 'produits')}</b> : toute modification de cette liste s'applique à tous ces produits.</div>}
         {g.warnings.map((w) => <div key={w} className="op-note warn">⚠ {w}</div>)}
 
-        <h3 className="op-h">Affichage</h3>
-        <label className="f">Titre affiché au client<input {...text('title', true)} placeholder="Ex. Choisissez vos sauces" /></label>
-        <label className="f">Nom interne <span className="muted">(pour vous retrouver, jamais montré au client)</span><input {...text('internal_name')} placeholder="Ex. Sauces 2 max" /></label>
-
-        <h3 className="op-h">Règle de choix</h3>
-        <div className="op-rule">
-          <Switch on={g.required} label="Obligatoire" onChange={(v) => setRule({ required: v })} />
-          <label className="op-num">Minimum
-            <input type="number" min="0" defaultValue={g.min_select} key={`min${g.min_select}`}
-              onBlur={(e) => { const v = Math.max(parseInt(e.target.value, 10) || 0, 0); if (v !== g.min_select && !setRule({ min_select: v })) e.target.value = g.min_select; }} />
-          </label>
-          <label className="op-num">Maximum
-            <input type="number" min="1" placeholder="illimité" defaultValue={g.max_select ?? ''} key={`max${g.max_select}`}
-              onBlur={(e) => { const v = e.target.value === '' ? null : parseInt(e.target.value, 10); if (v !== g.max_select && !setRule({ max_select: v })) e.target.value = g.max_select ?? ''; }} />
-          </label>
-        </div>
-        <p className="op-sentence">{ruleSentence(g)}</p>
-
         <h3 className="op-h">Options <span className="muted">({g.options.length})</span></h3>
+        <form className="cr-new-product option-create" onSubmit={(e) => { e.preventDefault(); addOption(); }}>
+          <label>Nom du choix<input id="new-opt-label" required placeholder="Ex. Ketchup" value={newLabel} onChange={(e) => setNewLabel(e.target.value)} /></label>
+          <label>Supplément (€)<input inputMode="decimal" placeholder="0,00" value={newPrice} onChange={(e) => setNewPrice(e.target.value)} /></label>
+          <button className="cr-btn primary-ish">Ajouter le choix</button>
+        </form>
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={dragOptions}>
           <SortableContext items={g.options.map((o) => o.id)} strategy={verticalListSortingStrategy}>
             {g.options.map((o) => (
-              <Sortable key={o.id} id={o.id} className={o.visible ? '' : 'off'}>
+              <Sortable key={o.id} id={o.id} className={`option-editor-row ${o.visible ? '' : 'off'}`}>
                 <label className="cr-thumb" title={o.photo ? 'Changer la photo' : 'Ajouter une photo'}>
                   {o.photo ? <img src={API + o.photo} alt="" /> : <Icon name="image" />}
                   <input type="file" accept="image/jpeg,image/png,image/webp" hidden onChange={(e) => e.target.files[0] && uploadPhoto(o, e.target.files[0])} />
@@ -238,22 +225,39 @@ function Editor({ g, cat, act, mutate, say, archived, onClose, onGone, onSelect 
             ))}
           </SortableContext>
         </DndContext>
-        {!g.options.length && <p className="muted">Aucune option : ajoutez-en ci-dessous.</p>}
-        <div className="cr-add">
-          <input id="new-opt-label" placeholder="Nouvelle option (ex. Ketchup), puis Entrée" value={newLabel} onChange={(e) => setNewLabel(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && addOption()} />
-          <input className="short" placeholder="Supplément" inputMode="decimal" value={newPrice} onChange={(e) => setNewPrice(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && addOption()} />
-          <button onClick={addOption}>+ Option</button>
-        </div>
-        {!!g.options.length && <button className="cr-btn" onClick={allSupplement}>Appliquer un supplément à toutes les options</button>}
+        {!g.options.length && <p className="muted">Ajoutez le premier choix ci-dessus.</p>}
 
-        <h3 className="op-h">Utilisée par</h3>
-        <Usage g={g} cat={cat} act={act} />
+        <details className="option-settings">
+          <summary>Nom et règles de choix</summary>
+          <h3 className="op-h">Affichage</h3>
+          <label className="f">Titre affiché au client<input {...text('title', true)} placeholder="Ex. Choisissez vos sauces" /></label>
+          <label className="f">Nom interne <span className="muted">(pour vous retrouver, jamais montré au client)</span><input {...text('internal_name')} placeholder="Ex. Sauces 2 max" /></label>
 
-        <div className="cr-actions">
-          <button className="cr-btn" onClick={duplicate}>Dupliquer</button>
-          {!archived && <button className="cr-btn danger" onClick={archive}>Archiver</button>}
-        </div>
+          <h3 className="op-h">Règle de choix</h3>
+          <div className="op-rule">
+            <Switch on={g.required} label="Obligatoire" onChange={(v) => setRule({ required: v })} />
+            <label className="op-num">Minimum
+              <input type="number" min="0" defaultValue={g.min_select} key={`min${g.min_select}`}
+                onBlur={(e) => { const v = Math.max(parseInt(e.target.value, 10) || 0, 0); if (v !== g.min_select && !setRule({ min_select: v })) e.target.value = g.min_select; }} />
+            </label>
+            <label className="op-num">Maximum
+              <input type="number" min="1" placeholder="illimité" defaultValue={g.max_select ?? ''} key={`max${g.max_select}`}
+                onBlur={(e) => { const v = e.target.value === '' ? null : parseInt(e.target.value, 10); if (v !== g.max_select && !setRule({ max_select: v })) e.target.value = g.max_select ?? ''; }} />
+            </label>
+          </div>
+          <p className="op-sentence">{ruleSentence(g)}</p>
+        </details>
+        <details className="option-settings">
+          <summary>Produits liés et autres actions</summary>
+          {!!g.options.length && <button className="cr-btn" onClick={allSupplement}>Appliquer un supplément à toutes les options</button>}
+          <h3 className="op-h">Utilisée par</h3>
+          <Usage g={g} cat={cat} act={act} />
+
+          <div className="cr-actions">
+            <button className="cr-btn" onClick={duplicate}>Dupliquer</button>
+            {!archived && <button className="cr-btn danger" onClick={archive}>Archiver</button>}
+          </div>
+        </details>
       </div>
     </section>
   );

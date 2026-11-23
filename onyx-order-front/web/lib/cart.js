@@ -26,8 +26,7 @@ export function CartProvider({ children }) {
         && !item.note && !line.note
         && item.unit_cents === line.unit_cents
         && item.quantity + line.quantity <= 20
-        && (item.options || []).length === options.length
-        && options.every((id) => item.options.includes(id)));
+        && [...(item.options || [])].sort((a, b) => a - b).join() === [...options].sort((a, b) => a - b).join()); // mêmes options, mêmes doses
       return match
         ? xs.map((item) => item === match ? { ...item, quantity: item.quantity + line.quantity } : item)
         : [...xs, { ...line, key }];

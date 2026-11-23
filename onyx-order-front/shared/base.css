@@ -1,18 +1,28 @@
-:root { --bg: #f3f2ef; --card: #fff; --ink: #151515; --muted: #6b6b6b; --line: #e3e0d9; --accent: #e2531f; --ok: #1f8a4c; }
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+  --bg: #f7f7f7; --card: #fff; --ink: #000; --muted: #606060; --line: #eaeaea;
+  --accent: #dd2424; --accent-hover: #b81d1d; --accent-soft: #fff5f5;
+  --dark-card: #1a1a1a; --dark-line: #333131; --ok: #1e7b45;
+  --display: 'Bebas Neue', Impact, 'Arial Narrow', sans-serif;
+}
 * { box-sizing: border-box; }
-html, body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 'Poppins', system-ui, sans-serif; }
 button { font: inherit; cursor: pointer; }
 input, select { font: inherit; }
-.top { display: flex; align-items: center; gap: 12px; padding: 10px 16px; background: #111; color: #fff; position: sticky; top: 0; z-index: 5; flex-wrap: wrap; }
-.top h1 { font-size: 1.05rem; margin: 0; margin-right: auto; }
-.top button { background: #2a2a2a; color: #fff; border: 0; border-radius: 8px; padding: 8px 12px; }
+.top { display: flex; align-items: center; gap: 12px; min-height: 64px; padding: 8px 16px; background: var(--ink); color: #fff; position: sticky; top: 0; z-index: 5; flex-wrap: wrap; }
+.top h1 { font: 400 1.75rem/1 var(--display); letter-spacing: .01em; text-transform: uppercase; margin: 0 auto 0 0; }
+.top button { min-height: 48px; background: var(--dark-card); color: #fff; border: 1px solid var(--dark-line); border-radius: 4px; padding: 8px 12px; }
 .top button.on { background: var(--ok); }
 .top button.warn { background: var(--accent); animation: pulse 1s infinite alternate; }
 @keyframes pulse { to { opacity: .6; } }
-.login { max-width: 360px; margin: 12vh auto; background: var(--card); padding: 24px; border-radius: 14px; box-shadow: 0 4px 20px rgba(0,0,0,.06); }
-.login h1 { margin: 0 0 12px; font-size: 1.3rem; }
+.login { width: min(100% - 32px, 410px); margin: clamp(28px, 12vh, 120px) auto; background: var(--card); padding: 24px; border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: 8px; box-shadow: 0 8px 28px #0001; }
+.login h1 { margin: 0 0 12px; font: 400 2.5rem/1 var(--display); letter-spacing: .01em; text-transform: uppercase; }
 .login label { display: block; margin-top: 12px; color: var(--muted); font-size: .9rem; }
-.login input { display: block; width: 100%; padding: 10px 12px; margin-top: 4px; border: 1px solid var(--line); border-radius: 10px; }
-.primary { margin-top: 16px; width: 100%; padding: 12px; border: 0; border-radius: 10px; background: var(--accent); color: #fff; font-weight: 700; }
+.login input { display: block; width: 100%; min-height: 48px; padding: 10px 12px; margin-top: 4px; border: 1px solid #a8a8a8; border-radius: 4px; font-size: 1rem; }
+.primary { margin-top: 16px; width: 100%; min-height: 52px; padding: 12px; border: 0; border-radius: 4px; background: var(--accent); color: #fff; font-weight: 700; }
+.primary:hover:not(:disabled) { background: var(--accent-hover); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
 .err { color: #b3261e; }
 .muted { color: var(--muted); }

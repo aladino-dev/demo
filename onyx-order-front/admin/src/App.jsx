@@ -33,7 +33,7 @@ export default function App() {
       <div className="top">
         <h1>{session.restaurant.name} <small>Gestion</small></h1>
         <a className="toplink" href={siteUrl} target="_blank" rel="noreferrer">Voir le site ↗</a>
-        <button onClick={logout}><span aria-hidden="true">⎋</span><span className="lbl"> Déconnexion</span></button>
+        <button onClick={logout} aria-label="Déconnexion"><span aria-hidden="true">⎋</span><span className="lbl"> Déconnexion</span></button>
       </div>
       <div className="shell">
         <nav className="nav" aria-label="Menu principal">
@@ -45,7 +45,7 @@ export default function App() {
           ))}
         </nav>
         <div className="page">
-          {tab === 'today' ? <Today go={go} /> : tab === 'orders' ? <Orders /> : tab === 'stock' ? <Availability /> : tab === 'catalog' ? <Carte /> : <Options />}
+          {tab === 'today' ? <Today go={go} /> : tab === 'orders' ? <Orders /> : tab === 'stock' ? <Availability /> : tab === 'catalog' ? <Carte onOpenOptions={() => go('options')} /> : <Options />}
         </div>
       </div>
     </>

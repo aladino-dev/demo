@@ -32,3 +32,6 @@ Thumbs.db
 # ---- Anciens fichiers du projet ----
 _archive/
 .next-*/
+
+# Captures du navigateur de test
+.playwright-mcp/

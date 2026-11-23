@@ -22,6 +22,16 @@ export default function Menu({ categories, canOrder }) {
   const [product, setProduct] = useState(null);
   const cart = useCart();
   const tabsRef = useRef(null);
+  const categoryDialog = useRef(null);
+  const openCategories = useRef(null);
+
+  const goToCategory = (slug, focus = false) => {
+    const section = document.getElementById(slug);
+    if (!section) return;
+    setActive(slug);
+    if (focus) section.querySelector('h2')?.focus({ preventScroll: true });
+    section.scrollIntoView({ block: 'start' });
+  };
   // nombre d'exemplaires de chaque produit déjà dans le panier : affiché sur la carte du produit
   const inCart = useMemo(() => { const m = {}; for (const i of cart.items) m[i.product_id] = (m[i.product_id] || 0) + i.quantity; return m; }, [cart.items]);
 
@@ -31,6 +41,36 @@ export default function Menu({ categories, canOrder }) {
       return;
     }
     cart.add({ product_id: p.id, name: p.name, photo: p.photo, quantity: 1, options: [], labels: [], unit_cents: p.price_cents });
+  };
+
+  // produits sans option : un − / + directement sur la carte (plus besoin d'aller au panier pour en retirer)
+  const quickAdd = (p) => cart.add({ product_id: p.id, name: p.name, photo: p.photo, quantity: 1, options: [], labels: [], unit_cents: p.price_cents });
+  const quickCard = (p) => {
+    if (!canOrder || p.sold_out || p.option_groups.length) return null;
+    const line = cart.items.find((i) => i.product_id === p.id && !(i.options || []).length && !i.note);
+    return (
+      <div key={p.id} className="card quick">
+        <button type="button" className="card-hit" onClick={() => quickAdd(p)} aria-label={`${p.name}, ${eur(p.price_cents)}, ajouter au panier`}>
+          <div className="pw"><Photo src={p.photo} className="ph" name={p.name} /></div>
+          <div className="b">
+            <span className="n">{p.name}</span>
+            {p.description && <span className="d">{p.description}</span>}
+          </div>
+        </button>
+        <div className="card-footer quick-foot">
+          <span className="pp">{eur(p.price_cents)}</span>
+          {line ? (
+            <span className="stepper-card" role="group" aria-label={`${p.name} dans le panier`}>
+              <button type="button" onClick={() => cart.setQty(line.key, line.quantity - 1)} aria-label={line.quantity === 1 ? `Retirer ${p.name}` : `Une ${p.name} de moins`}>−</button>
+              <b key={line.quantity} aria-live="polite">{line.quantity}</b>
+              <button type="button" onClick={() => quickAdd(p)} disabled={line.quantity >= 20} aria-label={`Une ${p.name} de plus`}>+</button>
+            </span>
+          ) : (
+            <button type="button" className="add" onClick={() => quickAdd(p)} aria-label={`Ajouter ${p.name}`}><span className="plus-icon" aria-hidden="true" /></button>
+          )}
+        </div>
+      </div>
+    );
   };
 
   // « produit du mois » de la bannière : ouvre la fiche du produit
@@ -54,28 +94,54 @@ export default function Menu({ categories, canOrder }) {
   }, [categories]);
 
   useEffect(() => {
-    const el = tabsRef.current?.querySelector(`[data-slug="${active}"]`);
-    el?.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+    const strip = tabsRef.current;
+    const tab = strip?.querySelector('[aria-current="location"]');
+    if (!tab) return;
+    const stripBounds = strip.getBoundingClientRect();
+    const tabBounds = tab.getBoundingClientRect();
+    if (tabBounds.left < stripBounds.left || tabBounds.right > stripBounds.right) {
+      strip.scrollBy({ left: tabBounds.left - stripBounds.left - (strip.clientWidth - tabBounds.width) / 2 });
+    }
   }, [active]);
 
   return (
     <>
       <nav className="tabs" aria-label="Catégories">
-        <div className="wrap" ref={tabsRef}>
-          {categories.map((c) => (
-            <button key={c.id} data-slug={c.slug} className={`tab ${active === c.slug ? 'active' : ''}`}
-              onClick={() => document.getElementById(c.slug)?.scrollIntoView({ behavior: 'smooth' })}>
-              {c.name}
-            </button>
-          ))}
+        <div className="wrap tabs-inner">
+          <button type="button" ref={openCategories} className="category-trigger" aria-haspopup="dialog"
+            onClick={() => categoryDialog.current?.showModal()}>
+            <span className="category-grid-icon" aria-hidden="true" /><span className="category-label">Catégories</span>
+          </button>
+          <div className="tab-strip" ref={tabsRef}>
+            {categories.map((c) => (
+              <button type="button" key={c.id} className={`tab ${active === c.slug ? 'active' : ''}`}
+                aria-current={active === c.slug ? 'location' : undefined} onClick={() => goToCategory(c.slug)}>
+                {c.name}
+              </button>
+            ))}
+          </div>
         </div>
       </nav>
+      <dialog className="category-dialog" ref={categoryDialog} aria-labelledby="category-dialog-title">
+        <div className="category-dialog-header">
+          <h2 id="category-dialog-title">La carte</h2>
+          <button type="button" className="close" onClick={() => { categoryDialog.current?.close(); openCategories.current?.focus(); }}>Fermer</button>
+        </div>
+        <ul className="category-list">
+          {categories.map((c) => (
+            <li key={c.id}>
+              <button type="button" aria-current={active === c.slug ? 'location' : undefined}
+                onClick={() => { categoryDialog.current?.close(); goToCategory(c.slug, true); }}>{c.name}</button>
+            </li>
+          ))}
+        </ul>
+      </dialog>
       <main id="menu" className="wrap menu">
         {categories.map((c) => (
           <section key={c.id} id={c.slug} className="cat">
-            <h2>{c.name}</h2>
+            <h2 tabIndex={-1}>{c.name}</h2>
             <div className="grid">
-              {c.products.map((p) => (
+              {c.products.map((p) => quickCard(p) || (
                 <button key={p.id} className={`card ${p.sold_out ? 'out' : ''}`} onClick={() => selectProduct(p)}
                   disabled={p.sold_out} aria-label={`${p.name}, ${eur(p.price_cents)}${inCart[p.id] ? `, ${inCart[p.id]} dans le panier` : ''}${p.sold_out ? ', épuisé aujourd\'hui' : p.option_groups.length ? ', personnaliser' : ', ajouter au panier'}`}>
                   <div className="pw">
@@ -118,6 +184,14 @@ export default function Menu({ categories, canOrder }) {
 
 const minimumChoices = (group) => Math.max(group.min || 0, group.required ? 1 : 0);
 const lastKey = (id) => `onyx-last-${id}`;
+const perMax = (g) => Math.max(g.max_per_option || 1, 1); // doses max d'une même option
+// ids choisis (un id revient autant de fois que de doses) -> [{ o, n }]
+const doses = (g, ids) => {
+  const m = new Map();
+  for (const id of ids) m.set(id, (m.get(id) || 0) + 1);
+  return [...m].map(([id, n]) => { const o = g.options.find((x) => x.id === id); return o ? { o, n } : null; }).filter(Boolean);
+};
+const doseLabel = ({ o, n }) => (n > 1 ? `${o.label} ×${n}` : o.label);
 const normalize = (s) => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 
 function ProductModal({ p, canOrder, onClose, onAdd }) {
@@ -178,16 +252,37 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
     }
   };
 
+  // groupes à plusieurs doses : +1 / −1 dose d'une option, dans la limite du groupe et de l'option
+  const dose = (group, option, delta) => {
+    const current = sel[group.id] || [];
+    const n = current.filter((id) => id === option.id).length;
+    if (delta > 0 && ((group.max != null && current.length >= group.max) || n >= perMax(group))) return;
+    if (delta < 0 && n === 0) return;
+    let updated;
+    if (delta > 0) updated = [...current, option.id];
+    else { const at = current.lastIndexOf(option.id); updated = current.filter((_, i) => i !== at); }
+    const updatedSelection = { ...sel, [group.id]: updated };
+    setSel(updatedSelection);
+    const minimum = minimumChoices(group);
+    if (current.length < minimum && updated.length >= minimum) {
+      const remaining = requiredGroups.filter((item) => (updatedSelection[item.id] || []).length < minimumChoices(item));
+      const groupIndex = requiredGroups.indexOf(group);
+      const following = remaining.find((item) => requiredGroups.indexOf(item) > groupIndex) || remaining[0];
+      if (following) showGroup(following);
+    }
+  };
+
   const unit = useMemo(() => p.price_cents + p.option_groups.reduce((a, g) =>
     a + (sel[g.id] || []).reduce((b, id) => b + (g.options.find((o) => o.id === id)?.price_cents || 0), 0), 0), [sel, p]);
 
-  const chosenLabels = p.option_groups.flatMap((g) => (sel[g.id] || []).map((id) => g.options.find((o) => o.id === id)?.label).filter(Boolean));
+  const chosenLabels = p.option_groups.flatMap((g) => doses(g, sel[g.id] || []).map(doseLabel));
 
   const applyLast = () => {
     if (!last) return;
     const s = {};
     for (const g of p.option_groups) {
-      const ids = g.options.filter((o) => last.ids.includes(o.id)).map((o) => o.id);
+      const valid = new Set(g.options.map((o) => o.id));
+      const ids = last.ids.filter((id) => valid.has(id)); // garde les doses multiples
       if (ids.length) s[g.id] = g.max != null ? ids.slice(0, g.max) : ids;
     }
     setSel(s);
@@ -207,10 +302,13 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
     }
     const options = [];
     const labels = [];
-    for (const g of p.option_groups) for (const id of sel[g.id] || []) {
-      const o = g.options.find((x) => x.id === id);
-      options.push(id);
-      labels.push(o.label + (o.price_cents ? ` (${o.price_cents > 0 ? "+" : "−"}${eur(Math.abs(o.price_cents))})` : ""));
+    for (const g of p.option_groups) {
+      const ids = sel[g.id] || [];
+      options.push(...ids);
+      for (const d of doses(g, ids)) {
+        const total = d.o.price_cents * d.n;
+        labels.push(doseLabel(d) + (total ? ` (${total > 0 ? "+" : "−"}${eur(Math.abs(total))})` : ""));
+      }
     }
     const cleanNote = note.trim().slice(0, 200);
     try { localStorage.setItem(lastKey(p.id), JSON.stringify({ options, note: cleanNote })); } catch {}
@@ -250,10 +348,13 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
           <span className="plus-icon close-icon" aria-hidden="true" />
         </button>
         <div className="scroll">
-          <Photo src={p.photo} className="mhero" name={p.name} />
-          <div className="minfo2">
-            <div className="mline"><h3>{p.name}</h3><p className="price">{eur(p.price_cents)}</p></div>
-            {p.description && <p className="desc desc2">{p.description}</p>}
+          <div className="mhead">
+            <Photo src={p.photo} className="mph" name={p.name} />
+            <div className="minfo2">
+              <h3>{p.name}</h3>
+              <p className="price">{eur(p.price_cents)}</p>
+              {p.description && <p className="desc desc2">{p.description}</p>}
+            </div>
           </div>
           {last && <button type="button" className="last-time" onClick={applyLast}>↻ Comme la dernière fois</button>}
           <div className="groups">
@@ -262,7 +363,8 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
               const min = minimumChoices(g);
               const single = g.max === 1;
               const full = !single && g.max != null && cur.length >= g.max;
-              const photos = g.options.every((o) => o.photo);
+              const qtyMode = perMax(g) > 1; // plusieurs doses possibles : liste avec − / +
+              const photos = !qtyMode && g.options.every((o) => o.photo);
               const done = min > 0 && cur.length >= min;
               const complete = cur.length > 0 && (single || (g.max != null && cur.length >= g.max));
               const collapsed = complete && !reopen[g.id];
@@ -282,19 +384,36 @@ function ProductModal({ p, canOrder, onClose, onAdd }) {
                   </div>
                   {collapsed ? (
                     <button type="button" className="group-summary" onClick={() => setReopen((r) => ({ ...r, [g.id]: true }))}>
-                      <span>{cur.map((id) => g.options.find((o) => o.id === id)?.label).filter(Boolean).join(' · ')}</span>
+                      <span>{doses(g, cur).map(doseLabel).join(' · ')}</span>
                       <span className="edit">Modifier</span>
                     </button>
                   ) : (
                     <>
-                      <p className="sub" id={`option-rule-${g.id}`}>{rule(g)}</p>
+                      <p className="sub" id={`option-rule-${g.id}`}>{rule(g)}{qtyMode ? ` · jusqu’à ${perMax(g)} doses de la même` : ''}</p>
                       {g.options.length > 8 && (
                         <input className="opt-search" type="search" inputMode="search" placeholder="Rechercher…" aria-label={`Rechercher dans ${g.title}`}
                           value={search[g.id] || ''} onChange={(e) => setSearch((s) => ({ ...s, [g.id]: e.target.value }))} />
                       )}
-                      <div className={`opts ${photos ? 'photos' : ''}`} role={single ? 'radiogroup' : 'group'}
+                      <div className={`opts ${photos ? 'photos' : ''} ${qtyMode ? 'doses' : ''}`} role={single && !qtyMode ? 'radiogroup' : 'group'}
                         aria-labelledby={`option-title-${g.id}`} aria-describedby={`option-rule-${g.id}`}>
                         {shown.map((o) => {
+                          if (qtyMode) {
+                            const n = cur.filter((id) => id === o.id).length;
+                            return (
+                              <div key={o.id} className={`opt dose ${n ? 'on' : ''}`}>
+                                {o.photo && <span className="option-photo" aria-hidden="true"><Photo src={o.photo} className="oph" name={o.label} /></span>}
+                                <span className="dose-txt">
+                                  <span className="lbl">{o.label}</span>
+                                  {o.price_cents !== 0 && <span className="x">{o.price_cents > 0 ? "+" : "−"}{eur(Math.abs(o.price_cents))}</span>}
+                                </span>
+                                <span className="dose-ctl">
+                                  <button type="button" onClick={() => dose(g, o, -1)} disabled={n === 0} aria-label={`Une dose de moins : ${o.label}`}>−</button>
+                                  <b aria-live="polite">{n}</b>
+                                  <button type="button" onClick={() => dose(g, o, 1)} disabled={full || n >= perMax(g)} aria-label={`Une dose de plus : ${o.label}`}>+</button>
+                                </span>
+                              </div>
+                            );
+                          }
                           const on = cur.includes(o.id);
                           return (
                             <label key={o.id} className={`opt ${on ? 'on' : ''} ${photos ? 'withph' : ''} ${single ? 'radio' : 'check'}`}>

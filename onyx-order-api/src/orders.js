@@ -36,6 +36,13 @@ function checkGroups(product, selectedIds) {
     const min = Math.max(g.min || 0, g.required ? 1 : 0);
     if (n < min) throw new OrderError(`« ${product.name} » : « ${g.title} » — ${min} choix minimum.`);
     if (g.max != null && n > g.max) throw new OrderError(`« ${product.name} » : « ${g.title} » — ${g.max} choix maximum.`);
+    // plusieurs doses d'une même option : limité par « max_per_option » du groupe (1 par défaut)
+    const perMax = Math.max(g.max_per_option || 1, 1);
+    for (const o of g.options) {
+      if (selectedIds.filter((id) => id === o.id).length > perMax) {
+        throw new OrderError(`« ${product.name} » : « ${g.title} » — ${perMax} dose${perMax > 1 ? 's' : ''} maximum de « ${o.label} ».`);
+      }
+    }
   }
   for (const id of selectedIds) chosen.push(allowed.get(id));
   return chosen;
@@ -77,7 +84,7 @@ export async function createOrder(r, body, ip) {
     if (!p) throw new OrderError('Un produit du panier n\'est plus disponible.');
     if (p.sold_out) throw new OrderError(`« ${p.name} » est épuisé aujourd'hui.`);
     const qty = Math.min(Math.max(parseInt(it.quantity, 10) || 1, 1), 20);
-    const ids = [...new Set((it.options || []).map(Number))];
+    const ids = (it.options || []).slice(0, 40).map(Number); // une même option peut revenir (plusieurs doses) : contrôlé dans checkGroups
     const chosen = checkGroups(p, ids);
     const unit = p.price_cents + chosen.reduce((a, c) => a + c.o.price_cents, 0);
     return { p, qty, unit, chosen, note: String(it.note || '').slice(0, 200) || null };
@@ -167,7 +174,15 @@ export async function getOrder(restaurantId, id) {
     `SELECT order_item_id, group_title, label, price_cents FROM order_item_options
       WHERE order_item_id = ANY($1::int[]) ORDER BY id`, [items.map((i) => i.id)]);
   const { rows: events } = await q('SELECT status, author, created_at FROM order_events WHERE order_id = $1 ORDER BY id', [o.id]);
-  for (const i of items) i.options = opts.filter((x) => x.order_item_id === i.id).map(({ order_item_id, ...x }) => x);
+  // une ligne par dose en base ; à l'affichage on regroupe : « Mayonnaise ×2 » (prix = total des doses)
+  for (const i of items) {
+    const agg = [];
+    for (const r of opts.filter((x) => x.order_item_id === i.id)) {
+      const f = agg.find((a) => a.group_title === r.group_title && a.label === r.label && a.unit === r.price_cents);
+      if (f) f.n += 1; else agg.push({ group_title: r.group_title, label: r.label, unit: r.price_cents, n: 1 });
+    }
+    i.options = agg.map((a) => ({ group_title: a.group_title, label: a.n > 1 ? `${a.label} ×${a.n}` : a.label, price_cents: a.unit * a.n }));
+  }
   return { ...o, items, events };
 }
 
